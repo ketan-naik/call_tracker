@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Kinship</title>
+<title>Family Call Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -271,7 +271,7 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
   <div class="hdr-row">
     <div class="hdr-brand">
       <div class="logo">📞</div>
-      <div class="brand-name">Kin<em>ship</em></div>
+      <div class="brand-name">Family <em>Call Tracker</em></div>
     </div>
     <div class="hdr-btns">
       <button class="hbtn" onclick="showPage('io')">
@@ -317,7 +317,7 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
     <div class="io-card">
       <div class="io-card-head"><div class="io-card-icon" style="background:#e8f0fe">🔵</div><div class="io-card-title">Google Drive sync</div></div>
       <div id="syncBanner" class="sync-banner sync-off"><div class="sync-dot off" id="syncDot"></div><span id="syncStatus">Not connected</span></div>
-      <div class="io-card-desc">Sign in with Google to save your Kinship data to Google Drive and sync across all devices.</div>
+      <div class="io-card-desc">Sign in with Google to save your Family Call Tracker data to Google Drive and sync across all devices.</div>
       <button class="io-btn io-blue" id="gdriveBtn" onclick="gdriveAction()"><span id="gdriveBtnIcon">🔵</span><span id="gdriveBtnText">Connect Google Drive</span></button>
       <button class="io-btn io-primary" id="syncNowBtn" onclick="syncNow()" style="display:none">☁️ Sync now</button>
       <div class="io-info" id="lastSyncInfo">Connect to enable cross-device sync</div>
@@ -349,7 +349,7 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
       <div class="io-card-desc">Permanently delete all people, call history, and topics.</div>
       <button class="io-btn io-red" onclick="clearAll()">✕ Delete everything</button>
     </div>
-    <div style="text-align:center;padding:16px 0 4px;font-size:12px;color:var(--muted)">Kinship · All data stored on your device · Made with ❤️</div>
+    <div style="text-align:center;padding:16px 0 4px;font-size:12px;color:var(--muted)">Family Call Tracker · All data stored on your device · Made with ❤️</div>
   </div>
 </div>
 
@@ -498,7 +498,7 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
 </div>
 
 <script>
-const KEY='kinship3';
+const KEY='family-calls3';
 let people=[],editId=null,logId=null,topicPersonId=null,notesPersonId=null,schedPersonId=null;
 let selEmoji='',selType='📞',selQD='today';
 let gdriveConnected=false,lastSyncTime=null,gToken=null;
@@ -515,7 +515,7 @@ function load(){
     const d=localStorage.getItem(KEY);
     if(d){people=JSON.parse(d);people.forEach(p=>{if(!p.topics)p.topics=[];if(!p.logs)p.logs=[];if(!p.notes)p.notes='';if(p.pinned===undefined)p.pinned=false;})}
     // migrate old key
-    if(!people.length){const old=localStorage.getItem('kinship2');if(old){people=JSON.parse(old);people.forEach(p=>{if(!p.topics)p.topics=[];if(!p.logs)p.logs=[];if(!p.notes)p.notes='';if(p.pinned===undefined)p.pinned=false;});save();}}
+    if(!people.length){const old=localStorage.getItem('family-calls2');if(old){people=JSON.parse(old);people.forEach(p=>{if(!p.topics)p.topics=[];if(!p.logs)p.logs=[];if(!p.notes)p.notes='';if(p.pinned===undefined)p.pinned=false;});save();}}
     const ss=localStorage.getItem(KEY+'_sync');
     if(ss){const s=JSON.parse(ss);gdriveConnected=s.connected||false;lastSyncTime=s.lastSync||null}
   }catch(e){people=[]}
@@ -824,14 +824,14 @@ async function syncNow(){
   toast('Syncing…');
   try{
     await loadFromDrive();
-    const data={exportedAt:new Date().toISOString(),version:4,app:'kinship',people};
+    const data={exportedAt:new Date().toISOString(),version:4,app:'family-calls',people};
     const json=JSON.stringify(data,null,2);
-    const search=await fetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=name='kinship-backup.json'`,{headers:{Authorization:'Bearer '+gToken}});
+    const search=await fetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=name='family-calls-backup.json'`,{headers:{Authorization:'Bearer '+gToken}});
     const searchData=await search.json();
     const fileId=searchData.files?.[0]?.id;
     const blob=new Blob([json],{type:'application/json'});
     const form=new FormData();
-    form.append('metadata',new Blob([JSON.stringify({name:'kinship-backup.json',parents:fileId?undefined:['appDataFolder']})],{type:'application/json'}));
+    form.append('metadata',new Blob([JSON.stringify({name:'family-calls-backup.json',parents:fileId?undefined:['appDataFolder']})],{type:'application/json'}));
     form.append('file',blob);
     const url=fileId?`https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=multipart`:'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart';
     await fetch(url,{method:fileId?'PATCH':'POST',headers:{Authorization:'Bearer '+gToken},body:form});
@@ -841,7 +841,7 @@ async function syncNow(){
 async function loadFromDrive(){
   if(!gToken)return;
   try{
-    const search=await fetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=name='kinship-backup.json'`,{headers:{Authorization:'Bearer '+gToken}});
+    const search=await fetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=name='family-calls-backup.json'`,{headers:{Authorization:'Bearer '+gToken}});
     const sd=await search.json();if(!sd.files?.length)return;
     const res=await fetch(`https://www.googleapis.com/drive/v3/files/${sd.files[0].id}?alt=media`,{headers:{Authorization:'Bearer '+gToken}});
     const data=await res.json();
@@ -858,8 +858,8 @@ async function loadFromDrive(){
 }
 
 /* ── EXPORT / IMPORT ── */
-function exportJSON(){const data={exportedAt:new Date().toISOString(),version:4,app:'kinship',people};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`kinship-backup-${todayStr()}.json`;a.click();URL.revokeObjectURL(a.href);toast('Backup downloaded!');}
-function exportText(){let t=`Kinship — exported ${new Date().toLocaleDateString('en-IN')}\n${'─'.repeat(40)}\n\n`;people.forEach(p=>{t+=`${p.emoji||''} ${p.name} (${p.relation||'—'})\n`;t+=`  Call every: ${p.freq||7} days\n`;t+=`  Last call: ${p.logs?.length?fmtFull(p.logs[0].date):'never'}\n`;t+=`  Total logs: ${p.logs?.length||0}\n`;t+=`  Streak: ${calcStreak(p)} weeks\n`;if(p.scheduledCall)t+=`  Next call: ${fmtFull(p.scheduledCall)}\n`;if(p.notes)t+=`  Notes: ${p.notes}\n`;if((p.topics||[]).length)t+=`  Topics: ${p.topics.map(tp=>(tp.done?'[✓] ':'[ ] ')+tp.text).join(', ')}\n`;t+='\n';});navigator.clipboard?.writeText(t).then(()=>toast('Copied to clipboard!')).catch(()=>{const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('Copied!');});}
+function exportJSON(){const data={exportedAt:new Date().toISOString(),version:4,app:'family-calls',people};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`family-calls-backup-${todayStr()}.json`;a.click();URL.revokeObjectURL(a.href);toast('Backup downloaded!');}
+function exportText(){let t=`Family Call Tracker — exported ${new Date().toLocaleDateString('en-IN')}\n${'─'.repeat(40)}\n\n`;people.forEach(p=>{t+=`${p.emoji||''} ${p.name} (${p.relation||'—'})\n`;t+=`  Call every: ${p.freq||7} days\n`;t+=`  Last call: ${p.logs?.length?fmtFull(p.logs[0].date):'never'}\n`;t+=`  Total logs: ${p.logs?.length||0}\n`;t+=`  Streak: ${calcStreak(p)} weeks\n`;if(p.scheduledCall)t+=`  Next call: ${fmtFull(p.scheduledCall)}\n`;if(p.notes)t+=`  Notes: ${p.notes}\n`;if((p.topics||[]).length)t+=`  Topics: ${p.topics.map(tp=>(tp.done?'[✓] ':'[ ] ')+tp.text).join(', ')}\n`;t+='\n';});navigator.clipboard?.writeText(t).then(()=>toast('Copied to clipboard!')).catch(()=>{const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('Copied!');});}
 function importJSON(evt){
   const file=evt.target.files[0];if(!file)return;
   const reader=new FileReader();

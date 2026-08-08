@@ -321,6 +321,15 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
 .mini-log:active{transform:scale(.94)}
 .dash-empty{font-size:12px;color:var(--sub);line-height:1.45;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px}
 @media(max-width:520px){.next-item,.recent-item{grid-template-columns:auto minmax(0,1fr)}.next-actions,.recent-item .next-date{grid-column:2;justify-content:flex-start}.next-actions{margin-top:4px}}
+.deep-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:14px}
+@media(min-width:760px){.deep-grid{grid-template-columns:1fr 1fr}}
+.mini-list{display:grid;gap:7px}
+.mini-insight{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:9px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px}
+.mini-score{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.mini-title{font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini-copy{font-size:11px;color:var(--sub);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini-pill{font-size:10px;font-weight:800;border-radius:6px;padding:4px 6px;background:var(--surface);color:var(--accent);border:1px solid var(--border);white-space:nowrap}
+@media(max-width:520px){.mini-insight{grid-template-columns:auto minmax(0,1fr)}.mini-pill{grid-column:2;justify-self:start}}
 .cal-nav-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .cal-month-label{font-size:18px;font-weight:800;color:var(--text);letter-spacing:-.4px}
 .cal-purpose{font-size:12px;color:var(--sub);line-height:1.45;margin:-4px 2px 12px;text-align:center}
@@ -391,28 +400,30 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
 .tbox-l{font-size:11px;color:var(--sub);margin-top:1px}
 
 /* ── IO / SETTINGS ── */
-.io-wrap{padding:10px 14px 20px}
-.io-section-title{font-size:13px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.8px;margin:20px 0 8px 2px}
-.io-card{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:18px;margin-bottom:10px;box-shadow:0 2px 8px var(--shadow)}
-.io-card-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-.io-card-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.io-card-title{font-size:15px;font-weight:800;color:var(--text)}
-.io-card-desc{font-size:13px;color:var(--sub);line-height:1.6;margin-bottom:14px}
-.io-btn{width:100%;padding:13px;border-radius:12px;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:9px;transition:all .14s;}
+.io-wrap{padding:10px 14px 20px;max-width:760px;margin:0 auto}
+.io-section-title{font-size:11px;font-weight:800;color:var(--sub);text-transform:uppercase;letter-spacing:.9px;margin:14px 0 7px 2px}
+.io-card{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:12px;margin-bottom:8px;box-shadow:0 2px 8px var(--shadow)}
+.io-card-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.io-card-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.io-card-title{font-size:14px;font-weight:800;color:var(--text)}
+.io-card-desc{font-size:12px;color:var(--sub);line-height:1.45;margin-bottom:10px}
+.io-btn{width:100%;padding:10px;border-radius:8px;border:none;font-size:12px;font-weight:800;cursor:pointer;font-family:var(--font);margin-bottom:7px;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .14s;}
 .io-btn:last-child{margin-bottom:0}.io-btn:active{transform:scale(.97);opacity:.82}
 .io-primary{background:var(--ag);color:#fff;box-shadow:0 4px 16px rgba(0,0,0,.15)}
 .io-sec{background:var(--bg2);color:var(--text2);border:1.5px solid var(--border)}
 .io-grn{background:var(--green-bg);color:var(--green);border:1.5px solid var(--green-border)}
 .io-red{background:var(--red-bg);color:var(--red);border:1.5px solid var(--red-border)}
 .io-blue{background:var(--blue-bg);color:var(--blue);border:1.5px solid #bfdbfe}
-.io-info{font-size:11px;color:var(--muted);text-align:center;margin-top:8px;line-height:1.5}
+.io-info{font-size:10px;color:var(--muted);text-align:center;margin-top:6px;line-height:1.35}
 #importFileInput{display:none}
-.feature-grid{display:grid;gap:8px}
-.feature-idea{display:grid;grid-template-columns:auto 1fr;gap:10px;padding:12px;background:var(--bg2);border:1.5px solid var(--border);border-radius:8px}
-.feature-ico{width:32px;height:32px;border-radius:8px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 1px 3px var(--shadow);flex-shrink:0}
-.feature-title{font-size:13px;font-weight:800;color:var(--text);margin-bottom:2px}
-.feature-copy{font-size:12px;line-height:1.45;color:var(--sub)}
-.sync-banner{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:13px;margin-bottom:8px;font-size:13px;font-weight:600;}
+.io-action-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:7px}
+.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.feature-idea{display:grid;grid-template-columns:auto 1fr;gap:8px;padding:9px;background:var(--bg2);border:1.5px solid var(--border);border-radius:8px}
+.feature-ico{width:26px;height:26px;border-radius:7px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 1px 3px var(--shadow);flex-shrink:0}
+.feature-title{font-size:12px;font-weight:800;color:var(--text);margin-bottom:1px}
+.feature-copy{font-size:10px;line-height:1.35;color:var(--sub)}
+@media(max-width:520px){.feature-grid{grid-template-columns:1fr}}
+.sync-banner{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:8px;margin-bottom:8px;font-size:12px;font-weight:700;}
 .sync-ok{background:var(--green-bg);border:1.5px solid var(--green-border);color:var(--green)}
 .sync-off{background:var(--bg2);border:1.5px solid var(--border);color:var(--sub)}
 .sync-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
@@ -420,14 +431,14 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
 .sync-dot.off{background:var(--muted)}
 
 /* theme picker */
-.theme-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
-.theme-swatch{width:36px;height:36px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.theme-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.theme-swatch{width:30px;height:30px;border-radius:8px;cursor:pointer;border:3px solid transparent;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
 .theme-swatch.on{border-color:var(--text);transform:scale(1.15)}
 .theme-swatch:active{transform:scale(.9)}
-.dark-toggle{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--bg2);border-radius:13px;border:1.5px solid var(--border);cursor:pointer;transition:background .15s;}
+.dark-toggle{display:flex;align-items:center;justify-content:space-between;padding:9px 10px;background:var(--bg2);border-radius:8px;border:1.5px solid var(--border);cursor:pointer;transition:background .15s;}
 .dark-toggle:active{background:var(--border)}
-.dark-toggle-label{font-size:14px;font-weight:700;color:var(--text)}
-.dark-toggle-sub{font-size:12px;color:var(--sub);margin-top:2px}
+.dark-toggle-label{font-size:13px;font-weight:800;color:var(--text)}
+.dark-toggle-sub{font-size:11px;color:var(--sub);margin-top:1px}
 .toggle-pill{width:48px;height:28px;border-radius:14px;background:var(--border2);position:relative;transition:background .2s;flex-shrink:0}
 .toggle-pill.on{background:var(--accent)}
 .toggle-pill::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.2);transition:transform .2s}
@@ -533,15 +544,13 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
 
     <div class="io-section-title">📁 Manual backup</div>
     <div class="io-card">
-      <div class="io-card-head"><div class="io-card-icon" style="background:var(--accent-soft)">📤</div><div class="io-card-title">Export data</div></div>
-      <div class="io-card-desc">Download a JSON backup to transfer to another device.</div>
-      <button class="io-btn io-primary" onclick="exportJSON()">⬇️ Download JSON backup</button>
-      <button class="io-btn io-sec" onclick="exportText()">📋 Copy as readable text</button>
-    </div>
-    <div class="io-card">
-      <div class="io-card-head"><div class="io-card-icon" style="background:var(--green-bg)">📥</div><div class="io-card-title">Import data</div></div>
-      <div class="io-card-desc">Import a previously exported JSON file. Data is merged — no duplicates.</div>
-      <button class="io-btn io-grn" onclick="document.getElementById('importFileInput').click()">⬆️ Choose backup file</button>
+      <div class="io-card-head"><div class="io-card-icon" style="background:var(--accent-soft)">📁</div><div class="io-card-title">Backup and restore</div></div>
+      <div class="io-card-desc">Export, copy, or import your call tracker data.</div>
+      <div class="io-action-grid">
+        <button class="io-btn io-primary" onclick="exportJSON()">⬇️ JSON</button>
+        <button class="io-btn io-sec" onclick="exportText()">📋 Text</button>
+        <button class="io-btn io-grn" onclick="document.getElementById('importFileInput').click()">⬆️ Import</button>
+      </div>
       <input type="file" id="importFileInput" accept=".json" onchange="importJSON(event)">
     </div>
 
@@ -1080,6 +1089,13 @@ function renderInsightsDashboard(){
   if(!people.length){el.innerHTML='';return;}
   const nextPeople=people.slice().sort((a,b)=>{const st=(statusOf(a)==='ok')-(statusOf(b)==='ok');return st||dueSort(a,b)}).slice(0,5);
   const recent=people.flatMap((p,pi)=>(p.logs||[]).map(l=>({p,pi,l}))).sort((a,b)=>new Date(b.l.date)-new Date(a.l.date)).slice(0,5);
+  const today=new Date();today.setHours(0,0,0,0);
+  const health=p=>{const f=p.freq||7,d=p.logs?.[0]?daysSince(p.logs[0].date):f*2,over=Math.max(0,d-f),pt=(p.topics||[]).filter(t=>!t.done).length;return Math.max(5,Math.min(100,100-Math.round(over/f*45)-Math.min(20,pt*4)-(p.notes?.trim()?0:6)));};
+  const colorForScore=s=>s>=80?'var(--green)':s>=55?'var(--yellow)':'var(--red)';
+  const atRisk=people.map(p=>({p,score:health(p)})).filter(x=>x.score<80||statusOf(x.p)!=='ok').sort((a,b)=>a.score-b.score||dueSort(a.p,b.p)).slice(0,4);
+  const weekPlan=people.map(p=>({p,due:dueTime(p)})).filter(x=>x.due-today.getTime()<=7*86400000).sort((a,b)=>a.due-b.due).slice(0,5);
+  const neglected=people.map(p=>{const f=p.freq||7,d=p.logs?.[0]?daysSince(p.logs[0].date):999;return{p,gap:d===999?999:d-f,days:d};}).filter(x=>x.days===999||x.gap>0).sort((a,b)=>b.gap-a.gap).slice(0,4);
+  const prompts=people.map(p=>({p,pending:(p.topics||[]).filter(t=>!t.done).length,hasNotes:!!(p.notes&&p.notes.trim())})).filter(x=>x.pending||!x.hasNotes).sort((a,b)=>b.pending-a.pending||dueSort(a.p,b.p)).slice(0,4);
   const nextHtml=nextPeople.length?nextPeople.map(p=>{
     const id=esc(p.id),pi=people.indexOf(p),color=avColor(pi),av=p.emoji||initials(p.name),nc=fmtNextCall(p),last=p.logs?.[0]?fmtDate(p.logs[0].date):'Never called';
     return`<div class="next-item" onclick="openLog('${id}')"><div class="next-av" style="background:${color};font-size:${p.emoji?'16px':'12px'}">${av}</div><div><div class="next-name">${esc(p.name)}</div><div class="next-meta">${esc(p.relation||'Family')} · last ${last}</div></div><div class="next-actions"><div class="next-date" style="color:${nc.color}">${esc(nc.label)}</div><button class="mini-log" onclick="event.stopPropagation();quickLog('${id}');renderInsightCompact();renderInsightsDashboard();renderCal()">Log</button></div></div>`;
@@ -1091,6 +1107,12 @@ function renderInsightsDashboard(){
   el.innerHTML=`<div class="dash-grid">
     <div class="dash-panel"><div class="dash-head"><div class="dash-title">Who to call next</div><div class="dash-sub">Action list</div></div><div class="next-list">${nextHtml}</div></div>
     <div class="dash-panel"><div class="dash-head"><div class="dash-title">Recent activity</div><div class="dash-sub">Latest logs</div></div><div class="recent-list">${recentHtml}</div></div>
+  </div>
+  <div class="deep-grid">
+    <div class="dash-panel"><div class="dash-head"><div class="dash-title">At risk</div><div class="dash-sub">Needs attention</div></div><div class="mini-list">${atRisk.length?atRisk.map(({p,score})=>`<div class="mini-insight" onclick="openLog('${esc(p.id)}')"><div class="mini-score" style="background:${colorForScore(score)}">${score}</div><div><div class="mini-title">${esc(p.name)}</div><div class="mini-copy">${esc(p.relation||'Family')} · ${p.logs?.[0]?'last '+fmtDate(p.logs[0].date):'never called'}</div></div><div class="mini-pill">${fmtNextCall(p).label}</div></div>`).join(''):`<div class="dash-empty">Everyone is looking steady right now.</div>`}</div></div>
+    <div class="dash-panel"><div class="dash-head"><div class="dash-title">This week's plan</div><div class="dash-sub">Next 7 days</div></div><div class="mini-list">${weekPlan.length?weekPlan.map(({p,due})=>{const dd=new Date(due),label=dd.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'});return`<div class="mini-insight" onclick="openLog('${esc(p.id)}')"><div class="mini-score" style="background:${avColor(people.indexOf(p))}">${p.emoji||initials(p.name)}</div><div><div class="mini-title">${esc(p.name)}</div><div class="mini-copy">${esc(p.relation||'Family')} · ${fmtNextCall(p).label}</div></div><div class="mini-pill">${label}</div></div>`}).join(''):`<div class="dash-empty">No calls are due in the next week.</div>`}</div></div>
+    <div class="dash-panel"><div class="dash-head"><div class="dash-title">Neglected contacts</div><div class="dash-sub">Largest gaps</div></div><div class="mini-list">${neglected.length?neglected.map(({p,gap,days})=>`<div class="mini-insight" onclick="openLog('${esc(p.id)}')"><div class="mini-score" style="background:${statusOf(p)==='late'?'var(--red)':'var(--yellow)'}">${days===999?'—':days}</div><div><div class="mini-title">${esc(p.name)}</div><div class="mini-copy">${days===999?'No call history yet':'Target every '+(p.freq||7)+'d'}</div></div><div class="mini-pill">${days===999?'Never':gap+'d over'}</div></div>`).join(''):`<div class="dash-empty">No one is beyond their target cadence.</div>`}</div></div>
+    <div class="dash-panel"><div class="dash-head"><div class="dash-title">Conversation prompts</div><div class="dash-sub">Talk better</div></div><div class="mini-list">${prompts.length?prompts.map(({p,pending,hasNotes})=>`<div class="mini-insight" onclick="openLog('${esc(p.id)}')"><div class="mini-score" style="background:${avColor(people.indexOf(p))}">${p.emoji||initials(p.name)}</div><div><div class="mini-title">${esc(p.name)}</div><div class="mini-copy">${pending?pending+' pending talking point'+(pending>1?'s':''):'Add a personal note'}</div></div><div class="mini-pill">${hasNotes?'Notes':'No notes'}</div></div>`).join(''):`<div class="dash-empty">Talking points and notes are in good shape.</div>`}</div></div>
   </div>`;
 }
 function ringChart(pct,color,size){

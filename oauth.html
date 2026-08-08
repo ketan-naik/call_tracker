@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Connecting…</title>
+<style>
+  body{font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#faf7f2;color:#4a3728;flex-direction:column;gap:12px}
+  .spinner{width:36px;height:36px;border:3px solid #fce4d6;border-top-color:#e06b3a;border-radius:50%;animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  p{font-size:14px;font-weight:600;color:#8a7060}
+</style>
+</head>
+<body>
+<div class="spinner"></div>
+<p>Connecting to Google Drive…</p>
+<script>
+  // Parse the access_token from the URL hash
+  const hash = new URLSearchParams(window.location.hash.slice(1));
+  const token = hash.get('access_token');
+  if (token && window.opener) {
+    // Send token back to the parent window
+    window.opener.postMessage({ access_token: token }, 'https://calltrackerlink.netlify.app');
+    window.close();
+  } else {
+    document.querySelector('p').textContent = 'Something went wrong. Please close this window and try again.';
+  }
+</script>
+</body>
+</html>

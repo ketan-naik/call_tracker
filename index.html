@@ -613,7 +613,7 @@ const KEY='family-calls3';
 const OLD_KEYS=['kinship1','kinship2','kinship3','family-calls2'];
 let people=[],editId=null,logId=null,topicPersonId=null,notesPersonId=null,schedPersonId=null;
 let selEmoji='',selType='📞',selQD='today';
-let gdriveConnected=false,lastSyncTime=null,gToken=null;
+let gdriveConnected=false,lastSyncTime=null,gToken=null,gTokenExpiry=null;
 let searchQuery='';
 let deletedIds=new Set();
 
@@ -698,43 +698,32 @@ function load(){
     if(!people.length){for(const ok of OLD_KEYS){try{const o=localStorage.getItem(ok);if(o){const p=JSON.parse(o);if(Array.isArray(p)&&p.length){people=p.map(sanitize);save();break;}if(p.people&&p.people.length){people=p.people.map(sanitize);save();break;}}}catch(e){}}}
     const dd=localStorage.getItem(KEY+'_deleted');if(dd)deletedIds=new Set(JSON.parse(dd));
     people=people.filter(p=>!deletedIds.has(p.id));
-    const ss=localStorage.getItem(KEY+'_sync');if(ss){const s=JSON.parse(ss);gdriveConnected=s.connected||false;lastSyncTime=s.lastSync||null;}
+    const ss=localStorage.getItem(KEY+'_sync');
+    if(ss){
+      const s=JSON.parse(ss);
+      gdriveConnected=s.connected||false;
+      lastSyncTime=s.lastSync||null;
+      // Restore token only if not expired
+      if(s.token&&s.tokenExpiry&&Date.now()<s.tokenExpiry){
+        gToken=s.token;
+      }else if(s.token){
+        // Token expired — clear it, stay marked connected so UI shows right state
+        gToken=null;
+      }
+      gTokenExpiry=s.tokenExpiry||null;
+    }
   }catch(e){people=[];}
 }
-function saveSync(){localStorage.setItem(KEY+'_sync',JSON.stringify({connected:gdriveConnected,lastSync:lastSyncTime}));}
-
-/* Silent re-auth — gets a fresh token in a hidden iframe without prompting the user */
-function silentReauth(){
-  return new Promise(resolve=>{
-    const params=new URLSearchParams({
-      client_id:GDRIVE_CLIENT_ID,
-      redirect_uri:'https://calltrackerlink.netlify.app/oauth.html',
-      response_type:'token',
-      scope:GDRIVE_SCOPE,
-      include_granted_scopes:'true',
-      prompt:'none'  // silent — only works if user already granted access
-    });
-    const iframe=document.createElement('iframe');
-    iframe.style.display='none';
-    iframe.src='https://accounts.google.com/o/oauth2/v2/auth?'+params;
-    document.body.appendChild(iframe);
-    const onMsg=e=>{
-      if(e.origin!=='https://calltrackerlink.netlify.app')return;
-      if(!e.data||!e.data.access_token)return;
-      window.removeEventListener('message',onMsg);
-      document.body.removeChild(iframe);
-      gToken=e.data.access_token;
-      resolve(true);
-    };
-    window.addEventListener('message',onMsg);
-    // Timeout after 5s — if silent auth fails, just stay disconnected
-    setTimeout(()=>{
-      window.removeEventListener('message',onMsg);
-      try{document.body.removeChild(iframe);}catch(e){}
-      resolve(false);
-    },5000);
-  });
+function saveSync(){
+  localStorage.setItem(KEY+'_sync',JSON.stringify({
+    connected:gdriveConnected,
+    lastSync:lastSyncTime,
+    token:gToken||null,
+    tokenExpiry:gTokenExpiry||null
+  }));
 }
+
+function silentReauth(){return Promise.resolve(false);} // kept for compat, not used
 
 function todayStr(){return new Date().toISOString().slice(0,10)}
 function daysSince(iso){if(!iso)return null;return Math.floor((Date.now()-new Date(iso).getTime())/86400000)}
@@ -1040,7 +1029,7 @@ function renderStats(){
 }
 
 /* ── GDRIVE ── */
-function updateHdrSyncBtn(){const btn=document.getElementById('hdrSyncBtn');if(!btn)return;btn.style.display=(gdriveConnected&&gToken)?'flex':'none';btn.classList.remove('syncing');}
+function updateHdrSyncBtn(){const btn=document.getElementById('hdrSyncBtn');if(!btn)return;btn.style.display=gdriveConnected?'flex':'none';btn.classList.remove('syncing');}
 async function hdrSync(){const btn=document.getElementById('hdrSyncBtn');if(!gToken){toast('Connect Google Drive in Settings first');return;}btn.classList.add('syncing');await syncNow();btn.classList.remove('syncing');}
 function renderSyncUI(){
   const banner=document.getElementById('syncBanner'),dot=document.getElementById('syncDot'),status=document.getElementById('syncStatus'),btn=document.getElementById('gdriveBtnText'),btnIcon=document.getElementById('gdriveBtnIcon'),snb=document.getElementById('syncNowBtn'),info=document.getElementById('lastSyncInfo');
@@ -1052,12 +1041,28 @@ function gdriveAction(){
   if(gdriveConnected&&gToken){gdriveConnected=false;gToken=null;saveSync();renderSyncUI();toast('Disconnected from Google Drive');return;}
   const params=new URLSearchParams({client_id:GDRIVE_CLIENT_ID,redirect_uri:'https://calltrackerlink.netlify.app/oauth.html',response_type:'token',scope:GDRIVE_SCOPE,include_granted_scopes:'true',prompt:'select_account'});
   const popup=window.open('https://accounts.google.com/o/oauth2/v2/auth?'+params,'gdrive_auth','width=500,height=600,left=200,top=100');
-  function onMsg(e){if(e.origin!=='https://calltrackerlink.netlify.app')return;if(!e.data||!e.data.access_token)return;window.removeEventListener('message',onMsg);gToken=e.data.access_token;gdriveConnected=true;saveSync();renderSyncUI();toast('Connected! Loading your data from Drive…');loadFromDrive().then(()=>syncNow());}
+  function onMsg(e){
+    if(e.origin!=='https://calltrackerlink.netlify.app')return;
+    if(!e.data||!e.data.access_token)return;
+    window.removeEventListener('message',onMsg);
+    gToken=e.data.access_token;
+    gTokenExpiry=Date.now()+(55*60*1000); // 55 min (tokens last 60, refresh 5 min early)
+    gdriveConnected=true;saveSync();renderSyncUI();
+    toast('Connected! Loading your data from Drive…');
+    loadFromDrive().then(()=>syncNow());
+  }
   window.addEventListener('message',onMsg);
   const fb=setInterval(()=>{if(popup&&popup.closed){clearInterval(fb);window.removeEventListener('message',onMsg);}},1000);
 }
 async function syncNow(){
-  if(!gToken){toast('Please connect Google Drive first');return;}toast('Syncing…');
+  if(!gdriveConnected){toast('Please connect Google Drive first');return;}
+  if(!gToken){
+    // Token expired — trigger re-auth popup then sync
+    toast('Reconnecting to Drive…');
+    gdriveAction();
+    return;
+  }
+  toast('Syncing…');
   try{
     await loadFromDrive();
     const data={exportedAt:new Date().toISOString(),version:5,app:'family-call-tracker',people,deletedIds:[...deletedIds]};
@@ -1106,17 +1111,18 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){OVERLAYS.forEach(id
 
 loadTheme();load();render();updateHdrSyncBtn();
 if(gdriveConnected){
-  // Try to silently get a fresh token — no popup shown
-  silentReauth().then(ok=>{
-    if(ok){
-      updateHdrSyncBtn();renderSyncUI();
-      loadFromDrive().then(()=>syncNow());
-    }else{
-      // Silent auth failed (token expired, needs re-login) — mark as disconnected
-      gdriveConnected=false;gToken=null;saveSync();updateHdrSyncBtn();
-      toast('Drive session expired — please reconnect in Settings');
-    }
-  });
+  if(gToken){
+    // Valid token restored — load and sync silently
+    renderSyncUI();
+    loadFromDrive().then(()=>syncNow());
+    // Schedule token refresh 5 min before expiry
+    const msLeft=gTokenExpiry?gTokenExpiry-Date.now():0;
+    if(msLeft>0)setTimeout(()=>toast('Drive session expiring soon — tap sync to refresh'),msLeft);
+  }else{
+    // Token expired — prompt user to reconnect with one tap
+    renderSyncUI();
+    toast('Drive session expired — tap ☁️ to reconnect');
+  }
 }
 </script>
 </body>

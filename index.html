@@ -1063,7 +1063,7 @@ function gdriveAction(){
   // Real OAuth flow — prompt=select_account forces Google to always show the account picker
   const params=new URLSearchParams({
     client_id:GDRIVE_CLIENT_ID,
-    redirect_uri:window.location.href.split('?')[0],
+    redirect_uri:'https://calltrackerlink.netlify.app',
     response_type:'token',
     scope:GDRIVE_SCOPE,
     include_granted_scopes:'true',

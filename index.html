@@ -110,7 +110,8 @@ body{
 .page{display:none}.page.on{display:block}
 
 /* ── SECTION LABEL ── */
-.slabel{font-size:11px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:1.1px;padding:18px 18px 9px;display:flex;align-items:center;gap:8px;grid-column:1/-1;}
+.slabel{font-size:11px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:1.1px;padding:18px 14px 9px;display:flex;align-items:center;justify-content:center;gap:8px;grid-column:1/-1;max-width:760px;margin:0 auto;width:100%;}
+.slabel::before{content:'';flex:1;height:1px;background:var(--border)}
 .slabel::after{content:'';flex:1;height:1px;background:var(--border)}
 
 /* ── CARD GRID ── */
@@ -297,14 +298,38 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
 .sched-del{background:none;border:none;color:var(--muted);font-size:15px;cursor:pointer;padding:4px;flex-shrink:0}
 
 /* ── CALENDAR ── */
-.cal-page-wrap{padding:12px 14px 20px}
+.cal-page-wrap{padding:12px 14px 20px;max-width:760px;margin:0 auto}
+.insight-compact{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.insight-tile{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:12px 10px;box-shadow:0 2px 8px var(--shadow)}
+.insight-n{font-size:23px;font-weight:800;letter-spacing:0;line-height:1}
+.insight-l{font-size:9px;color:var(--sub);text-transform:uppercase;letter-spacing:.6px;font-weight:800;margin-top:4px;white-space:nowrap}
+@media(max-width:520px){.insight-compact{grid-template-columns:repeat(2,1fr)}}
+.dash-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:14px}
+@media(min-width:760px){.dash-grid{grid-template-columns:1fr 1fr}}
+.dash-panel{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:12px;box-shadow:0 2px 8px var(--shadow)}
+.dash-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.dash-title{font-size:13px;font-weight:800;color:var(--text);letter-spacing:0}
+.dash-sub{font-size:10px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.6px}
+.next-list,.recent-list{display:grid;gap:7px}
+.next-item,.recent-item{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:9px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px}
+.next-av,.recent-av{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:800;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.next-name,.recent-name{font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.next-meta,.recent-meta{font-size:11px;color:var(--sub);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.next-date{font-size:10px;font-weight:800;color:var(--accent);background:var(--accent-soft);border-radius:6px;padding:4px 6px;white-space:nowrap}
+.next-actions{display:flex;align-items:center;gap:6px}
+.mini-log{height:28px;border:none;border-radius:7px;background:var(--ag);color:#fff;font-family:var(--font);font-size:11px;font-weight:800;padding:0 9px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.mini-log:active{transform:scale(.94)}
+.dash-empty{font-size:12px;color:var(--sub);line-height:1.45;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px}
+@media(max-width:520px){.next-item,.recent-item{grid-template-columns:auto minmax(0,1fr)}.next-actions,.recent-item .next-date{grid-column:2;justify-content:flex-start}.next-actions{margin-top:4px}}
 .cal-nav-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .cal-month-label{font-size:18px;font-weight:800;color:var(--text);letter-spacing:-.4px}
+.cal-purpose{font-size:12px;color:var(--sub);line-height:1.45;margin:-4px 2px 12px;text-align:center}
 .cal-nav-btn{width:36px;height:36px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);box-shadow:0 1px 3px var(--shadow);transition:all .14s;}
 .cal-nav-btn:active{background:var(--bg2);transform:scale(.9)}
 .cal-dow-row{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
-.cal-grid-month{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:16px}
-.cal-cell{aspect-ratio:1;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;background:var(--surface);border:1.5px solid var(--border);transition:all .14s;box-shadow:0 1px 3px var(--shadow);}
+.cal-grid-month{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:10px}
+.cal-cell{height:52px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;background:var(--surface);border:1.5px solid var(--border);transition:all .14s;box-shadow:0 1px 3px var(--shadow);}
+@media(min-width:600px){.cal-cell{height:58px}}
 .cal-cell:active{transform:scale(.9)}
 .cal-cell.empty,.cal-cell.other-month{background:transparent;border-color:transparent;box-shadow:none;cursor:default}
 .cal-cell.today{border-color:var(--accent);border-width:2px}
@@ -317,6 +342,17 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
 .cal-cell.other-month .cal-day-num{color:var(--muted)}
 .cal-dots{display:flex;gap:2px;margin-top:3px;flex-wrap:wrap;justify-content:center;max-width:30px}
 .cal-dots span{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.day-focus{display:none;background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:12px 13px;margin:0 0 12px;box-shadow:0 2px 8px var(--shadow)}
+.day-focus.show{display:block}
+.day-focus-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.day-focus-title{font-size:14px;font-weight:800;color:var(--text)}
+.day-focus-count{font-size:11px;font-weight:800;color:var(--accent);background:var(--accent-soft);border-radius:6px;padding:4px 7px;white-space:nowrap}
+.day-focus-empty{font-size:13px;color:var(--sub);line-height:1.45}
+.day-focus-list{display:grid;gap:7px}
+.day-focus-item{display:flex;align-items:center;gap:9px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px}
+.day-focus-avatar{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:800;flex-shrink:0}
+.day-focus-name{font-size:13px;font-weight:800;color:var(--text)}
+.day-focus-meta{font-size:11px;color:var(--sub);margin-top:1px}
 .cal-journal-title{font-size:13px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .cal-journal-title::after{content:'';flex:1;height:1px;background:var(--border)}
 .cal-journal-empty{text-align:center;padding:28px 20px;color:var(--muted);font-size:14px;background:var(--surface);border:1.5px solid var(--border);border-radius:16px}
@@ -451,13 +487,17 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
 <!-- CALENDAR PAGE -->
 <div class="page" id="pageCal">
   <div class="cal-page-wrap">
+    <div id="insightCompact"></div>
+    <div id="insightsDashboard"></div>
     <div class="cal-nav-row">
       <button class="cal-nav-btn" onclick="calPrevMonth()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="15 18 9 12 15 6"/></svg></button>
       <div class="cal-month-label" id="calMonthLabel"></div>
       <button class="cal-nav-btn" onclick="calNextMonth()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="9 18 15 12 9 6"/></svg></button>
     </div>
+    <div class="cal-purpose">Tap any date to review call history for that day. Dates with dots have logged calls.</div>
     <div class="cal-dow-row"><div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div></div>
     <div class="cal-grid-month" id="calGrid"></div>
+    <div class="day-focus" id="dayFocus"></div>
     <div id="calJournal"></div>
   </div>
 </div>
@@ -528,12 +568,8 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
     Home
   </button>
   <button class="nb" id="navCal" onclick="showPage('cal')">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-    Journal
-  </button>
-  <button class="nb" id="navStats" onclick="showPage('stats')">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-    Stats
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="15" x2="8" y2="18"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="16" y1="16" x2="16" y2="18"/></svg>
+    Insights
   </button>
   <button class="nb" id="navIo" onclick="showPage('io')">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
@@ -771,6 +807,8 @@ function calcStreak(p){const logs=p.logs||[];if(!logs.length)return 0;const f=p.
 
 function nextWeekend(from){const d=new Date(from);d.setHours(0,0,0,0);const day=d.getDay();if(day===0||day===6)return d;d.setDate(d.getDate()+(6-day));return d;}
 function nextCallDate(p){const logs=p.logs||[],f=p.freq||7;const base=logs.length?new Date(logs[0].date):new Date();const due=new Date(base);due.setDate(due.getDate()+f);const today=new Date();today.setHours(0,0,0,0);return nextWeekend(due<today?today:due);}
+function dueTime(p){if(p.scheduledCall){const d=new Date(p.scheduledCall);if(!isNaN(d))return d.getTime();}return nextCallDate(p).getTime();}
+function dueSort(a,b){const dt=dueTime(a)-dueTime(b);if(dt)return dt;return(a.name||'').localeCompare(b.name||'');}
 function fmtNextCall(p){
   if(p.scheduledCall){const du=daysUntil(p.scheduledCall);if(du!==null&&du>=0){const d=new Date(p.scheduledCall),dn=d.getDay()===0?'Sun':'Sat';if(du===0)return{label:'Call today!',color:'var(--green)'};if(du===1)return{label:'Call tomorrow',color:'var(--yellow)'};return{label:'Call '+dn+' · '+d.toLocaleDateString('en-IN',{day:'numeric',month:'short'}),color:'var(--blue)'}}}
   const nd=nextCallDate(p);const today=new Date();today.setHours(0,0,0,0);const diff=Math.round((nd-today)/86400000);const dn=nd.getDay()===0?'Sun':'Sat';const ds=nd.toLocaleDateString('en-IN',{day:'numeric',month:'short'});
@@ -789,7 +827,7 @@ function showPage(p){
   const pid='page'+p.charAt(0).toUpperCase()+p.slice(1),nid='nav'+p.charAt(0).toUpperCase()+p.slice(1);
   const pel=document.getElementById(pid),nel=document.getElementById(nid);
   if(pel)pel.classList.add('on');if(nel)nel.classList.add('on');
-  if(p==='stats')renderStats();if(p==='cal')renderCal();if(p==='io'){renderSyncUI();applyTheme();}
+  if(p==='stats')renderStats();if(p==='cal'){renderInsightCompact();renderInsightsDashboard();renderCal();}if(p==='io'){renderSyncUI();applyTheme();}
 }
 
 /* ── RENDER HOME ── */
@@ -814,7 +852,7 @@ function render(){
   }
   fab.classList.add('show');sr.style.display='flex';sw.style.display='block';
   const ord={late:0,warn:1,never:2,ok:3};
-  let sorted=[...people].sort((a,b)=>{if(a.pinned&&!b.pinned)return-1;if(!a.pinned&&b.pinned)return 1;return ord[statusOf(a)]-ord[statusOf(b)];});
+  let sorted=[...people].sort((a,b)=>{if(a.pinned&&!b.pinned)return-1;if(!a.pinned&&b.pinned)return 1;const st=ord[statusOf(a)]-ord[statusOf(b)];return st||dueSort(a,b);});
   if(searchQuery)sorted=sorted.filter(p=>p.name.toLowerCase().includes(searchQuery)||(p.relation||'').toLowerCase().includes(searchQuery));
   let ok=0,warn=0,late=0;
   people.forEach(p=>{const s=statusOf(p);if(s==='ok')ok++;else if(s==='warn')warn++;else if(s==='late')late++;});
@@ -822,11 +860,11 @@ function render(){
   document.getElementById('pipHome').className='nb-pip'+(late>0?' show':'');
   let html='';
   if(searchQuery&&!sorted.length){el.innerHTML=`<div class="onboard" style="padding:40px 24px"><div class="onboard-hero" style="font-size:48px">🔍</div><h2>No results</h2><p>No one matches "${esc(searchQuery)}"</p></div>`;return;}
-  const pinned=sorted.filter(p=>p.pinned),rest=sorted.filter(p=>!p.pinned);
+  const pinned=sorted.filter(p=>p.pinned).sort(dueSort),rest=sorted.filter(p=>!p.pinned);
   if(pinned.length&&!searchQuery){html+=`<div class="slabel">⭐ Pinned</div><div class="card-grid">`;pinned.forEach(p=>html+=buildCard(p));html+=`</div>`;}
   if(!searchQuery){
     [{key:'late',label:'🔴 Call them now'},{key:'warn',label:'🟡 Due soon'},{key:'never',label:'⬜ Not yet called'},{key:'ok',label:'🟢 All good'}].forEach(sec=>{
-      const grp=rest.filter(p=>statusOf(p)===sec.key);if(!grp.length)return;
+      const grp=rest.filter(p=>statusOf(p)===sec.key).sort(dueSort);if(!grp.length)return;
       html+=`<div class="slabel">${sec.label}</div><div class="card-grid">`;grp.forEach(p=>html+=buildCard(p));html+=`</div>`;
     });
   }else{html+=`<div class="slabel">Results (${sorted.length})</div><div class="card-grid">`;sorted.forEach(p=>html+=buildCard(p));html+=`</div>`;}
@@ -979,21 +1017,35 @@ function renderCal(){
     cells+=`<div class="${cls}" onclick="calSelectDay('${ds}')"><div class="cal-day-num">${d}</div>${dots?`<div class="cal-dots">${dots}</div>`:''}</div>`;
   }
   const trail=(7-(firstDay+daysInMonth)%7)%7;for(let i=1;i<=trail;i++)cells+=`<div class="cal-cell other-month"><div class="cal-day-num">${i}</div></div>`;
-  document.getElementById('calGrid').innerHTML=cells;renderJournal(byDate);
+  document.getElementById('calGrid').innerHTML=cells;renderDayFocus(byDate);renderJournal(byDate);
 }
-function calSelectDay(ds){calSelected=calSelected===ds?null:ds;renderCal();}
+function calSelectDay(ds){calSelected=calSelected===ds?null:ds;renderCal();if(calSelected)setTimeout(()=>document.getElementById('dayFocus')?.scrollIntoView({behavior:'smooth',block:'center'}),40);}
+function renderDayFocus(byDate){
+  const el=document.getElementById('dayFocus');if(!el)return;
+  if(!calSelected){el.className='day-focus';el.innerHTML='';return;}
+  const entries=byDate[calSelected]||[];
+  const d=new Date(calSelected+'T12:00:00');
+  const label=d.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'});
+  if(!entries.length){
+    el.className='day-focus show';
+    el.innerHTML=`<div class="day-focus-head"><div class="day-focus-title">${label}</div><div class="day-focus-count">No calls</div></div><div class="day-focus-empty">Nothing is logged for this date. Use this as a quick way to audit gaps or confirm whether you already called someone.</div>`;
+    return;
+  }
+  el.className='day-focus show';
+  el.innerHTML=`<div class="day-focus-head"><div class="day-focus-title">${label}</div><div class="day-focus-count">${entries.length} call${entries.length>1?'s':''}</div></div><div class="day-focus-list">${entries.map(x=>{const color=pColor(x.pi),av=x.p.emoji||initials(x.p.name),time=new Date(x.l.date).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});return`<div class="day-focus-item"><div class="day-focus-avatar" style="background:${color};font-size:${x.p.emoji?'16px':'12px'}">${av}</div><div><div class="day-focus-name">${esc(x.p.name)}</div><div class="day-focus-meta">${x.l.type} ${time} · ${esc(x.p.relation||'Family')}</div></div></div>`}).join('')}</div>`;
+}
 function renderJournal(byDate){
   const el=document.getElementById('calJournal');
   if(calSelected){
     const entries=byDate[calSelected]||[];const d=new Date(calSelected);const label=d.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'});
-    if(!entries.length){el.innerHTML=`<div class="cal-journal-title">${label}</div><div class="cal-journal-empty">No calls on this day.</div>`;return;}
-    el.innerHTML=`<div class="cal-journal-title">${label} · ${entries.length} call${entries.length>1?'s':''}</div>`+entries.map(x=>jCard(x)).join('');
+    if(!entries.length){el.innerHTML=`<div class="cal-journal-title">Selected day details</div><div class="cal-journal-empty">No calls on this day.</div>`;return;}
+    el.innerHTML=`<div class="cal-journal-title">Selected day details</div>`+entries.map(x=>jCard(x)).join('');
   }else{
     const ms=`${calYear}-${String(calMonth+1).padStart(2,'0')}`;
     const all=Object.entries(byDate).filter(([ds])=>ds.startsWith(ms)).sort(([a],[b])=>b.localeCompare(a));
-    if(!all.length){el.innerHTML=`<div class="cal-journal-title">This month</div><div class="cal-journal-empty">No calls logged this month yet.</div>`;return;}
+    if(!all.length){el.innerHTML=`<div class="cal-journal-title">Monthly activity log</div><div class="cal-journal-empty">No calls logged this month yet.</div>`;return;}
     const total=all.reduce((s,[,e])=>s+e.length,0);
-    let html=`<div class="cal-journal-title">This month · ${total} call${total>1?'s':''}</div>`;
+    let html=`<div class="cal-journal-title">Monthly activity log · ${total} call${total>1?'s':''}</div>`;
     all.forEach(([ds,ents])=>{const d=new Date(ds);const label=d.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'});html+=`<div style="font-size:12px;font-weight:700;color:var(--sub);margin:14px 0 6px;display:flex;align-items:center;gap:8px">${label}<span style="flex:1;height:1px;background:var(--border);display:inline-block"></span></div>`;html+=ents.map(x=>jCard(x)).join('');});
     el.innerHTML=html;
   }
@@ -1006,6 +1058,41 @@ function calPrevMonth(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}calSele
 function calNextMonth(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}calSelected=null;renderCal();}
 
 /* ── STATS ── */
+function renderInsightCompact(){
+  const el=document.getElementById('insightCompact');if(!el)return;
+  if(!people.length){el.innerHTML='';return;}
+  const allLogs=people.flatMap(p=>(p.logs||[]).map(l=>({...l,person:p})));
+  const now=new Date();
+  const thisMonth=allLogs.filter(l=>{const d=new Date(l.date);return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear();}).length;
+  const onTrack=people.filter(p=>statusOf(p)==='ok').length;
+  const dueSoon=people.filter(p=>statusOf(p)==='warn').length;
+  const next=people.slice().sort(dueSort)[0];
+  const nextLabel=next?fmtNextCall(next).label.replace('Call ','').replace('By ',''):'—';
+  el.innerHTML=`<div class="insight-compact">
+    <div class="insight-tile"><div class="insight-n" style="color:var(--accent)">${thisMonth}</div><div class="insight-l">This month</div></div>
+    <div class="insight-tile"><div class="insight-n" style="color:var(--green)">${onTrack}/${people.length}</div><div class="insight-l">On track</div></div>
+    <div class="insight-tile"><div class="insight-n" style="color:var(--yellow)">${dueSoon}</div><div class="insight-l">Due soon</div></div>
+    <div class="insight-tile"><div class="insight-n" style="color:var(--blue);font-size:18px">${esc(nextLabel)}</div><div class="insight-l">Next call</div></div>
+  </div>`;
+}
+function renderInsightsDashboard(){
+  const el=document.getElementById('insightsDashboard');if(!el)return;
+  if(!people.length){el.innerHTML='';return;}
+  const nextPeople=people.slice().sort((a,b)=>{const st=(statusOf(a)==='ok')-(statusOf(b)==='ok');return st||dueSort(a,b)}).slice(0,5);
+  const recent=people.flatMap((p,pi)=>(p.logs||[]).map(l=>({p,pi,l}))).sort((a,b)=>new Date(b.l.date)-new Date(a.l.date)).slice(0,5);
+  const nextHtml=nextPeople.length?nextPeople.map(p=>{
+    const id=esc(p.id),pi=people.indexOf(p),color=avColor(pi),av=p.emoji||initials(p.name),nc=fmtNextCall(p),last=p.logs?.[0]?fmtDate(p.logs[0].date):'Never called';
+    return`<div class="next-item" onclick="openLog('${id}')"><div class="next-av" style="background:${color};font-size:${p.emoji?'16px':'12px'}">${av}</div><div><div class="next-name">${esc(p.name)}</div><div class="next-meta">${esc(p.relation||'Family')} · last ${last}</div></div><div class="next-actions"><div class="next-date" style="color:${nc.color}">${esc(nc.label)}</div><button class="mini-log" onclick="event.stopPropagation();quickLog('${id}');renderInsightCompact();renderInsightsDashboard();renderCal()">Log</button></div></div>`;
+  }).join(''):`<div class="dash-empty">Add contacts to see who needs a call next.</div>`;
+  const recentHtml=recent.length?recent.map(x=>{
+    const color=pColor(x.pi),av=x.p.emoji||initials(x.p.name),when=fmtFull(x.l.date),time=new Date(x.l.date).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+    return`<div class="recent-item" onclick="openLog('${esc(x.p.id)}')"><div class="recent-av" style="background:${color};font-size:${x.p.emoji?'16px':'12px'}">${av}</div><div><div class="recent-name">${esc(x.p.name)}</div><div class="recent-meta">${x.l.type} ${when} · ${time}</div></div><div class="next-date">${esc(x.p.relation||'Family')}</div></div>`;
+  }).join(''):`<div class="dash-empty">No calls logged yet. Once you log calls, recent activity will appear here.</div>`;
+  el.innerHTML=`<div class="dash-grid">
+    <div class="dash-panel"><div class="dash-head"><div class="dash-title">Who to call next</div><div class="dash-sub">Action list</div></div><div class="next-list">${nextHtml}</div></div>
+    <div class="dash-panel"><div class="dash-head"><div class="dash-title">Recent activity</div><div class="dash-sub">Latest logs</div></div><div class="recent-list">${recentHtml}</div></div>
+  </div>`;
+}
 function ringChart(pct,color,size){
   const r=size*.38,c=size/2,circ=2*Math.PI*r,dash=circ*(pct/100),gap=circ-dash;
   return`<svg class="ring-svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="var(--border)" stroke-width="${size*.1}"/><circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="${color}" stroke-width="${size*.1}" stroke-dasharray="${dash} ${gap}" stroke-dashoffset="${circ*.25}" stroke-linecap="round" transform="rotate(-90 ${c} ${c})"/></svg>`;

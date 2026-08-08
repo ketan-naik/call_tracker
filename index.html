@@ -27,7 +27,7 @@ body{background:var(--bg);background-image:radial-gradient(ellipse 70% 50% at 50
 ::-webkit-scrollbar{width:0;display:none}
 
 /* NAV */
-.nav{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;background:rgba(250,247,242,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid var(--border);padding:8px 8px calc(10px + env(safe-area-inset-bottom));gap:4px;}
+.nav{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;background:rgba(250,247,242,.95);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid var(--border);padding:8px 8px calc(10px + env(safe-area-inset-bottom));gap:4px;}
 .nb{flex:1;border:none;background:none;color:var(--muted);font-family:var(--font);font-size:10px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;transition:all .2s;letter-spacing:.3px;padding:6px 4px;border-radius:14px;position:relative;}
 .nb svg{width:21px;height:21px;transition:all .2s;stroke:currentColor}
 .nb.on{color:var(--accent);background:var(--accent-soft)}.nb.on svg{transform:scale(1.08)}
@@ -35,16 +35,18 @@ body{background:var(--bg);background-image:radial-gradient(ellipse 70% 50% at 50
 .nb-pip.show{display:block}
 
 /* HEADER */
-.hdr{position:sticky;top:0;z-index:50;padding:52px 18px 14px;background:rgba(250,247,242,.88);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-bottom:1px solid var(--border);}
+.hdr{position:sticky;top:0;z-index:50;padding:52px 18px 14px;background:rgba(250,247,242,.92);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-bottom:1px solid var(--border);}
 .hdr-row{display:flex;align-items:center;justify-content:space-between}
 .hdr-brand{display:flex;align-items:center;gap:10px}
 .logo{width:36px;height:36px;border-radius:11px;background:var(--ag);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 14px rgba(224,107,58,.35);}
-.brand-name{font-size:21px;font-weight:800;color:var(--text);letter-spacing:-.5px}
+.brand-name{font-size:20px;font-weight:800;color:var(--text);letter-spacing:-.5px}
 .brand-name em{font-style:normal;color:var(--accent)}
 .hdr-btns{display:flex;gap:8px}
 .hbtn{width:36px;height:36px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;box-shadow:0 1px 3px var(--shadow);}
 .hbtn:active{transform:scale(.88);background:var(--bg2)}
 .hbtn-add{background:var(--ag);border:none;color:#fff;box-shadow:0 4px 16px rgba(224,107,58,.4);}
+.hbtn-add:active{transform:scale(.88)}
+.hbtn-sync{color:var(--blue)}
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 .syncing svg{animation:spin .9s linear infinite}
 
@@ -86,22 +88,22 @@ body{background:var(--bg);background-image:radial-gradient(ellipse 70% 50% at 50
 @keyframes sp{0%{box-shadow:0 0 0 0 rgba(239,68,68,.35)}70%{box-shadow:0 0 0 9px rgba(239,68,68,0)}100%{box-shadow:0 0 0 0 rgba(239,68,68,0)}}
 .pinfo{flex:1;min-width:0}
 .pname-row{display:flex;align-items:center;gap:6px}
-.pname{font-size:16px;font-weight:800;color:var(--text);letter-spacing:-.3px}
-.pin-star{font-size:13px;line-height:1}
+.pname{font-size:16px;font-weight:800;color:var(--text);letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pin-star{font-size:13px;line-height:1;flex-shrink:0}
 .prel{font-size:12px;color:var(--sub);margin-top:2px;font-weight:500}
 .ptags{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
-.ptag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.2px}
+.ptag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.2px;white-space:nowrap}
 .ptag-topic{background:var(--accent-soft2);color:var(--accent)}
 .ptag-freq{background:var(--bg2);color:var(--sub);border:1px solid var(--border)}
 .ptag-streak{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border)}
 .ptag-sched{background:var(--blue-bg);color:var(--blue);border:1px solid #bfdbfe}
-.pright{margin-left:auto;text-align:right;flex-shrink:0}
-.pbadge{font-size:12px;font-weight:800;padding:5px 11px;border-radius:20px;display:inline-block;letter-spacing:.1px}
+.pright{margin-left:auto;text-align:right;flex-shrink:0;padding-left:8px}
+.pbadge{font-size:12px;font-weight:800;padding:5px 11px;border-radius:20px;display:inline-block;letter-spacing:.1px;white-space:nowrap}
 .s-ok .pbadge{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
 .s-warn .pbadge{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-border)}
 .s-late .pbadge{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
 .s-never .pbadge{background:var(--bg2);color:var(--sub);border:1px solid var(--border)}
-.plast{font-size:11px;color:var(--muted);margin-top:5px;font-weight:500}
+.plast{font-size:11px;color:var(--muted);margin-top:5px;font-weight:500;white-space:nowrap}
 .pcard-prog{padding:0 14px;margin-bottom:9px}
 .ptrack{height:4px;background:var(--bg2);border-radius:4px;overflow:hidden}
 .pbar{height:100%;border-radius:4px;transition:width .5s cubic-bezier(.4,0,.2,1)}
@@ -109,8 +111,8 @@ body{background:var(--bg);background-image:radial-gradient(ellipse 70% 50% at 50
 .s-warn .pbar{background:linear-gradient(90deg,var(--yellow),#fcd34d)}
 .s-late .pbar{background:linear-gradient(90deg,var(--red),#f87171)}
 .s-never .pbar{background:var(--border)}
-.pcard-acts{display:flex;border-top:1.5px solid var(--border);background:var(--bg2)}
-.pact{flex:1;padding:10px 4px;border:none;background:none;color:var(--sub);font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;font-family:var(--font);transition:color .12s,background .12s;letter-spacing:.2px;}
+.pcard-acts{display:flex;border-top:1.5px solid var(--border);background:var(--bg2);overflow-x:auto}
+.pact{flex:0 0 auto;min-width:52px;padding:10px 8px;border:none;background:none;color:var(--sub);font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:3px;font-family:var(--font);transition:color .12s,background .12s;letter-spacing:.1px;white-space:nowrap}
 .pact:not(:last-child){border-right:1.5px solid var(--border)}
 .pact:active{background:var(--border)}
 .pact-g{color:var(--green)}.pact-a{color:var(--accent)}.pact-r{color:var(--red)}.pact-p{color:var(--purple)}
@@ -123,14 +125,13 @@ body{background:var(--bg);background-image:radial-gradient(ellipse 70% 50% at 50
 .empty-cta{display:inline-flex;align-items:center;gap:8px;background:var(--ag);color:#fff;border:none;padding:14px 28px;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font);box-shadow:0 6px 20px rgba(224,107,58,.35);}
 
 /* FAB */
-.fab{display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--ag);color:#fff;border:none;border-radius:50px;padding:14px 26px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 8px 28px rgba(224,107,58,.45);font-family:var(--font);white-space:nowrap;align-items:center;gap:8px;z-index:30;animation:fpop .3s cubic-bezier(.34,1.56,.64,1);}
-@keyframes fpop{from{transform:translateX(-50%) scale(.7);opacity:0}to{transform:translateX(-50%) scale(1);opacity:1}}
+.fab{display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--ag);color:#fff;border:none;border-radius:50px;padding:14px 26px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 8px 28px rgba(224,107,58,.45);font-family:var(--font);white-space:nowrap;align-items:center;gap:8px;z-index:30;}
 .fab.show{display:flex}.fab:active{transform:translateX(-50%) scale(.95)}
 
 /* SHEETS */
 .overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(28,20,16,.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);align-items:flex-end;justify-content:center;}
 .overlay.open{display:flex}
-.sheet{background:var(--surface);border:1.5px solid var(--border);border-bottom:none;border-radius:26px 26px 0 0;width:100%;max-width:520px;padding:8px 20px calc(36px + env(safe-area-inset-bottom));max-height:94vh;overflow-y:auto;box-shadow:0 -8px 40px var(--shadow2);animation:sup .26s cubic-bezier(.33,1,.68,1) forwards;}
+.sheet{background:var(--surface);border:1.5px solid var(--border);border-bottom:none;border-radius:26px 26px 0 0;width:100%;max-width:520px;padding:8px 20px calc(36px + env(safe-area-inset-bottom));max-height:92vh;overflow-y:auto;box-shadow:0 -8px 40px var(--shadow2);animation:sup .26s cubic-bezier(.33,1,.68,1) forwards;}
 @keyframes sup{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .handle{width:42px;height:4px;background:var(--border2);border-radius:2px;margin:12px auto 20px}
 .sheet-title{font-size:20px;font-weight:800;letter-spacing:-.4px;margin-bottom:20px;color:var(--text)}
@@ -165,7 +166,7 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
 
 /* LOG PERSON HEADER */
 .lph{display:flex;align-items:center;gap:14px;padding:4px 0 16px;border-bottom:1.5px solid var(--border);margin-bottom:16px}
-.lph-av{width:50px;height:50px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:24px;background:var(--accent-soft);border:1.5px solid var(--accent-soft2)}
+.lph-av{width:50px;height:50px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:24px;background:var(--accent-soft);border:1.5px solid var(--accent-soft2);flex-shrink:0}
 .lph-name{font-size:18px;font-weight:800;color:var(--text);letter-spacing:-.3px}
 .lph-rel{font-size:12px;color:var(--sub);margin-top:3px;font-weight:500}
 
@@ -176,8 +177,8 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
 .hicon{font-size:17px;width:32px;height:32px;flex-shrink:0;background:var(--surface);border:1px solid var(--border);border-radius:9px;display:flex;align-items:center;justify-content:center}
 .hinfo{flex:1;min-width:0}
 .hdate{font-size:13px;font-weight:700;color:var(--text)}
-.hnote{font-size:12px;color:var(--sub);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-style:italic}
-.hdel{background:none;border:none;color:var(--muted);font-size:15px;cursor:pointer;padding:6px;border-radius:8px;}
+.hnote{font-size:12px;color:var(--sub);margin-top:2px;overflow:hidden;text-overflow:ellipsis;font-style:italic;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.hdel{background:none;border:none;color:var(--muted);font-size:15px;cursor:pointer;padding:6px;border-radius:8px;flex-shrink:0}
 .hdel:active{color:var(--red)}
 
 /* TOPICS */
@@ -186,14 +187,14 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
 .tchk.done{background:var(--green);border-color:var(--green);color:#fff;font-weight:800}
 .ttext{flex:1;font-size:14px;font-weight:500;color:var(--text)}
 .ttext.done{text-decoration:line-through;color:var(--muted)}
-.tdel{background:none;border:none;color:var(--muted);font-size:15px;cursor:pointer;padding:6px;border-radius:8px;}
+.tdel{background:none;border:none;color:var(--muted);font-size:15px;cursor:pointer;padding:6px;border-radius:8px;flex-shrink:0}
 .tdel:active{color:var(--red)}
 .tadd-row{display:flex;gap:8px;margin-top:10px}
 .tadd-row .finput{border-radius:12px;padding:11px 13px}
-.tadd-btn{padding:11px 18px;background:var(--ag);border:none;border-radius:12px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap;}
+.tadd-btn{padding:11px 18px;background:var(--ag);border:none;border-radius:12px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap;flex-shrink:0}
 
 /* NOTES */
-.notes-area{width:100%;padding:13px 15px;background:var(--bg2);border:1.5px solid var(--border);border-radius:13px;color:var(--text);font-size:14px;font-family:var(--font);outline:none;resize:none;min-height:100px;line-height:1.6;transition:border-color .16s;}
+.notes-area{width:100%;padding:13px 15px;background:var(--bg2);border:1.5px solid var(--border);border-radius:13px;color:var(--text);font-size:14px;font-family:var(--font);outline:none;resize:none;min-height:120px;line-height:1.6;transition:border-color .16s;}
 .notes-area:focus{border-color:var(--accent);background:var(--accent-soft)}
 
 /* SCHEDULE */
@@ -202,7 +203,39 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
 .sched-info{flex:1}
 .sched-date{font-size:13px;font-weight:700;color:var(--blue)}
 .sched-days{font-size:12px;color:var(--sub);margin-top:2px}
-.sched-del{background:none;border:none;color:var(--muted);font-size:15px;cursor:pointer;padding:4px}
+.sched-del{background:none;border:none;color:var(--muted);font-size:15px;cursor:pointer;padding:4px;flex-shrink:0}
+
+/* CALENDAR PAGE */
+.cal-page-wrap{padding:12px 14px 20px}
+.cal-nav-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cal-month-label{font-size:18px;font-weight:800;color:var(--text);letter-spacing:-.4px}
+.cal-nav-btn{width:36px;height:36px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);box-shadow:0 1px 3px var(--shadow);transition:all .14s;}
+.cal-nav-btn:active{background:var(--bg2);transform:scale(.9)}
+.cal-dow-row{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;padding:0 2px}
+.cal-grid-month{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:16px}
+.cal-cell{aspect-ratio:1;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;background:var(--surface);border:1.5px solid var(--border);transition:all .14s;box-shadow:0 1px 3px var(--shadow);}
+.cal-cell:active{transform:scale(.92)}
+.cal-cell.empty,.cal-cell.other-month{background:transparent;border-color:transparent;box-shadow:none;cursor:default}
+.cal-cell.today{border-color:var(--accent);border-width:2px}
+.cal-cell.has-calls{background:var(--accent-soft);border-color:var(--accent-soft2)}
+.cal-cell.selected{background:var(--accent);border-color:var(--accent);box-shadow:0 4px 14px rgba(224,107,58,.35)}
+.cal-cell.selected .cal-day-num{color:#fff}
+.cal-cell.selected .cal-dots span{background:#fff!important}
+.cal-day-num{font-size:13px;font-weight:700;color:var(--text);line-height:1}
+.cal-cell.has-calls .cal-day-num{color:var(--accent)}
+.cal-cell.other-month .cal-day-num{color:var(--muted)}
+.cal-dots{display:flex;gap:2px;margin-top:3px;flex-wrap:wrap;justify-content:center;max-width:30px}
+.cal-dots span{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.cal-journal-title{font-size:13px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cal-journal-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.cal-journal-empty{text-align:center;padding:28px 20px;color:var(--muted);font-size:14px;background:var(--surface);border:1.5px solid var(--border);border-radius:16px}
+.jentry{display:flex;gap:12px;padding:14px;background:var(--surface);border:1.5px solid var(--border);border-radius:16px;margin-bottom:8px;box-shadow:0 1px 4px var(--shadow);}
+.jentry-av{width:42px;height:42px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--accent-soft);border:1.5px solid var(--accent-soft2)}
+.jentry-info{flex:1;min-width:0}
+.jentry-name{font-size:14px;font-weight:800;color:var(--text)}
+.jentry-meta{font-size:12px;color:var(--sub);margin-top:3px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.jentry-note{font-size:13px;color:var(--text2);margin-top:6px;font-style:italic;line-height:1.5;background:var(--bg2);border-radius:8px;padding:8px 10px}
+.jentry-type{font-size:16px}
 
 /* STATS */
 .sw{padding:10px 14px 20px}
@@ -228,13 +261,6 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
 .tbox-icon{font-size:24px;width:42px;height:42px;background:var(--bg2);border:1px solid var(--border);border-radius:11px;display:flex;align-items:center;justify-content:center}
 .tbox-n{font-size:20px;font-weight:800;color:var(--text)}
 .tbox-l{font-size:11px;color:var(--sub);margin-top:1px}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:10px}
-.cday{aspect-ratio:1;border-radius:8px;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--muted);font-weight:700;}
-.cday.has{background:var(--accent-soft);border-color:var(--accent-soft2);color:var(--accent)}
-.cday.today{border-color:var(--green);color:var(--green);border-width:2px}
-.cal-legend{display:flex;gap:14px;margin-top:10px;font-size:11px;color:var(--muted)}
-.cal-legend span{display:flex;align-items:center;gap:5px}
-.cal-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
 
 /* IO PAGE */
 .io-wrap{padding:10px 14px 20px}
@@ -260,43 +286,11 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
 .sync-dot.on{background:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,.2)}
 .sync-dot.off{background:var(--muted)}
 
-/* CALENDAR PAGE */
-.cal-page-wrap{padding:12px 14px 20px}
-.cal-nav-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.cal-month-label{font-size:18px;font-weight:800;color:var(--text);letter-spacing:-.4px}
-.cal-nav-btn{width:36px;height:36px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);box-shadow:0 1px 3px var(--shadow);transition:all .14s;}
-.cal-nav-btn:active{background:var(--bg2);transform:scale(.9)}
-.cal-dow-row{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;padding:0 2px}
-.cal-grid-month{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:16px}
-.cal-cell{aspect-ratio:1;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;background:var(--surface);border:1.5px solid var(--border);transition:all .14s;box-shadow:0 1px 3px var(--shadow);}
-.cal-cell:active{transform:scale(.92)}
-.cal-cell.empty{background:transparent;border-color:transparent;box-shadow:none;cursor:default}
-.cal-cell.today{border-color:var(--accent);border-width:2px}
-.cal-cell.has-calls{background:var(--accent-soft);border-color:var(--accent-soft2)}
-.cal-cell.selected{background:var(--accent);border-color:var(--accent);box-shadow:0 4px 14px rgba(224,107,58,.35)}
-.cal-cell.selected .cal-day-num{color:#fff}
-.cal-cell.selected .cal-dots span{background:#fff}
-.cal-day-num{font-size:13px;font-weight:700;color:var(--text);line-height:1}
-.cal-cell.has-calls .cal-day-num{color:var(--accent)}
-.cal-cell.other-month .cal-day-num{color:var(--muted)}
-.cal-cell.other-month{background:transparent;border-color:transparent;box-shadow:none}
-.cal-dots{display:flex;gap:2px;margin-top:3px;flex-wrap:wrap;justify-content:center;max-width:30px}
-.cal-dots span{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-
-/* JOURNAL */
-.cal-journal-title{font-size:13px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.cal-journal-title::after{content:'';flex:1;height:1px;background:var(--border)}
-.cal-journal-empty{text-align:center;padding:28px 20px;color:var(--muted);font-size:14px;background:var(--surface);border:1.5px solid var(--border);border-radius:16px}
-.jentry{display:flex;gap:12px;padding:14px;background:var(--surface);border:1.5px solid var(--border);border-radius:16px;margin-bottom:8px;box-shadow:0 1px 4px var(--shadow);}
-.jentry-av{width:42px;height:42px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--accent-soft);border:1.5px solid var(--accent-soft2)}
-.jentry-info{flex:1;min-width:0}
-.jentry-name{font-size:14px;font-weight:800;color:var(--text)}
-.jentry-meta{font-size:12px;color:var(--sub);margin-top:3px;display:flex;align-items:center;gap:6px}
-.jentry-note{font-size:13px;color:var(--text2);margin-top:6px;font-style:italic;line-height:1.5;background:var(--bg2);border-radius:8px;padding:8px 10px}
-.jentry-type{font-size:16px}
-#toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--text);color:#fff;padding:11px 20px;border-radius:50px;font-size:13px;font-weight:700;z-index:999;opacity:0;transition:opacity .22s,transform .22s;white-space:nowrap;pointer-events:none;box-shadow:0 8px 28px rgba(28,20,16,.25);display:flex;align-items:center;gap:8px;}
+/* TOAST */
+#toast{position:fixed;bottom:96px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--text);color:#fff;padding:11px 20px;border-radius:50px;font-size:13px;font-weight:700;z-index:9999;opacity:0;transition:opacity .22s,transform .22s;white-space:nowrap;pointer-events:none;box-shadow:0 8px 28px rgba(28,20,16,.25);display:flex;align-items:center;gap:8px;max-width:calc(100vw - 40px);}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .tdot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0}
+#toastMsg{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -306,13 +300,13 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
   <div class="hdr-row">
     <div class="hdr-brand">
       <div class="logo">📞</div>
-      <div class="brand-name">Family <em>Call Tracker</em></div>
+      <div class="brand-name">Family <em>Calls</em></div>
     </div>
     <div class="hdr-btns">
-      <button class="hbtn" id="hdrSyncBtn" onclick="hdrSync()" title="Sync to Google Drive" style="display:none">
-        <svg id="hdrSyncIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      <button class="hbtn hbtn-sync" id="hdrSyncBtn" onclick="hdrSync()" title="Sync to Google Drive" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
       </button>
-      <button class="hbtn" onclick="showPage('io')">
+      <button class="hbtn" onclick="showPage('io')" title="Settings">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       </button>
       <button class="hbtn hbtn-add" onclick="openAdd()">
@@ -330,10 +324,9 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
 
 <!-- HOME PAGE -->
 <div class="page on" id="pageHome">
-  <!-- SEARCH -->
   <div class="search-wrap" id="searchWrap" style="display:none">
     <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input class="search-input" type="text" id="searchInput" placeholder="Search by name or relation…" oninput="onSearch(this.value)">
+    <input class="search-input" type="text" id="searchInput" placeholder="Search by name or relation…" oninput="onSearch(this.value)" autocomplete="off">
     <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
   </div>
   <div id="list"></div>
@@ -341,54 +334,6 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
     <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="15" height="15"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
     Add family member
   </button>
-</div>
-
-<!-- STATS PAGE -->
-<div class="page" id="pageStats">
-  <div class="sw" id="statsContent"></div>
-</div>
-
-<!-- SETTINGS PAGE -->
-<div class="page" id="pageIo">
-  <div class="io-wrap">
-    <div class="io-section-title">☁️ Cloud sync</div>
-    <div class="io-card">
-      <div class="io-card-head"><div class="io-card-icon" style="background:#e8f0fe">🔵</div><div class="io-card-title">Google Drive sync</div></div>
-      <div id="syncBanner" class="sync-banner sync-off"><div class="sync-dot off" id="syncDot"></div><span id="syncStatus">Not connected</span></div>
-      <div class="io-card-desc">Sign in with Google to save your Family Call Tracker data to Google Drive and sync across all devices.</div>
-      <button class="io-btn io-blue" id="gdriveBtn" onclick="gdriveAction()"><span id="gdriveBtnIcon">🔵</span><span id="gdriveBtnText">Connect Google Drive</span></button>
-      <button class="io-btn io-primary" id="syncNowBtn" onclick="syncNow()" style="display:none">☁️ Sync now</button>
-      <div class="io-info" id="lastSyncInfo">Connect to enable cross-device sync</div>
-    </div>
-    <div class="io-section-title">📁 Manual backup</div>
-    <div class="io-card">
-      <div class="io-card-head"><div class="io-card-icon" style="background:var(--accent-soft)">📤</div><div class="io-card-title">Export data</div></div>
-      <div class="io-card-desc">Download a JSON backup to transfer to another device or store in the cloud.</div>
-      <button class="io-btn io-primary" onclick="exportJSON()">⬇️ Download JSON backup</button>
-      <button class="io-btn io-sec" onclick="exportText()">📋 Copy as readable text</button>
-    </div>
-    <div class="io-card">
-      <div class="io-card-head"><div class="io-card-icon" style="background:var(--green-bg)">📥</div><div class="io-card-title">Import data</div></div>
-      <div class="io-card-desc">Import a previously exported JSON file. Data is merged — no duplicates.</div>
-      <button class="io-btn io-grn" onclick="document.getElementById('importFileInput').click()">⬆️ Choose backup file</button>
-      <input type="file" id="importFileInput" accept=".json" onchange="importJSON(event)">
-    </div>
-    <div class="io-section-title">💡 How to sync</div>
-    <div class="io-card" style="background:var(--accent-soft);border-color:var(--accent-soft2)">
-      <div style="font-size:13px;color:var(--text2);line-height:1.7">
-        <strong>Option 1 — Google Drive:</strong> Connect above, tap Sync now. Opens on any device automatically.<br><br>
-        <strong>Option 2 — Email:</strong> Download → email to yourself → import on other device.<br><br>
-        <strong>Option 3 — WhatsApp:</strong> Download → share .json to yourself → import.
-      </div>
-    </div>
-    <div class="io-section-title">⚠️ Danger zone</div>
-    <div class="io-card">
-      <div class="io-card-head"><div class="io-card-icon" style="background:var(--red-bg)">🗑</div><div class="io-card-title">Clear all data</div></div>
-      <div class="io-card-desc">Permanently delete all people, call history, and topics.</div>
-      <button class="io-btn io-red" onclick="clearAll()">✕ Delete everything</button>
-    </div>
-    <div style="text-align:center;padding:16px 0 4px;font-size:12px;color:var(--muted)">Family Call Tracker · All data stored on your device · Made with ❤️</div>
-  </div>
 </div>
 
 <!-- CALENDAR PAGE -->
@@ -407,7 +352,55 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
       <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
     </div>
     <div class="cal-grid-month" id="calGrid"></div>
-    <div class="cal-journal" id="calJournal"></div>
+    <div id="calJournal"></div>
+  </div>
+</div>
+
+<!-- STATS PAGE -->
+<div class="page" id="pageStats">
+  <div class="sw" id="statsContent"></div>
+</div>
+
+<!-- SETTINGS PAGE -->
+<div class="page" id="pageIo">
+  <div class="io-wrap">
+    <div class="io-section-title">☁️ Cloud sync</div>
+    <div class="io-card">
+      <div class="io-card-head"><div class="io-card-icon" style="background:#e8f0fe">🔵</div><div class="io-card-title">Google Drive sync</div></div>
+      <div id="syncBanner" class="sync-banner sync-off"><div class="sync-dot off" id="syncDot"></div><span id="syncStatus">Not connected</span></div>
+      <div class="io-card-desc">Sign in with Google to save your data to Google Drive and sync across all your devices automatically.</div>
+      <button class="io-btn io-blue" id="gdriveBtn" onclick="gdriveAction()"><span id="gdriveBtnIcon">🔵</span> <span id="gdriveBtnText">Connect Google Drive</span></button>
+      <button class="io-btn io-primary" id="syncNowBtn" onclick="syncNow()" style="display:none">☁️ Sync now</button>
+      <div class="io-info" id="lastSyncInfo">Connect to enable cross-device sync</div>
+    </div>
+    <div class="io-section-title">📁 Manual backup</div>
+    <div class="io-card">
+      <div class="io-card-head"><div class="io-card-icon" style="background:var(--accent-soft)">📤</div><div class="io-card-title">Export data</div></div>
+      <div class="io-card-desc">Download a JSON backup to transfer to another device or store in any cloud service.</div>
+      <button class="io-btn io-primary" onclick="exportJSON()">⬇️ Download JSON backup</button>
+      <button class="io-btn io-sec" onclick="exportText()">📋 Copy as readable text</button>
+    </div>
+    <div class="io-card">
+      <div class="io-card-head"><div class="io-card-icon" style="background:var(--green-bg)">📥</div><div class="io-card-title">Import data</div></div>
+      <div class="io-card-desc">Import a previously exported JSON file. Data is merged — no duplicates.</div>
+      <button class="io-btn io-grn" onclick="document.getElementById('importFileInput').click()">⬆️ Choose backup file</button>
+      <input type="file" id="importFileInput" accept=".json" onchange="importJSON(event)">
+    </div>
+    <div class="io-section-title">💡 How to sync</div>
+    <div class="io-card" style="background:var(--accent-soft);border-color:var(--accent-soft2)">
+      <div style="font-size:13px;color:var(--text2);line-height:1.7">
+        <strong>Option 1 — Google Drive:</strong> Connect above, tap Sync now on any device.<br><br>
+        <strong>Option 2 — Email:</strong> Download backup → email to yourself → import on other device.<br><br>
+        <strong>Option 3 — WhatsApp:</strong> Download → share .json to yourself → open → import.
+      </div>
+    </div>
+    <div class="io-section-title">⚠️ Danger zone</div>
+    <div class="io-card">
+      <div class="io-card-head"><div class="io-card-icon" style="background:var(--red-bg)">🗑</div><div class="io-card-title">Clear all data</div></div>
+      <div class="io-card-desc">Permanently delete all people, call history, notes and topics. Cannot be undone.</div>
+      <button class="io-btn io-red" onclick="clearAll()">✕ Delete everything</button>
+    </div>
+    <div style="text-align:center;padding:16px 0 4px;font-size:12px;color:var(--muted)">Family Call Tracker · All data on your device · Made with ❤️</div>
   </div>
 </div>
 
@@ -531,7 +524,7 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
   </div>
 </div>
 
-<!-- SHEET: Schedule next call -->
+<!-- SHEET: Schedule -->
 <div class="overlay" id="schedOverlay">
   <div class="sheet">
     <div class="handle"></div>
@@ -560,29 +553,94 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
 </div>
 
 <script>
+/* ── DATA ──
+   KEY history (never delete old keys — only read from them for migration):
+   kinship1, kinship2, kinship3 → old keys
+   family-calls3 → current key
+   We read all old keys on first load and migrate data forward.
+*/
 const KEY='family-calls3';
+const OLD_KEYS=['kinship1','kinship2','kinship3','family-calls2'];
+
 let people=[],editId=null,logId=null,topicPersonId=null,notesPersonId=null,schedPersonId=null;
 let selEmoji='',selType='📞',selQD='today';
 let gdriveConnected=false,lastSyncTime=null,gToken=null;
 let searchQuery='';
+let deletedIds=new Set();
 
 const EMOJIS=['👴','👵','👨','👩','🧑','👦','👧','🧓','🧒','👨‍👩‍👦','👫','❤️','🌸','⭐','🏠','🌟','🎯','💫'];
 const GDRIVE_CLIENT_ID='250319257117-1bs48kbjeojifhbdtsck2iuah6fs6qst.apps.googleusercontent.com';
 const GDRIVE_SCOPE='https://www.googleapis.com/auth/drive.appdata';
 
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2)}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(people))}catch(e){}}
+
+function sanitize(p){
+  // Ensure every person object has all required fields — safe to call repeatedly
+  if(!p.id)p.id=uid();
+  if(!p.logs)p.logs=[];
+  if(!p.topics)p.topics=[];
+  if(!p.notes)p.notes='';
+  if(p.pinned===undefined)p.pinned=false;
+  if(!p.freq)p.freq=7;
+  // Sort logs newest first
+  p.logs.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  return p;
+}
+
+function save(){
+  try{
+    localStorage.setItem(KEY,JSON.stringify(people));
+    localStorage.setItem(KEY+'_deleted',JSON.stringify([...deletedIds]));
+  }catch(e){console.error('Save failed',e)}
+}
+
 function load(){
   try{
+    // Load current data
     const d=localStorage.getItem(KEY);
-    if(d){people=JSON.parse(d);people.forEach(p=>{if(!p.topics)p.topics=[];if(!p.logs)p.logs=[];if(!p.notes)p.notes='';if(p.pinned===undefined)p.pinned=false;})}
-    // migrate old key
-    if(!people.length){const old=localStorage.getItem('family-calls2');if(old){people=JSON.parse(old);people.forEach(p=>{if(!p.topics)p.topics=[];if(!p.logs)p.logs=[];if(!p.notes)p.notes='';if(p.pinned===undefined)p.pinned=false;});save();}}
+    if(d) people=JSON.parse(d).map(sanitize);
+
+    // Migrate from any old keys — safe because we only ADD, never overwrite
+    if(!people.length){
+      for(const oldKey of OLD_KEYS){
+        try{
+          const old=localStorage.getItem(oldKey);
+          if(old){
+            const parsed=JSON.parse(old);
+            if(Array.isArray(parsed)&&parsed.length){
+              people=parsed.map(sanitize);
+              save(); // save into new key
+              break;
+            }
+            // Handle wrapped format {people:[...]}
+            if(parsed.people&&parsed.people.length){
+              people=parsed.people.map(sanitize);
+              save();
+              break;
+            }
+          }
+        }catch(e){}
+      }
+    }
+
+    // Load deleted IDs
+    const dd=localStorage.getItem(KEY+'_deleted');
+    if(dd) deletedIds=new Set(JSON.parse(dd));
+
+    // Remove any people who are in the deleted list (cleanup)
+    people=people.filter(p=>!deletedIds.has(p.id));
+
+    // Load sync state
     const ss=localStorage.getItem(KEY+'_sync');
     if(ss){const s=JSON.parse(ss);gdriveConnected=s.connected||false;lastSyncTime=s.lastSync||null}
-  }catch(e){people=[]}
+  }catch(e){console.error('Load failed',e);people=[];}
 }
-function saveSync(){localStorage.setItem(KEY+'_sync',JSON.stringify({connected:gdriveConnected,lastSync:lastSyncTime}))}
+
+function saveSync(){
+  localStorage.setItem(KEY+'_sync',JSON.stringify({connected:gdriveConnected,lastSync:lastSyncTime}));
+}
+
+/* ── UTILS ── */
 function todayStr(){return new Date().toISOString().slice(0,10)}
 function daysSince(iso){if(!iso)return null;return Math.floor((Date.now()-new Date(iso).getTime())/86400000)}
 function daysUntil(iso){if(!iso)return null;return Math.ceil((new Date(iso).setHours(23,59,59,999)-Date.now())/86400000)}
@@ -597,7 +655,8 @@ function fmtDate(iso){
   return new Date(iso).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
 }
 function fmtFull(iso){return new Date(iso).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}
-function initials(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}
+function initials(n){return(n||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 
 /* ── STREAK ── */
 function calcStreak(p){
@@ -612,24 +671,19 @@ function calcStreak(p){
 }
 
 /* ── SEARCH ── */
-function onSearch(val){
-  searchQuery=val.trim().toLowerCase();
-  document.getElementById('searchClear').classList.toggle('show',!!searchQuery);
-  render();
-}
-function clearSearch(){
-  searchQuery='';
-  document.getElementById('searchInput').value='';
-  document.getElementById('searchClear').classList.remove('show');
-  render();
-}
+function onSearch(val){searchQuery=val.trim().toLowerCase();document.getElementById('searchClear').classList.toggle('show',!!searchQuery);render();}
+function clearSearch(){searchQuery='';document.getElementById('searchInput').value='';document.getElementById('searchClear').classList.remove('show');render();}
 
 /* ── PAGE ROUTING ── */
 function showPage(p){
   document.querySelectorAll('.page').forEach(el=>el.classList.remove('on'));
   document.querySelectorAll('.nb').forEach(el=>el.classList.remove('on'));
-  document.getElementById('page'+p.charAt(0).toUpperCase()+p.slice(1)).classList.add('on');
-  document.getElementById('nav'+p.charAt(0).toUpperCase()+p.slice(1)).classList.add('on');
+  const pid='page'+p.charAt(0).toUpperCase()+p.slice(1);
+  const nid='nav'+p.charAt(0).toUpperCase()+p.slice(1);
+  const pel=document.getElementById(pid);
+  const nel=document.getElementById(nid);
+  if(pel)pel.classList.add('on');
+  if(nel)nel.classList.add('on');
   if(p==='stats')renderStats();
   if(p==='cal')renderCal();
   if(p==='io')renderSyncUI();
@@ -642,18 +696,16 @@ function render(){
   const sr=document.getElementById('summaryRow');
   const sw=document.getElementById('searchWrap');
   if(!people.length){
-    el.innerHTML=`<div class="empty"><div class="empty-icon">📵</div><h3>No one added yet</h3><p>Add your family members and never lose touch with anyone who matters.</p><button class="empty-cta" onclick="openAdd()"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="15" height="15"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add first person</button></div>`;
+    el.innerHTML=`<div class="empty"><div class="empty-icon">📵</div><h3>No one added yet</h3><p>Add your family members and never lose touch with the people who matter.</p><button class="empty-cta" onclick="openAdd()"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="15" height="15"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add first person</button></div>`;
     fab.classList.remove('show');sr.style.display='none';sw.style.display='none';return;
   }
   fab.classList.add('show');sr.style.display='flex';sw.style.display='block';
   const ord={late:0,warn:1,never:2,ok:3};
-  // Pinned first, then by status
   let sorted=[...people].sort((a,b)=>{
     if(a.pinned&&!b.pinned)return-1;if(!a.pinned&&b.pinned)return 1;
     return ord[statusOf(a)]-ord[statusOf(b)];
   });
-  // Apply search filter
-  if(searchQuery)sorted=sorted.filter(p=>p.name.toLowerCase().includes(searchQuery)||( p.relation||'').toLowerCase().includes(searchQuery));
+  if(searchQuery)sorted=sorted.filter(p=>p.name.toLowerCase().includes(searchQuery)||(p.relation||'').toLowerCase().includes(searchQuery));
   let ok=0,warn=0,late=0;
   people.forEach(p=>{const s=statusOf(p);if(s==='ok')ok++;else if(s==='warn')warn++;else if(s==='late')late++});
   document.getElementById('sOk').textContent=ok;
@@ -661,28 +713,15 @@ function render(){
   document.getElementById('sLate').textContent=late;
   document.getElementById('sTotal').textContent=people.length;
   document.getElementById('pipHome').className='nb-pip'+(late>0?' show':'');
-
   let html='';
-  if(searchQuery&&!sorted.length){html=`<div class="empty" style="padding:40px 28px"><div class="empty-icon">🔍</div><h3>No results</h3><p>No one matches "${searchQuery}"</p></div>`;el.innerHTML=html;return;}
-
-  // Group: pinned, then sections
+  if(searchQuery&&!sorted.length){el.innerHTML=`<div class="empty" style="padding:40px 28px"><div class="empty-icon">🔍</div><h3>No results</h3><p>No one matches "${esc(searchQuery)}"</p></div>`;return;}
   const pinned=sorted.filter(p=>p.pinned);
   const rest=sorted.filter(p=>!p.pinned);
-
   if(pinned.length&&!searchQuery){html+=`<div class="slabel">⭐ Pinned</div>`;pinned.forEach(p=>html+=buildCard(p));}
-
   if(!searchQuery){
     const secs=[{key:'late',label:'🔴 Call them now'},{key:'warn',label:'🟡 Due soon'},{key:'never',label:'⬜ Not yet called'},{key:'ok',label:'🟢 All good'}];
-    secs.forEach(sec=>{
-      const grp=rest.filter(p=>statusOf(p)===sec.key);
-      if(!grp.length)return;
-      html+=`<div class="slabel">${sec.label}</div>`;
-      grp.forEach(p=>html+=buildCard(p));
-    });
-  }else{
-    if(sorted.length)html+=`<div class="slabel">Search results (${sorted.length})</div>`;
-    sorted.forEach(p=>html+=buildCard(p));
-  }
+    secs.forEach(sec=>{const grp=rest.filter(p=>statusOf(p)===sec.key);if(!grp.length)return;html+=`<div class="slabel">${sec.label}</div>`;grp.forEach(p=>html+=buildCard(p));});
+  }else{html+=`<div class="slabel">Results (${sorted.length})</div>`;sorted.forEach(p=>html+=buildCard(p));}
   el.innerHTML=html;
 }
 
@@ -699,37 +738,31 @@ function buildCard(p){
   const streak=calcStreak(p);
   const tags=[];
   if(pt)tags.push(`<span class="ptag ptag-topic">💬 ${pt} topic${pt>1?'s':''}</span>`);
-  if(streak>=2)tags.push(`<span class="ptag ptag-streak">🔥 ${streak} week streak</span>`);
-  if(p.scheduledCall){
-    const du=daysUntil(p.scheduledCall);
-    if(du!==null&&du>=0)tags.push(`<span class="ptag ptag-sched">🗓 Call in ${du===0?'today':du+'d'}</span>`);
-  }
+  if(streak>=2)tags.push(`<span class="ptag ptag-streak">🔥 ${streak}wk streak</span>`);
+  if(p.scheduledCall){const du=daysUntil(p.scheduledCall);if(du!==null&&du>=0)tags.push(`<span class="ptag ptag-sched">🗓 in ${du===0?'today':du+'d'}</span>`);}
   tags.push(`<span class="ptag ptag-freq">every ${freq}d</span>`);
   const hasNotes=p.notes&&p.notes.trim().length>0;
-  return`
-<div class="pcard s-${st}" onclick="openLog('${p.id}')">
+  const id=esc(p.id);
+  return`<div class="pcard s-${st}" onclick="openLog('${id}')">
   <div class="pcard-stripe"></div>
   <div class="pcard-body">
     <div class="av">${av}</div>
     <div class="pinfo">
-      <div class="pname-row"><div class="pname">${p.name}</div>${p.pinned?'<span class="pin-star">⭐</span>':''}</div>
-      <div class="prel">${p.relation||'Family'}${hasNotes?' · 📝':''}</div>
+      <div class="pname-row"><div class="pname">${esc(p.name)}</div>${p.pinned?'<span class="pin-star">⭐</span>':''}</div>
+      <div class="prel">${esc(p.relation||'Family')}${hasNotes?' · 📝':''}</div>
       <div class="ptags">${tags.join('')}</div>
     </div>
-    <div class="pright">
-      <div class="pbadge">${dLabel}</div>
-      <div class="plast">${lastLine}</div>
-    </div>
+    <div class="pright"><div class="pbadge">${dLabel}</div><div class="plast">${lastLine}</div></div>
   </div>
   <div class="pcard-prog"><div class="ptrack"><div class="pbar" style="width:${pct}%"></div></div></div>
   <div class="pcard-acts">
-    <button class="pact pact-g" onclick="event.stopPropagation();quickLog('${p.id}')">📞 Called!</button>
-    <button class="pact pact-a" onclick="event.stopPropagation();openTopics('${p.id}')">💬 Topics</button>
-    <button class="pact pact-p" onclick="event.stopPropagation();openNotesSheet('${p.id}')">📝 Notes</button>
-    <button class="pact" onclick="event.stopPropagation();openSchedOverlay('${p.id}')">🗓</button>
-    <button class="pact" onclick="event.stopPropagation();togglePin('${p.id}')">${p.pinned?'📌':'⭐'}</button>
-    <button class="pact" onclick="event.stopPropagation();openEdit('${p.id}')">✏️</button>
-    <button class="pact pact-r" onclick="event.stopPropagation();delPerson('${p.id}')">🗑</button>
+    <button class="pact pact-g" onclick="event.stopPropagation();quickLog('${id}')">📞 Called!</button>
+    <button class="pact pact-a" onclick="event.stopPropagation();openTopics('${id}')">💬 Topics</button>
+    <button class="pact pact-p" onclick="event.stopPropagation();openNotesSheet('${id}')">📝 Notes</button>
+    <button class="pact" onclick="event.stopPropagation();openSchedOverlay('${id}')">🗓 Schedule</button>
+    <button class="pact" onclick="event.stopPropagation();togglePin('${id}')">${p.pinned?'📌 Unpin':'⭐ Pin'}</button>
+    <button class="pact" onclick="event.stopPropagation();openEdit('${id}')">✏️ Edit</button>
+    <button class="pact pact-r" onclick="event.stopPropagation();delPerson('${id}')">🗑 Remove</button>
   </div>
 </div>`;
 }
@@ -742,9 +775,9 @@ function closeAdd(){document.getElementById('addOverlay').classList.remove('open
 function pickEmoji(e){selEmoji=e;buildEmojiRow(e)}
 function savePerson(){
   const name=document.getElementById('iName').value.trim();if(!name){document.getElementById('iName').focus();return}
-  const relation=document.getElementById('iRelation').value.trim();const freq=parseInt(document.getElementById('iFreq').value);
+  const relation=document.getElementById('iRelation').value.trim();const freq=parseInt(document.getElementById('iFreq').value)||7;
   if(editId){const p=people.find(x=>x.id===editId);if(p){p.name=name;p.relation=relation;p.freq=freq;p.emoji=selEmoji}}
-  else{people.push({id:uid(),name,relation,freq,emoji:selEmoji,logs:[],topics:[],notes:'',pinned:false})}
+  else{people.push(sanitize({id:uid(),name,relation,freq,emoji:selEmoji,logs:[],topics:[],notes:'',pinned:false}))}
   save();render();closeAdd();
 }
 
@@ -775,29 +808,49 @@ function saveLog(){
   if(!p.logs)p.logs=[];
   p.logs.unshift({date:getLogDate(),type:selType,note});
   p.logs.sort((a,b)=>new Date(b.date)-new Date(a.date));
-  // clear scheduled call if the call date matches
   if(p.scheduledCall&&daysSince(p.scheduledCall)>=0)p.scheduledCall=null;
   save();render();closeLog();toast('Call logged with '+p.name);
 }
-function quickLog(id){const p=people.find(x=>x.id===id);if(!p)return;if(!p.logs)p.logs=[];p.logs.unshift({date:new Date().toISOString(),type:'📞',note:''});p.logs.sort((a,b)=>new Date(b.date)-new Date(a.date));if(p.scheduledCall&&daysSince(p.scheduledCall)>=0)p.scheduledCall=null;save();render();toast('Logged call with '+p.name);}
-function delLog(personId,idx){const p=people.find(x=>x.id===personId);if(!p)return;p.logs.splice(idx,1);save();render();renderHistory(p);}
-function delPerson(id){const p=people.find(x=>x.id===id);if(!p||!confirm(`Remove ${p.name}?\nThis will delete all their data.`))return;people=people.filter(x=>x.id!==id);save();render();}
+function quickLog(id){
+  const p=people.find(x=>x.id===id);if(!p)return;
+  if(!p.logs)p.logs=[];
+  p.logs.unshift({date:new Date().toISOString(),type:'📞',note:''});
+  p.logs.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  if(p.scheduledCall&&daysSince(p.scheduledCall)>=0)p.scheduledCall=null;
+  save();render();toast('Logged call with '+p.name);
+}
+function delLog(personId,idx){
+  const p=people.find(x=>x.id===personId);if(!p)return;
+  p.logs.splice(idx,1);save();render();
+  // Re-render history inside the open sheet
+  const lp=people.find(x=>x.id===logId);if(lp)renderHistory(lp);
+}
+function delPerson(id){
+  const p=people.find(x=>x.id===id);
+  if(!p||!confirm(`Remove ${p.name}?\nThis will delete all their call history, notes and topics.`))return;
+  deletedIds.add(id);
+  people=people.filter(x=>x.id!==id);
+  save();render();
+  toast(`Removed ${p.name}`);
+}
 function renderHistory(p){
-  const wrap=document.getElementById('histWrap');const logs=p.logs||[];
-  if(!logs.length){wrap.innerHTML='';return}
-  // Show scheduled call at top if set
+  const wrap=document.getElementById('histWrap');
+  if(!wrap)return;
+  const logs=p.logs||[];
   let schedHtml='';
-  if(p.scheduledCall){const du=daysUntil(p.scheduledCall);if(du!==null&&du>=0){schedHtml=`<div class="sched-box"><div class="sched-icon">🗓</div><div class="sched-info"><div class="sched-date">Next call: ${fmtFull(p.scheduledCall)}</div><div class="sched-days">${du===0?'Today!':du+' days away'}</div></div><button class="sched-del" onclick="clearSched('${p.id}')">✕</button></div>`;}}
+  if(p.scheduledCall){const du=daysUntil(p.scheduledCall);if(du!==null&&du>=0)schedHtml=`<div class="sched-box"><div class="sched-icon">🗓</div><div class="sched-info"><div class="sched-date">Next call: ${fmtFull(p.scheduledCall)}</div><div class="sched-days">${du===0?'Today!':du+' days away'}</div></div><button class="sched-del" onclick="clearSched('${esc(p.id)}')">✕</button></div>`;}
+  if(!logs.length){wrap.innerHTML=schedHtml;return}
   wrap.innerHTML=schedHtml+`<div class="hlabel">Call history (${logs.length})</div>`+
-    logs.map((l,i)=>`<div class="hitem"><div class="hicon">${l.type}</div><div class="hinfo"><div class="hdate">${fmtFull(l.date)}</div>${l.note?`<div class="hnote">"${l.note}"</div>`:''}</div><button class="hdel" onclick="delLog('${p.id}',${i})">✕</button></div>`).join('');
+    logs.map((l,i)=>`<div class="hitem"><div class="hicon">${l.type}</div><div class="hinfo"><div class="hdate">${fmtFull(l.date)}</div>${l.note?`<div class="hnote">"${esc(l.note)}"</div>`:''}</div><button class="hdel" onclick="delLog('${esc(p.id)}',${i})">✕</button></div>`).join('');
 }
 
 /* ── TOPICS ── */
 function renderTopicsInLog(p){
-  const wrap=document.getElementById('topicsInLog');const topics=p.topics||[];
-  if(!topics.length){wrap.innerHTML=`<div class="hlabel">Talking points</div><div style="font-size:13px;color:var(--muted);padding:10px 0 4px;text-align:center">None saved — use Topics button on the card</div>`;return}
+  const wrap=document.getElementById('topicsInLog');if(!wrap)return;
+  const topics=p.topics||[];
+  if(!topics.length){wrap.innerHTML=`<div class="hlabel">Talking points</div><div style="font-size:13px;color:var(--muted);padding:10px 0 4px;text-align:center">None yet — use the Topics button on the card</div>`;return}
   wrap.innerHTML=`<div class="hlabel">Talking points (${topics.filter(t=>!t.done).length} pending)</div>`+
-    topics.map((t,i)=>`<div class="titem"><div class="tchk${t.done?' done':''}" onclick="toggleTopicInLog('${p.id}',${i})">${t.done?'✓':''}</div><div class="ttext${t.done?' done':''}">${t.text}</div></div>`).join('');
+    topics.map((t,i)=>`<div class="titem"><div class="tchk${t.done?' done':''}" onclick="toggleTopicInLog('${esc(p.id)}',${i})">${t.done?'✓':''}</div><div class="ttext${t.done?' done':''}">${esc(t.text)}</div></div>`).join('');
 }
 function toggleTopicInLog(personId,idx){const p=people.find(x=>x.id===personId);if(!p)return;p.topics[idx].done=!p.topics[idx].done;save();render();renderTopicsInLog(p);}
 function openTopics(id){const p=people.find(x=>x.id===id);if(!p)return;topicPersonId=id;document.getElementById('topAvatar').textContent=p.emoji||initials(p.name);document.getElementById('topName').textContent=p.name;document.getElementById('topicInput').value='';renderTopicsList(p);document.getElementById('topicsOverlay').classList.add('open');setTimeout(()=>document.getElementById('topicInput').focus(),300);}
@@ -805,7 +858,7 @@ function closeTopics(){document.getElementById('topicsOverlay').classList.remove
 function addTopic(){const inp=document.getElementById('topicInput');const text=inp.value.trim();if(!text)return;const p=people.find(x=>x.id===topicPersonId);if(!p)return;if(!p.topics)p.topics=[];p.topics.push({text,done:false});inp.value='';save();renderTopicsList(p);}
 function toggleTopic(idx){const p=people.find(x=>x.id===topicPersonId);if(!p)return;p.topics[idx].done=!p.topics[idx].done;save();renderTopicsList(p);}
 function delTopic(idx){const p=people.find(x=>x.id===topicPersonId);if(!p)return;p.topics.splice(idx,1);save();renderTopicsList(p);}
-function renderTopicsList(p){const el=document.getElementById('topicsList');const topics=p.topics||[];if(!topics.length){el.innerHTML=`<div style="color:var(--muted);font-size:13px;padding:18px 0;text-align:center">No talking points yet — add below</div>`;return}el.innerHTML=topics.map((t,i)=>`<div class="titem"><div class="tchk${t.done?' done':''}" onclick="toggleTopic(${i})">${t.done?'✓':''}</div><div class="ttext${t.done?' done':''}">${t.text}</div><button class="tdel" onclick="delTopic(${i})">✕</button></div>`).join('');}
+function renderTopicsList(p){const el=document.getElementById('topicsList');const topics=p.topics||[];if(!topics.length){el.innerHTML=`<div style="color:var(--muted);font-size:13px;padding:18px 0;text-align:center">No talking points yet — add one below</div>`;return}el.innerHTML=topics.map((t,i)=>`<div class="titem"><div class="tchk${t.done?' done':''}" onclick="toggleTopic(${i})">${t.done?'✓':''}</div><div class="ttext${t.done?' done':''}">${esc(t.text)}</div><button class="tdel" onclick="delTopic(${i})">✕</button></div>`).join('');}
 
 /* ── NOTES ── */
 function openNotesSheet(id){const p=people.find(x=>x.id===id);if(!p)return;notesPersonId=id;document.getElementById('notesAvatar').textContent=p.emoji||initials(p.name);document.getElementById('notesName').textContent=p.name;document.getElementById('notesArea').value=p.notes||'';document.getElementById('notesOverlay').classList.add('open');setTimeout(()=>document.getElementById('notesArea').focus(),300);}
@@ -816,45 +869,8 @@ function saveNotes(){const p=people.find(x=>x.id===notesPersonId);if(!p)return;p
 function openSchedOverlay(id){const p=people.find(x=>x.id===id);if(!p)return;schedPersonId=id;document.getElementById('schedAvatar').textContent=p.emoji||initials(p.name);document.getElementById('schedName').textContent=p.name;document.getElementById('schedDate').value=p.scheduledCall?p.scheduledCall.slice(0,10):'';document.getElementById('schedOverlay').classList.add('open');}
 function closeSchedOverlay(){document.getElementById('schedOverlay').classList.remove('open')}
 function schedQuick(days){const d=new Date();d.setDate(d.getDate()+days);document.getElementById('schedDate').value=d.toISOString().slice(0,10);}
-function saveSched(){const p=people.find(x=>x.id===schedPersonId);if(!p)return;const v=document.getElementById('schedDate').value;if(!v){toast('Pick a date first');return}p.scheduledCall=new Date(v+'T12:00:00').toISOString();save();render();closeSchedOverlay();toast(`📅 Next call with ${p.name} set for ${fmtFull(p.scheduledCall)}`);}
+function saveSched(){const p=people.find(x=>x.id===schedPersonId);if(!p)return;const v=document.getElementById('schedDate').value;if(!v){toast('Pick a date first');return}p.scheduledCall=new Date(v+'T12:00:00').toISOString();save();render();closeSchedOverlay();toast(`📅 Next call with ${p.name} set`);}
 function clearSched(id){const p=people.find(x=>x.id===id);if(!p)return;p.scheduledCall=null;save();render();const lp=people.find(x=>x.id===logId);if(lp)renderHistory(lp);}
-
-/* ── STATS ── */
-function renderStats(){
-  const el=document.getElementById('statsContent');
-  if(!people.length){el.innerHTML=`<div class="empty"><div class="empty-icon">📊</div><h3>No data yet</h3><p>Add family members and log calls to see your stats.</p></div>`;return}
-  const allLogs=people.flatMap(p=>(p.logs||[]).map(l=>({...l,person:p})));
-  const now=new Date();
-  const thisMonth=allLogs.filter(l=>{const d=new Date(l.date);return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear()});
-  const callCounts=people.map(p=>({p,n:(p.logs||[]).length})).sort((a,b)=>b.n-a.n);
-  const maxCalls=callCounts[0]?.n||1;
-  const withLogs=people.filter(p=>(p.logs||[]).length>0);
-  const longestGap=withLogs.length?withLogs.reduce((acc,p)=>{const d=daysSince(p.logs[0].date);return d>acc.days?{days:d,p}:acc},{days:-1,p:null}):null;
-  const avgCalls=people.length?Math.round(allLogs.length/people.length*10)/10:0;
-  const typeCounts={'📞':0,'💬':0,'🎥':0,'🤝':0};allLogs.forEach(l=>{if(typeCounts[l.type]!==undefined)typeCounts[l.type]++});
-  const calDays=[];for(let i=27;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const ds=d.toISOString().slice(0,10);calDays.push({ds,has:allLogs.some(l=>l.date.slice(0,10)===ds),today:i===0,label:d.getDate()});}
-  const tl={'📞':'Phone','💬':'WhatsApp','🎥':'Video','🤝':'In person'};
-  // top streaks
-  const streaks=people.map(p=>({p,s:calcStreak(p)})).filter(x=>x.s>=2).sort((a,b)=>b.s-a.s).slice(0,3);
-  el.innerHTML=`
-  <div class="hero-stat"><div class="hero-n">${allLogs.length}</div><div class="hero-l">Total calls across ${people.length} ${people.length===1?'person':'people'}</div></div>
-  <div class="stat2">
-    <div class="sbox"><div class="sbox-n" style="color:var(--accent)">${thisMonth.length}</div><div class="sbox-l">This month</div></div>
-    <div class="sbox"><div class="sbox-n" style="color:var(--green)">${avgCalls}</div><div class="sbox-l">Avg per person</div></div>
-    <div class="sbox"><div class="sbox-n" style="color:var(--yellow)">${longestGap?longestGap.days+'d':'—'}</div><div class="sbox-l">Biggest gap${longestGap?' · '+longestGap.p.name:''}</div></div>
-    <div class="sbox"><div class="sbox-n" style="color:var(--blue)">${people.filter(p=>statusOf(p)==='ok').length}</div><div class="sbox-l">On track</div></div>
-  </div>
-  ${streaks.length?`<div class="slabel">🔥 Streaks</div>${streaks.map(({p,s})=>`<div class="pstat"><div class="psav">${p.emoji||initials(p.name)}</div><div class="psinfo"><div class="psname">${p.name}</div><div class="psdet">${s} weeks in a row</div></div><div class="pscnt" style="color:var(--purple)">${s}🔥</div></div>`).join('')}`:''}
-  <div class="slabel">Call types</div>
-  <div class="type-row-stats">${Object.entries(typeCounts).map(([type,n])=>`<div class="tbox"><div class="tbox-icon">${type}</div><div><div class="tbox-n">${n}</div><div class="tbox-l">${tl[type]}</div></div></div>`).join('')}</div>
-  <div class="slabel">Most called</div>
-  ${callCounts.slice(0,5).map(({p,n})=>`<div class="pstat"><div class="psav">${p.emoji||initials(p.name)}</div><div class="psinfo"><div class="psname">${p.name}</div><div class="psdet">${p.relation||''} · last ${p.logs?.length?fmtDate(p.logs[0].date):'never'}</div><div class="psbar-wrap"><div class="psbar"><div class="psbar-fill" style="width:${Math.round((n/maxCalls)*100)}%"></div></div></div></div><div class="pscnt">${n}</div></div>`).join('')}
-  <div class="slabel">Last 28 days</div>
-  <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:14px;margin-bottom:4px;box-shadow:0 2px 8px var(--shadow)">
-    <div class="cal-grid">${calDays.map(d=>`<div class="cday${d.has?' has':''}${d.today?' today':''}">${d.label}</div>`).join('')}</div>
-    <div class="cal-legend"><span><div class="cal-dot" style="background:var(--accent-soft);border:1px solid var(--accent-soft2)"></div>Call logged</span><span><div class="cal-dot" style="background:var(--bg2);border:1px solid var(--border)"></div>No call</span></div>
-  </div>`;
-}
 
 /* ── CALENDAR ── */
 let calYear=new Date().getFullYear();
@@ -864,7 +880,6 @@ const P_COLORS=['#e06b3a','#22c55e','#3b82f6','#f59e0b','#8b5cf6','#ec4899','#14
 function personColor(idx){return P_COLORS[idx%P_COLORS.length]}
 
 function renderCal(){
-  const now=new Date();
   const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
   document.getElementById('calMonthLabel').textContent=MONTHS[calMonth]+' '+calYear;
   const byDate={};
@@ -872,7 +887,7 @@ function renderCal(){
   const firstDay=new Date(calYear,calMonth,1).getDay();
   const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
   const daysInPrev=new Date(calYear,calMonth,0).getDate();
-  const todayStr2=now.toISOString().slice(0,10);
+  const todayStr2=new Date().toISOString().slice(0,10);
   let cells='';
   for(let i=0;i<firstDay;i++){const d=daysInPrev-firstDay+i+1;cells+=`<div class="cal-cell other-month"><div class="cal-day-num">${d}</div></div>`;}
   for(let d=1;d<=daysInMonth;d++){
@@ -900,10 +915,10 @@ function renderJournal(byDate){
     const label=d.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'});
     if(!entries.length){el.innerHTML=`<div class="cal-journal-title">${label}</div><div class="cal-journal-empty">No calls logged on this day.<br>Tap another day to explore.</div>`;return;}
     el.innerHTML=`<div class="cal-journal-title">${label} · ${entries.length} call${entries.length>1?'s':''}</div>`+entries.map(x=>jCard(x)).join('');
-  } else {
+  }else{
     const ms=`${calYear}-${String(calMonth+1).padStart(2,'0')}`;
     const all=Object.entries(byDate).filter(([ds])=>ds.startsWith(ms)).sort(([a],[b])=>b.localeCompare(a));
-    if(!all.length){el.innerHTML=`<div class="cal-journal-title">This month</div><div class="cal-journal-empty">No calls logged this month yet.</div>`;return;}
+    if(!all.length){el.innerHTML=`<div class="cal-journal-title">This month</div><div class="cal-journal-empty">No calls logged this month yet.<br>Tap a day on the calendar to explore.</div>`;return;}
     const total=all.reduce((s,[,e])=>s+e.length,0);
     let html=`<div class="cal-journal-title">This month · ${total} call${total>1?'s':''}</div>`;
     all.forEach(([ds,ents])=>{
@@ -919,135 +934,135 @@ function renderJournal(byDate){
 function jCard(x){
   const av=x.p.emoji||initials(x.p.name);
   const time=new Date(x.l.date).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
-  return`<div class="jentry"><div class="jentry-av">${av}</div><div class="jentry-info"><div class="jentry-name">${x.p.name}</div><div class="jentry-meta"><span class="jentry-type">${x.l.type}</span><span>${x.p.relation||'Family'}</span><span style="color:var(--muted)">${time}</span></div>${x.l.note?`<div class="jentry-note">"${x.l.note}"</div>`:''}</div></div>`;
+  return`<div class="jentry"><div class="jentry-av">${av}</div><div class="jentry-info"><div class="jentry-name">${esc(x.p.name)}</div><div class="jentry-meta"><span class="jentry-type">${x.l.type}</span><span>${esc(x.p.relation||'Family')}</span><span style="color:var(--muted)">${time}</span></div>${x.l.note?`<div class="jentry-note">"${esc(x.l.note)}"</div>`:''}</div></div>`;
 }
 
 function calPrevMonth(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}calSelected=null;renderCal();}
 function calNextMonth(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}calSelected=null;renderCal();}
 
-function updateHdrSyncBtn(){
-  const btn=document.getElementById('hdrSyncBtn');
-  if(!btn)return;
-  btn.style.display=(gdriveConnected&&gToken)?'flex':'none';
-  btn.classList.remove('syncing');
+/* ── STATS ── */
+function renderStats(){
+  const el=document.getElementById('statsContent');
+  if(!people.length){el.innerHTML=`<div class="empty"><div class="empty-icon">📊</div><h3>No data yet</h3><p>Add family members and log calls to see your stats.</p></div>`;return}
+  const allLogs=people.flatMap(p=>(p.logs||[]).map(l=>({...l,person:p})));
+  const now=new Date();
+  const thisMonth=allLogs.filter(l=>{const d=new Date(l.date);return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear()});
+  const callCounts=people.map(p=>({p,n:(p.logs||[]).length})).sort((a,b)=>b.n-a.n);
+  const maxCalls=callCounts[0]?.n||1;
+  const withLogs=people.filter(p=>(p.logs||[]).length>0);
+  const longestGap=withLogs.length?withLogs.reduce((acc,p)=>{const d=daysSince(p.logs[0].date);return d>acc.days?{days:d,p}:acc},{days:-1,p:null}):null;
+  const avgCalls=people.length?Math.round(allLogs.length/people.length*10)/10:0;
+  const typeCounts={"📞":0,"💬":0,"🎥":0,"🤝":0};allLogs.forEach(l=>{if(typeCounts[l.type]!==undefined)typeCounts[l.type]++});
+  const calDays=[];for(let i=27;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const ds=d.toISOString().slice(0,10);calDays.push({ds,has:allLogs.some(l=>l.date.slice(0,10)===ds),today:i===0,label:d.getDate()});}
+  const tl={"📞":"Phone","💬":"WhatsApp","🎥":"Video","🤝":"In person"};
+  const streaks=people.map(p=>({p,s:calcStreak(p)})).filter(x=>x.s>=2).sort((a,b)=>b.s-a.s).slice(0,3);
+  el.innerHTML=`
+  <div class="hero-stat"><div class="hero-n">${allLogs.length}</div><div class="hero-l">Total calls across ${people.length} ${people.length===1?"person":"people"}</div></div>
+  <div class="stat2">
+    <div class="sbox"><div class="sbox-n" style="color:var(--accent)">${thisMonth.length}</div><div class="sbox-l">This month</div></div>
+    <div class="sbox"><div class="sbox-n" style="color:var(--green)">${avgCalls}</div><div class="sbox-l">Avg per person</div></div>
+    <div class="sbox"><div class="sbox-n" style="color:var(--yellow)">${longestGap?longestGap.days+"d":"—"}</div><div class="sbox-l">Biggest gap${longestGap?" · "+longestGap.p.name:""}</div></div>
+    <div class="sbox"><div class="sbox-n" style="color:var(--blue)">${people.filter(p=>statusOf(p)==="ok").length}</div><div class="sbox-l">On track</div></div>
+  </div>
+  ${streaks.length?`<div class="slabel">🔥 Streaks</div>${streaks.map(({p,s})=>`<div class="pstat"><div class="psav">${p.emoji||initials(p.name)}</div><div class="psinfo"><div class="psname">${p.name}</div><div class="psdet">${s} weeks in a row</div></div><div class="pscnt" style="color:var(--purple)">${s}🔥</div></div>`).join("")}`:""}
+  <div class="slabel">Call types</div>
+  <div class="type-row-stats">${Object.entries(typeCounts).map(([type,n])=>`<div class="tbox"><div class="tbox-icon">${type}</div><div><div class="tbox-n">${n}</div><div class="tbox-l">${tl[type]}</div></div></div>`).join("")}</div>
+  <div class="slabel">Most called</div>
+  ${callCounts.slice(0,5).map(({p,n})=>`<div class="pstat"><div class="psav">${p.emoji||initials(p.name)}</div><div class="psinfo"><div class="psname">${p.name}</div><div class="psdet">${p.relation||""} · last ${p.logs?.length?fmtDate(p.logs[0].date):"never"}</div><div class="psbar-wrap"><div class="psbar"><div class="psbar-fill" style="width:${Math.round((n/maxCalls)*100)}%"></div></div></div></div><div class="pscnt">${n}</div></div>`).join("")}
+  <div class="slabel">Last 28 days</div>
+  <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:14px;margin-bottom:4px;box-shadow:0 2px 8px var(--shadow)">
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px">
+      ${calDays.map(d=>`<div style="aspect-ratio:1;border-radius:8px;background:${d.has?"var(--accent-soft)":"var(--bg2)"};border:${d.today?"2px solid var(--green)":"1px solid "+(d.has?"var(--accent-soft2)":"var(--border)")};display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:${d.has?"var(--accent)":d.today?"var(--green)":"var(--muted)"}">${d.label}</div>`).join("")}
+    </div>
+    <div style="display:flex;gap:14px;margin-top:10px;font-size:11px;color:var(--muted)">
+      <span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:3px;background:var(--accent-soft);border:1px solid var(--accent-soft2);display:inline-block"></span>Call logged</span>
+      <span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:3px;background:var(--bg2);border:1px solid var(--border);display:inline-block"></span>No call</span>
+    </div>
+  </div>`;
 }
-async function hdrSync(){
-  const btn=document.getElementById('hdrSyncBtn');
-  if(!gToken){toast('Connect Google Drive in Settings first');return}
-  btn.classList.add('syncing');
-  await syncNow();
-  btn.classList.remove('syncing');
-}
+
+/* GDRIVE */
+function updateHdrSyncBtn(){const btn=document.getElementById("hdrSyncBtn");if(!btn)return;btn.style.display=(gdriveConnected&&gToken)?"flex":"none";btn.classList.remove("syncing");}
+async function hdrSync(){const btn=document.getElementById("hdrSyncBtn");if(!gToken){toast("Connect Google Drive in Settings first");return}btn.classList.add("syncing");await syncNow();btn.classList.remove("syncing");}
+
 function renderSyncUI(){
-  const banner=document.getElementById('syncBanner');const dot=document.getElementById('syncDot');const status=document.getElementById('syncStatus');const btn=document.getElementById('gdriveBtnText');const btnIcon=document.getElementById('gdriveBtnIcon');const syncNowBtn=document.getElementById('syncNowBtn');const info=document.getElementById('lastSyncInfo');
-  if(gdriveConnected&&gToken){banner.className='sync-banner sync-ok';dot.className='sync-dot on';status.textContent='Connected — syncing to Google Drive';btn.textContent='Disconnect Google Drive';btnIcon.textContent='✕';syncNowBtn.style.display='flex';info.textContent=lastSyncTime?'Last synced: '+new Date(lastSyncTime).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'Not yet synced this session';}
-  else{banner.className='sync-banner sync-off';dot.className='sync-dot off';status.textContent='Not connected — your data stays on this device only';btn.textContent='Connect Google Drive';btnIcon.textContent='🔵';syncNowBtn.style.display='none';info.textContent='Connect Google Drive to enable cross-device sync';}
+  const banner=document.getElementById("syncBanner");const dot=document.getElementById("syncDot");const status=document.getElementById("syncStatus");const btn=document.getElementById("gdriveBtnText");const btnIcon=document.getElementById("gdriveBtnIcon");const syncNowBtn=document.getElementById("syncNowBtn");const info=document.getElementById("lastSyncInfo");
+  if(gdriveConnected&&gToken){banner.className="sync-banner sync-ok";dot.className="sync-dot on";status.textContent="Connected — syncing to Google Drive";btn.textContent="Disconnect Google Drive";btnIcon.textContent="✕";syncNowBtn.style.display="flex";info.textContent=lastSyncTime?"Last synced: "+new Date(lastSyncTime).toLocaleString("en-IN",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):"Not yet synced this session";}
+  else{banner.className="sync-banner sync-off";dot.className="sync-dot off";status.textContent="Not connected — data stays on this device only";btn.textContent="Connect Google Drive";btnIcon.textContent="🔵";syncNowBtn.style.display="none";info.textContent="Connect Google Drive to enable cross-device sync";}
   updateHdrSyncBtn();
 }
+
 function gdriveAction(){
-  if(gdriveConnected&&gToken){gdriveConnected=false;gToken=null;saveSync();renderSyncUI();updateHdrSyncBtn();toast('Disconnected from Google Drive');return}
-  const params=new URLSearchParams({
-    client_id:GDRIVE_CLIENT_ID,
-    redirect_uri:'https://calltrackerlink.netlify.app/oauth.html',
-    response_type:'token',
-    scope:GDRIVE_SCOPE,
-    include_granted_scopes:'true',
-    prompt:'select_account'
-  });
-  const popup=window.open('https://accounts.google.com/o/oauth2/v2/auth?'+params,'gdrive_auth','width=500,height=600,left=200,top=100');
-  // Listen for token sent back via postMessage from oauth.html
-  function onMsg(e){
-    if(e.origin!=='https://calltrackerlink.netlify.app')return;
-    if(!e.data||!e.data.access_token)return;
-    window.removeEventListener('message',onMsg);
-    gToken=e.data.access_token;
-    gdriveConnected=true;saveSync();renderSyncUI();updateHdrSyncBtn();
-    toast('Connected! Loading your data from Drive…');
-    loadFromDrive().then(()=>syncNow());
-  }
-  window.addEventListener('message',onMsg);
-  // Fallback: if popup closes without postMessage
-  const fallback=setInterval(()=>{
-    if(popup&&popup.closed){clearInterval(fallback);window.removeEventListener('message',onMsg);}
-  },1000);
+  if(gdriveConnected&&gToken){gdriveConnected=false;gToken=null;saveSync();renderSyncUI();toast("Disconnected from Google Drive");return}
+  const params=new URLSearchParams({client_id:GDRIVE_CLIENT_ID,redirect_uri:"https://calltrackerlink.netlify.app/oauth.html",response_type:"token",scope:GDRIVE_SCOPE,include_granted_scopes:"true",prompt:"select_account"});
+  const popup=window.open("https://accounts.google.com/o/oauth2/v2/auth?"+params,"gdrive_auth","width=500,height=600,left=200,top=100");
+  function onMsg(e){if(e.origin!=="https://calltrackerlink.netlify.app")return;if(!e.data||!e.data.access_token)return;window.removeEventListener("message",onMsg);gToken=e.data.access_token;gdriveConnected=true;saveSync();renderSyncUI();toast("Connected! Loading your data from Drive…");loadFromDrive().then(()=>syncNow());}
+  window.addEventListener("message",onMsg);
+  const fallback=setInterval(()=>{if(popup&&popup.closed){clearInterval(fallback);window.removeEventListener("message",onMsg);}},1000);
 }
+
 async function syncNow(){
-  if(!gToken){toast('Please connect Google Drive first');return}
-  toast('Syncing…');
+  if(!gToken){toast("Please connect Google Drive first");return}
+  toast("Syncing…");
   try{
     await loadFromDrive();
-    const data={exportedAt:new Date().toISOString(),version:4,app:'family-calls',people};
+    const data={exportedAt:new Date().toISOString(),version:5,app:"family-call-tracker",people,deletedIds:[...deletedIds]};
     const json=JSON.stringify(data,null,2);
-    const search=await fetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=name='family-calls-backup.json'`,{headers:{Authorization:'Bearer '+gToken}});
-    const searchData=await search.json();
-    const fileId=searchData.files?.[0]?.id;
-    const blob=new Blob([json],{type:'application/json'});
-    const form=new FormData();
-    form.append('metadata',new Blob([JSON.stringify({name:'family-calls-backup.json',parents:fileId?undefined:['appDataFolder']})],{type:'application/json'}));
-    form.append('file',blob);
-    const url=fileId?`https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=multipart`:'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart';
-    await fetch(url,{method:fileId?'PATCH':'POST',headers:{Authorization:'Bearer '+gToken},body:form});
-    lastSyncTime=new Date().toISOString();saveSync();renderSyncUI();toast('Synced to Google Drive ✓');
-  }catch(e){toast('Sync failed — check your connection');console.error(e)}
+    const search=await fetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=name='family-calls-backup.json'`,{headers:{Authorization:"Bearer "+gToken}});
+    const searchData=await search.json();const fileId=searchData.files?.[0]?.id;
+    const blob=new Blob([json],{type:"application/json"});const form=new FormData();
+    form.append("metadata",new Blob([JSON.stringify({name:"family-calls-backup.json",parents:fileId?undefined:["appDataFolder"]})],{type:"application/json"}));
+    form.append("file",blob);
+    const url=fileId?`https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=multipart`:"https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart";
+    const res=await fetch(url,{method:fileId?"PATCH":"POST",headers:{Authorization:"Bearer "+gToken},body:form});
+    if(!res.ok)throw new Error("Upload failed: "+res.status);
+    lastSyncTime=new Date().toISOString();saveSync();renderSyncUI();toast("Synced to Google Drive ✓");
+  }catch(e){toast("Sync failed — check your connection");console.error(e)}
 }
+
 async function loadFromDrive(){
   if(!gToken)return;
   try{
-    const search=await fetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=name='family-calls-backup.json'`,{headers:{Authorization:'Bearer '+gToken}});
+    const search=await fetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=name='family-calls-backup.json'`,{headers:{Authorization:"Bearer "+gToken}});
     const sd=await search.json();if(!sd.files?.length)return;
-    const res=await fetch(`https://www.googleapis.com/drive/v3/files/${sd.files[0].id}?alt=media`,{headers:{Authorization:'Bearer '+gToken}});
+    const res=await fetch(`https://www.googleapis.com/drive/v3/files/${sd.files[0].id}?alt=media`,{headers:{Authorization:"Bearer "+gToken}});
+    if(!res.ok)return;
     const data=await res.json();
+    if(data.deletedIds?.length)data.deletedIds.forEach(id=>deletedIds.add(id));
     if(data.people?.length){
       data.people.forEach(im=>{
-        if(!im.id)im.id=uid();if(!im.topics)im.topics=[];if(!im.logs)im.logs=[];if(!im.notes)im.notes='';if(im.pinned===undefined)im.pinned=false;
-        const ex=people.find(p=>p.name===im.name&&p.relation===im.relation);
+        im=sanitize(im);
+        if(deletedIds.has(im.id))return;
+        const ex=people.find(p=>p.id===im.id)||(people.find(p=>p.name===im.name&&p.relation===im.relation));
         if(!ex){people.push(im)}
-        else{const dates=new Set((ex.logs||[]).map(l=>l.date));(im.logs||[]).forEach(l=>{if(!dates.has(l.date))ex.logs.push(l)});ex.logs.sort((a,b)=>new Date(b.date)-new Date(a.date));if(im.notes&&!ex.notes)ex.notes=im.notes;if(im.scheduledCall&&!ex.scheduledCall)ex.scheduledCall=im.scheduledCall;}
+        else{
+          const dates=new Set(ex.logs.map(l=>l.date));im.logs.forEach(l=>{if(!dates.has(l.date))ex.logs.push(l)});ex.logs.sort((a,b)=>new Date(b.date)-new Date(a.date));
+          const texts=new Set(ex.topics.map(t=>t.text));im.topics.forEach(t=>{if(!texts.has(t.text))ex.topics.push(t)});
+          if(im.notes&&im.notes.length>(ex.notes||"").length)ex.notes=im.notes;
+          if(im.scheduledCall&&!ex.scheduledCall)ex.scheduledCall=im.scheduledCall;
+          if(im.pinned&&!ex.pinned)ex.pinned=true;
+        }
       });
+      people=people.filter(p=>!deletedIds.has(p.id));
       save();render();
     }
-  }catch(e){console.error('Drive load error',e)}
+  }catch(e){console.error("Drive load error",e)}
 }
 
-/* ── EXPORT / IMPORT ── */
-function exportJSON(){const data={exportedAt:new Date().toISOString(),version:4,app:'family-calls',people};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`family-calls-backup-${todayStr()}.json`;a.click();URL.revokeObjectURL(a.href);toast('Backup downloaded!');}
-function exportText(){let t=`Family Call Tracker — exported ${new Date().toLocaleDateString('en-IN')}\n${'─'.repeat(40)}\n\n`;people.forEach(p=>{t+=`${p.emoji||''} ${p.name} (${p.relation||'—'})\n`;t+=`  Call every: ${p.freq||7} days\n`;t+=`  Last call: ${p.logs?.length?fmtFull(p.logs[0].date):'never'}\n`;t+=`  Total logs: ${p.logs?.length||0}\n`;t+=`  Streak: ${calcStreak(p)} weeks\n`;if(p.scheduledCall)t+=`  Next call: ${fmtFull(p.scheduledCall)}\n`;if(p.notes)t+=`  Notes: ${p.notes}\n`;if((p.topics||[]).length)t+=`  Topics: ${p.topics.map(tp=>(tp.done?'[✓] ':'[ ] ')+tp.text).join(', ')}\n`;t+='\n';});navigator.clipboard?.writeText(t).then(()=>toast('Copied to clipboard!')).catch(()=>{const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('Copied!');});}
-function importJSON(evt){
-  const file=evt.target.files[0];if(!file)return;
-  const reader=new FileReader();
-  reader.onload=e=>{
-    try{
-      const data=JSON.parse(e.target.result);const imp=data.people||[];
-      if(!Array.isArray(imp)||!imp.length){toast('No valid data in file');return}
-      let added=0,merged=0;
-      imp.forEach(im=>{
-        if(!im.id)im.id=uid();if(!im.topics)im.topics=[];if(!im.logs)im.logs=[];if(!im.notes)im.notes='';if(im.pinned===undefined)im.pinned=false;
-        const ex=people.find(p=>p.name===im.name&&p.relation===im.relation);
-        if(ex){const dates=new Set((ex.logs||[]).map(l=>l.date));(im.logs||[]).forEach(l=>{if(!dates.has(l.date))ex.logs.push(l)});ex.logs.sort((a,b)=>new Date(b.date)-new Date(a.date));const texts=new Set((ex.topics||[]).map(t=>t.text));(im.topics||[]).forEach(t=>{if(!texts.has(t.text)){if(!ex.topics)ex.topics=[];ex.topics.push(t)}});merged++;}
-        else{people.push(im);added++;}
-      });
-      save();render();toast(`Imported: ${added} new, ${merged} merged`);
-    }catch(err){toast('Could not read file')}
-    evt.target.value='';
-  };
-  reader.readAsText(file);
-}
-function clearAll(){if(!confirm('Delete ALL data?\n\nAll people, call history, notes and topics will be permanently removed.'))return;people=[];save();render();toast('All data cleared');}
+function exportJSON(){const data={exportedAt:new Date().toISOString(),version:5,app:"family-call-tracker",people,deletedIds:[...deletedIds]};const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`family-calls-backup-${todayStr()}.json`;a.click();URL.revokeObjectURL(a.href);toast("Backup downloaded!");}
+function exportText(){var nl="\n";var t="Family Call Tracker — exported "+new Date().toLocaleDateString("en-IN")+nl+"─".repeat(40)+nl+nl;people.forEach(function(p){t+=(p.emoji||"")+" "+p.name+" ("+(p.relation||"—")+")"+nl+"  Call every: "+(p.freq||7)+" days"+nl+"  Last call: "+(p.logs&&p.logs.length?fmtFull(p.logs[0].date):"never")+nl+"  Total logs: "+(p.logs&&p.logs.length||0)+nl;if(p.scheduledCall)t+="  Next call: "+fmtFull(p.scheduledCall)+nl;if(p.notes)t+="  Notes: "+p.notes+nl;if(p.topics&&p.topics.length)t+="  Topics: "+p.topics.map(function(tp){return(tp.done?"[\u2713] ":"[ ] ")+tp.text;}).join(", ")+nl;t+=nl;});navigator.clipboard&&navigator.clipboard.writeText(t).then(function(){toast("Copied to clipboard!");}).catch(function(){var ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand("copy");document.body.removeChild(ta);toast("Copied!");});}
+function importJSON(evt){const file=evt.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=e=>{try{const data=JSON.parse(e.target.result);const imp=Array.isArray(data)?data:(data.people||[]);if(!imp.length){toast("No valid data in file");return}if(data.deletedIds?.length)data.deletedIds.forEach(id=>deletedIds.add(id));let added=0,merged=0;imp.forEach(im=>{im=sanitize(im);if(deletedIds.has(im.id))return;const ex=people.find(p=>p.id===im.id)||(people.find(p=>p.name===im.name&&p.relation===im.relation));if(ex){const dates=new Set(ex.logs.map(l=>l.date));im.logs.forEach(l=>{if(!dates.has(l.date))ex.logs.push(l)});ex.logs.sort((a,b)=>new Date(b.date)-new Date(a.date));merged++;}else{people.push(im);added++;}});save();render();toast(`Imported: ${added} new, ${merged} merged`);}catch(err){toast("Could not read file — is it a valid backup?")}evt.target.value="";};reader.readAsText(file);}
+function clearAll(){if(!confirm("Delete ALL data?\n\nAll people, call history, notes and topics will be permanently removed."))return;people=[];deletedIds=new Set();save();render();toast("All data cleared");}
 
-/* ── TOAST ── */
 let toastTimer=null;
-function toast(msg){const t=document.getElementById('toast');document.getElementById('toastMsg').textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2800);}
+function toast(msg){const t=document.getElementById("toast");document.getElementById("toastMsg").textContent=msg;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),2800);}
 
-/* ── OVERLAY CLOSE ── */
-['addOverlay','logOverlay','topicsOverlay','notesOverlay','schedOverlay'].forEach(id=>{
-  document.getElementById(id).addEventListener('click',e=>{
-    if(e.target===document.getElementById(id)){document.getElementById(id).classList.remove('open');if(id==='topicsOverlay')render();}
-  });
-});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){['addOverlay','logOverlay','topicsOverlay','notesOverlay','schedOverlay'].forEach(id=>document.getElementById(id).classList.remove('open'));render();}});
+const OVERLAYS=["addOverlay","logOverlay","topicsOverlay","notesOverlay","schedOverlay"];
+OVERLAYS.forEach(id=>{document.getElementById(id).addEventListener("click",e=>{if(e.target===document.getElementById(id)){document.getElementById(id).classList.remove("open");if(id==="topicsOverlay")render();}});});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){OVERLAYS.forEach(id=>document.getElementById(id).classList.remove("open"));render();}});
 
 load();render();updateHdrSyncBtn();
-if(gdriveConnected&&gToken)loadFromDrive();
+if(gdriveConnected&&gToken){loadFromDrive().then(()=>{updateHdrSyncBtn();});}
 </script>
 </body>
 </html>

@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Kinship</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  /* Warm light palette */
+  --bg:#faf7f2;
+  --bg2:#f3ede4;
+  --surface:#ffffff;
+  --surface2:#fdf9f5;
+  --border:#e8dfd4;
+  --border2:#d4c8b8;
+  --shadow:rgba(120,80,40,.08);
+  --shadow2:rgba(120,80,40,.14);
+
+  /* Brand */
+  --accent:#e06b3a;
+  --accent2:#f08050;
+  --accent-soft:#fdf0ea;
+  --accent-soft2:#fce4d6;
+  --ag:linear-gradient(135deg,#e06b3a,#f0a060);
+
+  /* Status */
+  --green:#22c55e;
+  --green-bg:#f0fdf4;
+  --green-border:#bbf7d0;
+  --yellow:#f59e0b;
+  --yellow-bg:#fffbeb;
+  --yellow-border:#fde68a;
+  --red:#ef4444;
+  --red-bg:#fef2f2;
+  --red-border:#fecaca;
+  --blue:#3b82f6;
+  --blue-bg:#eff6ff;
+
+  /* Text */
+  --text:#1c1410;
+  --text2:#4a3728;
+  --sub:#8a7060;
+  --muted:#b0a090;
+  --font:'Plus Jakarta Sans',system-ui,sans-serif;
+}
+
+html,body{min-height:100vh}
+body{
+  background:var(--bg);
+  background-image:
+    radial-gradient(ellipse 70% 50% at 50% -5%,rgba(224,107,58,.08) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 30% at 95% 95%,rgba(240,160,96,.06) 0%,transparent 50%);
+  color:var(--text);font-family:var(--font);
+  padding-bottom:88px;overscroll-behavior:none;
+}
+::-webkit-scrollbar{width:0;display:none}
+
+/* ── BOTTOM NAV ── */
+.nav{
+  position:fixed;bottom:0;left:0;right:0;z-index:100;
+  display:flex;
+  background:rgba(250,247,242,.92);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-top:1px solid var(--border);
+  padding:8px 8px calc(10px + env(safe-area-inset-bottom));
+  gap:4px;
+}
+.nb{
+  flex:1;border:none;background:none;color:var(--muted);
+  font-family:var(--font);font-size:10px;font-weight:700;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  cursor:pointer;transition:all .2s;letter-spacing:.3px;padding:6px 4px;
+  border-radius:14px;position:relative;
+}
+.nb svg{width:21px;height:21px;transition:all .2s;stroke:currentColor}
+.nb.on{color:var(--accent);background:var(--accent-soft)}
+.nb.on svg{transform:scale(1.08)}
+.nb-pip{
+  position:absolute;top:4px;right:calc(50% - 16px);
+  width:7px;height:7px;border-radius:50%;background:var(--red);
+  border:2px solid var(--bg);display:none;
+}
+.nb-pip.show{display:block}
+
+/* ── HEADER ── */
+.hdr{
+  position:sticky;top:0;z-index:50;
+  padding:52px 18px 14px;
+  background:rgba(250,247,242,.88);
+  backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+  border-bottom:1px solid var(--border);
+}
+.hdr-row{display:flex;align-items:center;justify-content:space-between}
+.hdr-brand{display:flex;align-items:center;gap:10px}
+.logo{
+  width:36px;height:36px;border-radius:11px;
+  background:var(--ag);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;
+  box-shadow:0 4px 14px rgba(224,107,58,.35),0 1px 3px rgba(224,107,58,.2);
+}
+.brand-name{font-size:21px;font-weight:800;color:var(--text);letter-spacing:-.5px}
+.brand-name em{font-style:normal;color:var(--accent)}
+.hdr-btns{display:flex;gap:8px}
+.hbtn{
+  width:36px;height:36px;border-radius:10px;border:1.5px solid var(--border);
+  background:var(--surface);color:var(--text2);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .15s;box-shadow:0 1px 3px var(--shadow);
+}
+.hbtn:active{transform:scale(.88);background:var(--bg2)}
+.hbtn-add{
+  background:var(--ag);border:none;color:#fff;
+  box-shadow:0 4px 16px rgba(224,107,58,.4),0 1px 3px rgba(224,107,58,.2);
+}
+.hbtn-add:active{transform:scale(.88)}
+
+/* ── SUMMARY STRIP ── */
+.strip{display:flex;gap:8px;margin-top:13px}
+.sc{
+  flex:1;background:var(--surface);border:1.5px solid var(--border);
+  border-radius:14px;padding:10px 10px;text-align:center;
+  box-shadow:0 1px 4px var(--shadow);
+}
+.sc-n{font-size:22px;font-weight:800;line-height:1;letter-spacing:-.5px}
+.sc-l{font-size:9px;color:var(--sub);margin-top:3px;font-weight:700;text-transform:uppercase;letter-spacing:.6px}
+
+/* ── PAGES ── */
+.page{display:none}.page.on{display:block}
+
+/* ── SECTION LABEL ── */
+.slabel{
+  font-size:11px;font-weight:700;color:var(--sub);
+  text-transform:uppercase;letter-spacing:1.1px;
+  padding:20px 18px 9px;display:flex;align-items:center;gap:8px;
+}
+.slabel::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── PERSON CARD ── */
+.pcard{
+  margin:0 14px 10px;
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:20px;
+  cursor:pointer;overflow:hidden;
+  box-shadow:0 2px 8px var(--shadow),0 1px 2px var(--shadow);
+  transition:transform .14s,box-shadow .14s;
+  position:relative;
+}
+.pcard:active{transform:scale(.985);box-shadow:0 1px 4px var(--shadow)}
+
+/* top color stripe */
+.pcard-stripe{height:4px;width:100%}
+.s-ok   .pcard-stripe{background:linear-gradient(90deg,var(--green),#86efac)}
+.s-warn .pcard-stripe{background:linear-gradient(90deg,var(--yellow),#fcd34d)}
+.s-late .pcard-stripe{background:linear-gradient(90deg,var(--red),#fca5a5)}
+.s-never .pcard-stripe{background:linear-gradient(90deg,var(--border),var(--border2))}
+
+.pcard-body{display:flex;align-items:center;gap:13px;padding:14px 15px 10px 15px}
+.av{
+  width:50px;height:50px;border-radius:14px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:23px;font-weight:800;
+  box-shadow:0 2px 8px var(--shadow2);
+}
+.s-ok   .av{background:var(--green-bg);border:1.5px solid var(--green-border)}
+.s-warn .av{background:var(--yellow-bg);border:1.5px solid var(--yellow-border)}
+.s-late .av{background:var(--red-bg);border:1.5px solid var(--red-border);animation:softpulse 2.4s ease-out infinite}
+.s-never .av{background:var(--bg2);border:1.5px solid var(--border)}
+@keyframes softpulse{0%{box-shadow:0 0 0 0 rgba(239,68,68,.35)}70%{box-shadow:0 0 0 9px rgba(239,68,68,0)}100%{box-shadow:0 0 0 0 rgba(239,68,68,0)}}
+
+.pinfo{flex:1;min-width:0}
+.pname{font-size:16px;font-weight:800;color:var(--text);letter-spacing:-.3px}
+.prel{font-size:12px;color:var(--sub);margin-top:2px;font-weight:500}
+.ptags{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}
+.ptag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.2px}
+.ptag-topic{background:var(--accent-soft2);color:var(--accent)}
+.ptag-freq{background:var(--bg2);color:var(--sub);border:1px solid var(--border)}
+
+.pright{margin-left:auto;text-align:right;flex-shrink:0}
+.pbadge{font-size:12px;font-weight:800;padding:5px 11px;border-radius:20px;display:inline-block;letter-spacing:.1px}
+.s-ok   .pbadge{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.s-warn .pbadge{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-border)}
+.s-late .pbadge{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.s-never .pbadge{background:var(--bg2);color:var(--sub);border:1px solid var(--border)}
+.plast{font-size:11px;color:var(--muted);margin-top:5px;font-weight:500}
+
+/* progress bar */
+.pcard-prog{padding:0 15px;margin-bottom:10px}
+.ptrack{height:4px;background:var(--bg2);border-radius:4px;overflow:hidden}
+.pbar{height:100%;border-radius:4px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.s-ok   .pbar{background:linear-gradient(90deg,var(--green),#4ade80)}
+.s-warn .pbar{background:linear-gradient(90deg,var(--yellow),#fcd34d)}
+.s-late .pbar{background:linear-gradient(90deg,var(--red),#f87171)}
+.s-never .pbar{background:var(--border)}
+
+/* card actions */
+.pcard-acts{display:flex;border-top:1.5px solid var(--border);background:var(--bg2)}
+.pact{
+  flex:1;padding:11px 4px;border:none;background:none;
+  color:var(--sub);font-size:11px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;
+  font-family:var(--font);transition:color .12s,background .12s;letter-spacing:.2px;
+}
+.pact:not(:last-child){border-right:1.5px solid var(--border)}
+.pact:active{background:var(--border)}
+.pact-g{color:var(--green)}.pact-a{color:var(--accent)}.pact-r{color:var(--red)}
+
+/* ── EMPTY ── */
+.empty{text-align:center;padding:70px 28px 40px;color:var(--sub)}
+.empty-icon{
+  width:84px;height:84px;border-radius:24px;
+  background:var(--surface);border:1.5px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:38px;
+  margin:0 auto 20px;box-shadow:0 2px 8px var(--shadow);
+}
+.empty h3{font-size:20px;font-weight:800;color:var(--text);margin-bottom:8px}
+.empty p{font-size:14px;line-height:1.7;max-width:240px;margin:0 auto 28px}
+.empty-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--ag);color:#fff;border:none;
+  padding:14px 28px;border-radius:14px;font-size:15px;font-weight:700;
+  cursor:pointer;font-family:var(--font);
+  box-shadow:0 6px 20px rgba(224,107,58,.35);
+}
+
+/* ── FAB ── */
+.fab{
+  display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+  background:var(--ag);color:#fff;border:none;border-radius:50px;
+  padding:14px 26px;font-size:14px;font-weight:700;cursor:pointer;
+  box-shadow:0 8px 28px rgba(224,107,58,.45);font-family:var(--font);
+  white-space:nowrap;align-items:center;gap:8px;z-index:30;
+  animation:fpop .3s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes fpop{from{transform:translateX(-50%) scale(.7);opacity:0}to{transform:translateX(-50%) scale(1);opacity:1}}
+.fab.show{display:flex}
+.fab:active{transform:translateX(-50%) scale(.95)}
+
+/* ── SHEETS / OVERLAYS ── */
+.overlay{
+  display:none;position:fixed;inset:0;z-index:200;
+  background:rgba(28,20,16,.5);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  align-items:flex-end;justify-content:center;
+}
+.overlay.open{display:flex}
+.sheet{
+  background:var(--surface);
+  border:1.5px solid var(--border);border-bottom:none;
+  border-radius:26px 26px 0 0;width:100%;max-width:520px;
+  padding:8px 20px calc(36px + env(safe-area-inset-bottom));
+  max-height:94vh;overflow-y:auto;
+  box-shadow:0 -8px 40px var(--shadow2);
+  animation:sup .26s cubic-bezier(.33,1,.68,1) forwards;
+}
+@keyframes sup{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.handle{width:42px;height:4px;background:var(--border2);border-radius:2px;margin:12px auto 20px}
+.sheet-title{font-size:20px;font-weight:800;letter-spacing:-.4px;margin-bottom:20px;color:var(--text)}
+
+/* fields */
+.field{margin-bottom:15px}
+.flabel{display:block;font-size:11px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.finput{
+  width:100%;padding:13px 15px;
+  background:var(--bg2);border:1.5px solid var(--border);
+  border-radius:13px;color:var(--text);font-size:15px;
+  font-family:var(--font);outline:none;-webkit-appearance:none;
+  transition:border-color .16s,background .16s;
+}
+.finput:focus{border-color:var(--accent);background:var(--accent-soft)}
+.finput::placeholder{color:var(--muted)}
+select.finput option{background:var(--surface)}
+textarea.finput{resize:none;min-height:72px;line-height:1.5}
+input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);cursor:pointer}
+
+/* chips */
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{
+  padding:9px 15px;border-radius:12px;
+  background:var(--bg2);border:1.5px solid var(--border);
+  color:var(--sub);font-size:12px;font-weight:700;cursor:pointer;
+  font-family:var(--font);transition:all .14s;white-space:nowrap;
+}
+.chip.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 3px rgba(224,107,58,.1)}
+.chip:active{transform:scale(.93)}
+
+/* emoji */
+.emojis{display:flex;gap:8px;flex-wrap:wrap}
+.eopt{
+  width:44px;height:44px;border-radius:12px;
+  background:var(--bg2);border:1.5px solid var(--border);
+  font-size:21px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .14s;
+}
+.eopt.on{border-color:var(--accent);background:var(--accent-soft);transform:scale(1.1);box-shadow:0 4px 14px rgba(224,107,58,.25)}
+
+/* action buttons */
+.sactions{display:flex;gap:10px;margin-top:20px}
+.sbtn{
+  flex:1;padding:15px;border-radius:14px;font-size:15px;font-weight:700;
+  border:none;cursor:pointer;font-family:var(--font);transition:all .14s;
+}
+.sbtn:active{transform:scale(.97);opacity:.85}
+.sbtn-p{background:var(--ag);color:#fff;box-shadow:0 5px 18px rgba(224,107,58,.35)}
+.sbtn-s{background:var(--bg2);color:var(--text2);border:1.5px solid var(--border)}
+.sbtn-d{background:var(--red-bg);color:var(--red);border:1.5px solid var(--red-border)}
+
+/* log person header */
+.lph{display:flex;align-items:center;gap:14px;padding:4px 0 16px;border-bottom:1.5px solid var(--border);margin-bottom:16px}
+.lph-av{width:50px;height:50px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:24px;background:var(--accent-soft);border:1.5px solid var(--accent-soft2)}
+.lph-name{font-size:18px;font-weight:800;color:var(--text);letter-spacing:-.3px}
+.lph-rel{font-size:12px;color:var(--sub);margin-top:3px;font-weight:500}
+
+/* history */
+.hlabel{font-size:11px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.8px;margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+.hlabel::after{content:'';flex:1;height:1px;background:var(--border)}
+.hitem{display:flex;align-items:center;gap:12px;padding:12px 13px;background:var(--bg2);border:1.5px solid var(--border);border-radius:13px;margin-bottom:7px;transition:background .1s}
+.hitem:active{background:var(--border)}
+.hicon{font-size:17px;width:32px;height:32px;flex-shrink:0;background:var(--surface);border:1px solid var(--border);border-radius:9px;display:flex;align-items:center;justify-content:center}
+.hinfo{flex:1;min-width:0}
+.hdate{font-size:13px;font-weight:700;color:var(--text)}
+.hnote{font-size:12px;color:var(--sub);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-style:italic}
+.hdel{background:none;border:none;color:var(--muted);font-size:15px;cursor:pointer;padding:6px;border-radius:8px;transition:all .12s}
+.hdel:active{color:var(--red);background:var(--red-bg)}
+
+/* topics */
+.titem{display:flex;align-items:center;gap:12px;padding:12px 13px;background:var(--bg2);border:1.5px solid var(--border);border-radius:13px;margin-bottom:7px}
+.tchk{width:22px;height:22px;border-radius:7px;border:2px solid var(--border2);background:var(--surface);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .14s}
+.tchk.done{background:var(--green);border-color:var(--green);color:#fff;font-weight:800}
+.ttext{flex:1;font-size:14px;font-weight:500;color:var(--text)}
+.ttext.done{text-decoration:line-through;color:var(--muted)}
+.tdel{background:none;border:none;color:var(--muted);font-size:15px;cursor:pointer;padding:6px;border-radius:8px;transition:all .12s}
+.tdel:active{color:var(--red);background:var(--red-bg)}
+.tadd-row{display:flex;gap:8px;margin-top:10px}
+.tadd-row .finput{border-radius:12px;padding:11px 13px}
+.tadd-btn{padding:11px 18px;background:var(--ag);border:none;border-radius:12px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap;box-shadow:0 3px 12px rgba(224,107,58,.3)}
+
+/* ── STATS PAGE ── */
+.sw{padding:10px 14px 20px}
+.hero-stat{
+  background:linear-gradient(135deg,var(--accent-soft) 0%,#fde8d8 100%);
+  border:1.5px solid var(--accent-soft2);border-radius:22px;
+  padding:24px;margin-bottom:12px;text-align:center;position:relative;overflow:hidden;
+  box-shadow:0 2px 10px rgba(224,107,58,.1);
+}
+.hero-stat::before{content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(224,107,58,.12),transparent)}
+.hero-n{font-size:58px;font-weight:800;line-height:1;letter-spacing:-2px;background:var(--ag);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-l{font-size:14px;color:var(--sub);margin-top:6px;font-weight:500}
+.stat2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.sbox{background:var(--surface);border:1.5px solid var(--border);border-radius:18px;padding:17px 15px;box-shadow:0 2px 8px var(--shadow)}
+.sbox-n{font-size:30px;font-weight:800;letter-spacing:-.5px}
+.sbox-l{font-size:12px;color:var(--sub);margin-top:5px;font-weight:500}
+.pstat{display:flex;align-items:center;gap:12px;padding:14px 15px;background:var(--surface);border:1.5px solid var(--border);border-radius:15px;margin-bottom:9px;box-shadow:0 1px 4px var(--shadow)}
+.psav{width:40px;height:40px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:19px;background:var(--bg2);border:1px solid var(--border)}
+.psinfo{flex:1;min-width:0}
+.psname{font-size:14px;font-weight:800;color:var(--text)}
+.psdet{font-size:12px;color:var(--sub);margin-top:2px}
+.psbar-wrap{margin-top:7px}
+.psbar{height:4px;background:var(--bg2);border-radius:3px;overflow:hidden}
+.psbar-fill{height:100%;background:var(--ag);border-radius:3px}
+.pscnt{font-size:22px;font-weight:800;color:var(--accent)}
+.type-row-stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.tbox{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:13px;display:flex;align-items:center;gap:11px;box-shadow:0 1px 4px var(--shadow)}
+.tbox-icon{font-size:24px;width:42px;height:42px;background:var(--bg2);border:1px solid var(--border);border-radius:11px;display:flex;align-items:center;justify-content:center}
+.tbox-n{font-size:20px;font-weight:800;color:var(--text)}
+.tbox-l{font-size:11px;color:var(--sub);margin-top:1px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:10px}
+.cday{aspect-ratio:1;border-radius:8px;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--muted);font-weight:700;transition:all .2s}
+.cday.has{background:var(--accent-soft);border-color:var(--accent-soft2);color:var(--accent)}
+.cday.today{border-color:var(--green);color:var(--green);border-width:2px}
+.cal-legend{display:flex;gap:14px;margin-top:10px;font-size:11px;color:var(--muted)}
+.cal-legend span{display:flex;align-items:center;gap:5px}
+.cal-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+
+/* ── IO PAGE ── */
+.io-wrap{padding:10px 14px 20px}
+.io-section-title{font-size:13px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.8px;margin:20px 0 8px 2px}
+.io-card{background:var(--surface);border:1.5px solid var(--border);border-radius:18px;padding:18px;margin-bottom:10px;box-shadow:0 2px 8px var(--shadow)}
+.io-card-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.io-card-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.io-card-title{font-size:15px;font-weight:800;color:var(--text)}
+.io-card-desc{font-size:13px;color:var(--sub);line-height:1.6;margin-bottom:14px}
+.io-btn{
+  width:100%;padding:13px;border-radius:12px;border:none;
+  font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);
+  margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:9px;
+  transition:all .14s;
+}
+.io-btn:last-child{margin-bottom:0}
+.io-btn:active{transform:scale(.97);opacity:.82}
+.io-primary{background:var(--ag);color:#fff;box-shadow:0 4px 16px rgba(224,107,58,.3)}
+.io-sec{background:var(--bg2);color:var(--text2);border:1.5px solid var(--border)}
+.io-grn{background:var(--green-bg);color:var(--green);border:1.5px solid var(--green-border)}
+.io-red{background:var(--red-bg);color:var(--red);border:1.5px solid var(--red-border)}
+.io-blue{background:var(--blue-bg);color:var(--blue);border:1.5px solid #bfdbfe}
+.io-info{font-size:11px;color:var(--muted);text-align:center;margin-top:8px;line-height:1.5}
+#importFileInput{display:none}
+
+/* sync status banner */
+.sync-banner{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 14px;border-radius:13px;
+  margin-bottom:8px;font-size:13px;font-weight:600;
+}
+.sync-ok{background:var(--green-bg);border:1.5px solid var(--green-border);color:var(--green)}
+.sync-off{background:var(--bg2);border:1.5px solid var(--border);color:var(--sub)}
+.sync-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sync-dot.on{background:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,.2)}
+.sync-dot.off{background:var(--muted)}
+
+/* ── TOAST ── */
+#toast{
+  position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(8px);
+  background:var(--text);color:#fff;
+  padding:11px 20px;border-radius:50px;
+  font-size:13px;font-weight:700;z-index:999;
+  opacity:0;transition:opacity .22s,transform .22s;
+  white-space:nowrap;pointer-events:none;
+  box-shadow:0 8px 28px rgba(28,20,16,.25);
+  display:flex;align-items:center;gap:8px;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.tdot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-row">
+    <div class="hdr-brand">
+      <div class="logo">📞</div>
+      <div class="brand-name">Kin<em>ship</em></div>
+    </div>
+    <div class="hdr-btns">
+      <button class="hbtn" onclick="showPage('io')" title="Settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <button class="hbtn hbtn-add" onclick="openAdd()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="17" height="17"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="strip" id="summaryRow" style="display:none">
+    <div class="sc"><div class="sc-n" id="sOk" style="color:var(--green)">0</div><div class="sc-l">On track</div></div>
+    <div class="sc"><div class="sc-n" id="sWarn" style="color:var(--yellow)">0</div><div class="sc-l">Due soon</div></div>
+    <div class="sc"><div class="sc-n" id="sLate" style="color:var(--red)">0</div><div class="sc-l">Overdue</div></div>
+    <div class="sc"><div class="sc-n" id="sTotal" style="color:var(--accent)">0</div><div class="sc-l">People</div></div>
+  </div>
+</div>
+
+<!-- HOME PAGE -->
+<div class="page on" id="pageHome">
+  <div id="list"></div>
+  <button class="fab" id="fab" onclick="openAdd()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="15" height="15"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    Add family member
+  </button>
+</div>
+
+<!-- STATS PAGE -->
+<div class="page" id="pageStats">
+  <div class="sw" id="statsContent"></div>
+</div>
+
+<!-- SETTINGS / IO PAGE -->
+<div class="page" id="pageIo">
+  <div class="io-wrap">
+
+    <!-- GOOGLE DRIVE SYNC -->
+    <div class="io-section-title">☁️ Cloud sync</div>
+    <div class="io-card">
+      <div class="io-card-head">
+        <div class="io-card-icon" style="background:#e8f0fe">🔵</div>
+        <div class="io-card-title">Google Drive sync</div>
+      </div>
+      <div id="syncBanner" class="sync-banner sync-off">
+        <div class="sync-dot off" id="syncDot"></div>
+        <span id="syncStatus">Not connected — your data stays on this device only</span>
+      </div>
+      <div class="io-card-desc">Sign in with Google to save your Kinship data to Google Drive. Your backup file will sync across your phone, tablet, and laptop automatically.</div>
+      <button class="io-btn io-blue" id="gdriveBtn" onclick="gdriveAction()">
+        <span id="gdriveBtnIcon">🔵</span> <span id="gdriveBtnText">Connect Google Drive</span>
+      </button>
+      <button class="io-btn io-primary" id="syncNowBtn" onclick="syncNow()" style="display:none">
+        ☁️ Sync now
+      </button>
+      <div class="io-info" id="lastSyncInfo">Connect Google Drive to enable cross-device sync</div>
+    </div>
+
+    <!-- MANUAL BACKUP -->
+    <div class="io-section-title">📁 Manual backup</div>
+    <div class="io-card">
+      <div class="io-card-head">
+        <div class="io-card-icon" style="background:var(--accent-soft)">📤</div>
+        <div class="io-card-title">Export data</div>
+      </div>
+      <div class="io-card-desc">Download a JSON backup file you can transfer to another device, email to yourself, or store in any cloud service.</div>
+      <button class="io-btn io-primary" onclick="exportJSON()">⬇️ Download JSON backup</button>
+      <button class="io-btn io-sec"     onclick="exportText()">📋 Copy as readable text</button>
+    </div>
+    <div class="io-card">
+      <div class="io-card-head">
+        <div class="io-card-icon" style="background:var(--green-bg)">📥</div>
+        <div class="io-card-title">Import data</div>
+      </div>
+      <div class="io-card-desc">Import a previously exported JSON file. Data is <strong>merged intelligently</strong> — existing people and logs won't be duplicated.</div>
+      <button class="io-btn io-grn" onclick="document.getElementById('importFileInput').click()">⬆️ Choose backup file</button>
+      <input type="file" id="importFileInput" accept=".json" onchange="importJSON(event)">
+      <div class="io-info">Supports .json files exported from Kinship</div>
+    </div>
+
+    <!-- HOW TO SYNC -->
+    <div class="io-section-title">💡 How to sync across devices</div>
+    <div class="io-card" style="background:var(--accent-soft);border-color:var(--accent-soft2)">
+      <div style="font-size:13px;color:var(--text2);line-height:1.7">
+        <strong>Option 1 — Google Drive (recommended):</strong> Tap "Connect Google Drive" above. Your data auto-syncs whenever you open the app on any device.<br><br>
+        <strong>Option 2 — Email yourself:</strong> Download backup → email the file to yourself → open the email on your other device → tap Import.<br><br>
+        <strong>Option 3 — WhatsApp:</strong> Download backup → share the .json file via WhatsApp to yourself → open on laptop → import.<br><br>
+        <strong>Option 4 — iCloud / Google Files:</strong> Save the .json to iCloud Drive or Google Drive manually, then open and import on any device.
+      </div>
+    </div>
+
+    <!-- DANGER ZONE -->
+    <div class="io-section-title">⚠️ Danger zone</div>
+    <div class="io-card">
+      <div class="io-card-head">
+        <div class="io-card-icon" style="background:var(--red-bg)">🗑</div>
+        <div class="io-card-title">Clear all data</div>
+      </div>
+      <div class="io-card-desc">Permanently delete all people, call history, and topics. This cannot be undone.</div>
+      <button class="io-btn io-red" onclick="clearAll()">✕ Delete everything</button>
+    </div>
+
+    <div style="text-align:center;padding:16px 0 4px;font-size:12px;color:var(--muted)">
+      Kinship · All data stored on your device · Made with ❤️
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="nav">
+  <button class="nb on" id="navHome" onclick="showPage('home')">
+    <div class="nb-pip" id="pipHome"></div>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Home
+  </button>
+  <button class="nb" id="navStats" onclick="showPage('stats')">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    Stats
+  </button>
+  <button class="nb" id="navIo" onclick="showPage('io')">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    Settings
+  </button>
+</nav>
+
+<div id="toast"><div class="tdot"></div><span id="toastMsg"></span></div>
+
+<!-- SHEET: Add/Edit person -->
+<div class="overlay" id="addOverlay">
+  <div class="sheet">
+    <div class="handle"></div>
+    <div class="sheet-title" id="addTitle">Add family member</div>
+    <div class="field"><label class="flabel">Name</label><input class="finput" type="text" id="iName" placeholder="e.g. Maa, Papa, Didi…" autocomplete="off"></div>
+    <div class="field"><label class="flabel">Relation</label><input class="finput" type="text" id="iRelation" placeholder="e.g. Mother, Brother, Uncle…" autocomplete="off"></div>
+    <div class="field">
+      <label class="flabel">Remind me every</label>
+      <select class="finput" id="iFreq">
+        <option value="3">3 days</option>
+        <option value="7" selected>1 week</option>
+        <option value="14">2 weeks</option>
+        <option value="30">1 month</option>
+        <option value="60">2 months</option>
+      </select>
+    </div>
+    <div class="field"><label class="flabel">Avatar</label><div class="emojis" id="emojiRow"></div></div>
+    <div class="sactions">
+      <button class="sbtn sbtn-s" onclick="closeAdd()">Cancel</button>
+      <button class="sbtn sbtn-p" onclick="savePerson()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- SHEET: Log call -->
+<div class="overlay" id="logOverlay">
+  <div class="sheet">
+    <div class="handle"></div>
+    <div class="lph">
+      <div class="lph-av" id="lAvatar"></div>
+      <div><div class="lph-name" id="lName"></div><div class="lph-rel" id="lRel"></div></div>
+    </div>
+    <div class="field">
+      <label class="flabel">How did you connect?</label>
+      <div class="chips">
+        <button class="chip on" id="tCall"     onclick="pickType('📞','tCall')">📞 Phone</button>
+        <button class="chip"    id="tWhatsApp" onclick="pickType('💬','tWhatsApp')">💬 WhatsApp</button>
+        <button class="chip"    id="tVideo"    onclick="pickType('🎥','tVideo')">🎥 Video</button>
+        <button class="chip"    id="tInPerson" onclick="pickType('🤝','tInPerson')">🤝 In person</button>
+      </div>
+    </div>
+    <div class="field">
+      <label class="flabel">Date of call</label>
+      <div class="chips" style="margin-bottom:9px">
+        <button class="chip on" id="qdToday"     onclick="pickQD('today',this)">Today</button>
+        <button class="chip"    id="qdYesterday" onclick="pickQD('yesterday',this)">Yesterday</button>
+        <button class="chip"    id="qdCustom"    onclick="pickQD('custom',this)">Pick date…</button>
+      </div>
+      <input type="date" class="finput" id="iDate" style="display:none">
+    </div>
+    <div class="field">
+      <label class="flabel">Note <span style="color:var(--muted);font-weight:500;text-transform:none;letter-spacing:0">(optional)</span></label>
+      <textarea class="finput" id="iNote" placeholder="What did you talk about?"></textarea>
+    </div>
+    <div class="sactions">
+      <button class="sbtn sbtn-s" onclick="closeLog()">Cancel</button>
+      <button class="sbtn sbtn-p" onclick="saveLog()">✓ Save log</button>
+    </div>
+    <div id="topicsInLog"></div>
+    <div id="histWrap"></div>
+  </div>
+</div>
+
+<!-- SHEET: Topics -->
+<div class="overlay" id="topicsOverlay">
+  <div class="sheet">
+    <div class="handle"></div>
+    <div class="lph">
+      <div class="lph-av" id="topAvatar"></div>
+      <div>
+        <div class="lph-name" id="topName"></div>
+        <div class="lph-rel" style="color:var(--accent)">Talking points</div>
+      </div>
+    </div>
+    <div id="topicsList"></div>
+    <div class="tadd-row">
+      <input class="finput" type="text" id="topicInput" placeholder="Add a talking point…" onkeydown="if(event.key==='Enter')addTopic()">
+      <button class="tadd-btn" onclick="addTopic()">Add</button>
+    </div>
+    <div class="sactions" style="margin-top:18px">
+      <button class="sbtn sbtn-s" onclick="closeTopics()">Done</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── DATA ── */
+const KEY='kinship2';
+let people=[],editId=null,logId=null,topicPersonId=null;
+let selEmoji='',selType='📞',selQD='today';
+let gdriveConnected=false,lastSyncTime=null;
+
+const EMOJIS=['👴','👵','👨','👩','🧑','👦','👧','🧓','🧒','👨‍👩‍👦','👫','❤️','🌸','⭐','🏠','🌟','🎯','💫'];
+
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2)}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(people))}catch(e){}}
+function load(){
+  try{
+    const d=localStorage.getItem(KEY);
+    if(d){people=JSON.parse(d);people.forEach(p=>{if(!p.topics)p.topics=[];if(!p.logs)p.logs=[]})}
+    // load sync state
+    const ss=localStorage.getItem(KEY+'_sync');
+    if(ss){const s=JSON.parse(ss);gdriveConnected=s.connected||false;lastSyncTime=s.lastSync||null}
+  }catch(e){people=[]}
+}
+function saveSync(){localStorage.setItem(KEY+'_sync',JSON.stringify({connected:gdriveConnected,lastSync:lastSyncTime}))}
+function todayStr(){return new Date().toISOString().slice(0,10)}
+function daysSince(iso){if(!iso)return null;return Math.floor((Date.now()-new Date(iso).getTime())/86400000)}
+function statusOf(p){
+  if(!(p.logs||[]).length)return'never';
+  const d=daysSince(p.logs[0].date),f=p.freq||7;
+  if(d<=Math.floor(f*.6))return'ok';if(d<=f)return'warn';return'late';
+}
+function fmtDate(iso){
+  if(!iso)return'—';const diff=daysSince(iso);
+  if(diff===0)return'Today';if(diff===1)return'Yesterday';
+  if(diff<7)return diff+'d ago';
+  return new Date(iso).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+}
+function fmtFull(iso){return new Date(iso).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}
+function initials(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}
+
+/* ── PAGE ROUTING ── */
+function showPage(p){
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(el=>el.classList.remove('on'));
+  document.getElementById('page'+p.charAt(0).toUpperCase()+p.slice(1)).classList.add('on');
+  document.getElementById('nav'+p.charAt(0).toUpperCase()+p.slice(1)).classList.add('on');
+  if(p==='stats')renderStats();
+  if(p==='io')renderSyncUI();
+}
+
+/* ── HOME ── */
+function render(){
+  const el=document.getElementById('list');
+  const fab=document.getElementById('fab');
+  const sr=document.getElementById('summaryRow');
+  if(!people.length){
+    el.innerHTML=`<div class="empty">
+      <div class="empty-icon">📵</div>
+      <h3>No one added yet</h3>
+      <p>Add your family members and never lose touch with anyone who matters.</p>
+      <button class="empty-cta" onclick="openAdd()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="15" height="15"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add first person
+      </button>
+    </div>`;
+    fab.classList.remove('show');sr.style.display='none';return;
+  }
+  fab.classList.add('show');sr.style.display='flex';
+  const ord={late:0,warn:1,never:2,ok:3};
+  const sorted=[...people].sort((a,b)=>ord[statusOf(a)]-ord[statusOf(b)]);
+  let ok=0,warn=0,late=0;
+  sorted.forEach(p=>{const s=statusOf(p);if(s==='ok')ok++;else if(s==='warn')warn++;else if(s==='late')late++});
+  document.getElementById('sOk').textContent=ok;
+  document.getElementById('sWarn').textContent=warn;
+  document.getElementById('sLate').textContent=late;
+  document.getElementById('sTotal').textContent=people.length;
+  document.getElementById('pipHome').className='nb-pip'+(late>0?' show':'');
+  const secs=[
+    {key:'late',label:'🔴 Call them now'},
+    {key:'warn',label:'🟡 Due soon'},
+    {key:'never',label:'⬜ Not yet called'},
+    {key:'ok',label:'🟢 All good'},
+  ];
+  let html='';
+  secs.forEach(sec=>{
+    const grp=sorted.filter(p=>statusOf(p)===sec.key);
+    if(!grp.length)return;
+    html+=`<div class="slabel">${sec.label}</div>`;
+    grp.forEach(p=>{
+      const logs=p.logs||[],last=logs[0];
+      const days=last?daysSince(last.date):null;
+      const freq=p.freq||7;
+      const pct=last?Math.min(100,Math.round((days/freq)*100)):0;
+      const st=statusOf(p);
+      const av=p.emoji||initials(p.name);
+      const dLabel=days===null?'Never called':days===0?'Today ✓':`${days}d ago`;
+      const lastLine=last?`${last.type} · ${fmtDate(last.date)}`:'No calls yet';
+      const pt=(p.topics||[]).filter(t=>!t.done).length;
+      const tags=[];
+      if(pt)tags.push(`<span class="ptag ptag-topic">💬 ${pt} topic${pt>1?'s':''}</span>`);
+      tags.push(`<span class="ptag ptag-freq">every ${freq}d</span>`);
+      html+=`
+<div class="pcard s-${st}" onclick="openLog('${p.id}')">
+  <div class="pcard-stripe"></div>
+  <div class="pcard-body">
+    <div class="av">${av}</div>
+    <div class="pinfo">
+      <div class="pname">${p.name}</div>
+      <div class="prel">${p.relation||'Family'}</div>
+      <div class="ptags">${tags.join('')}</div>
+    </div>
+    <div class="pright">
+      <div class="pbadge">${dLabel}</div>
+      <div class="plast">${lastLine}</div>
+    </div>
+  </div>
+  <div class="pcard-prog"><div class="ptrack"><div class="pbar" style="width:${pct}%"></div></div></div>
+  <div class="pcard-acts">
+    <button class="pact pact-g" onclick="event.stopPropagation();quickLog('${p.id}')">📞 Called!</button>
+    <button class="pact pact-a" onclick="event.stopPropagation();openTopics('${p.id}')">💬 Topics</button>
+    <button class="pact"        onclick="event.stopPropagation();openEdit('${p.id}')">✏️ Edit</button>
+    <button class="pact pact-r" onclick="event.stopPropagation();delPerson('${p.id}')">🗑</button>
+  </div>
+</div>`;
+    });
+  });
+  el.innerHTML=html;
+}
+
+/* ── ADD / EDIT ── */
+function buildEmojiRow(sel){
+  document.getElementById('emojiRow').innerHTML=EMOJIS.map(e=>
+    `<div class="eopt${e===sel?' on':''}" onclick="pickEmoji('${e}')">${e}</div>`).join('');
+}
+function openAdd(){
+  editId=null;selEmoji='';
+  document.getElementById('iName').value='';
+  document.getElementById('iRelation').value='';
+  document.getElementById('iFreq').value='7';
+  document.getElementById('addTitle').textContent='Add family member';
+  buildEmojiRow('');
+  document.getElementById('addOverlay').classList.add('open');
+  setTimeout(()=>document.getElementById('iName').focus(),300);
+}
+function openEdit(id){
+  const p=people.find(x=>x.id===id);if(!p)return;
+  editId=id;selEmoji=p.emoji||'';
+  document.getElementById('iName').value=p.name;
+  document.getElementById('iRelation').value=p.relation||'';
+  document.getElementById('iFreq').value=p.freq||7;
+  document.getElementById('addTitle').textContent='Edit '+p.name;
+  buildEmojiRow(p.emoji||'');
+  document.getElementById('addOverlay').classList.add('open');
+}
+function closeAdd(){document.getElementById('addOverlay').classList.remove('open')}
+function pickEmoji(e){selEmoji=e;buildEmojiRow(e)}
+function savePerson(){
+  const name=document.getElementById('iName').value.trim();
+  if(!name){document.getElementById('iName').focus();return}
+  const relation=document.getElementById('iRelation').value.trim();
+  const freq=parseInt(document.getElementById('iFreq').value);
+  if(editId){
+    const p=people.find(x=>x.id===editId);
+    if(p){p.name=name;p.relation=relation;p.freq=freq;p.emoji=selEmoji}
+  }else{people.push({id:uid(),name,relation,freq,emoji:selEmoji,logs:[],topics:[]})}
+  save();render();closeAdd();
+}
+
+/* ── LOG ── */
+function openLog(id){
+  const p=people.find(x=>x.id===id);if(!p)return;
+  logId=id;selType='📞';selQD='today';
+  document.getElementById('lAvatar').textContent=p.emoji||initials(p.name);
+  document.getElementById('lName').textContent=p.name;
+  document.getElementById('lRel').textContent=p.relation||'';
+  document.getElementById('iNote').value='';
+  ['tCall','tWhatsApp','tVideo','tInPerson'].forEach(x=>document.getElementById(x).classList.remove('on'));
+  document.getElementById('tCall').classList.add('on');
+  resetDateUI();
+  renderTopicsInLog(p);
+  renderHistory(p);
+  document.getElementById('logOverlay').classList.add('open');
+}
+function closeLog(){document.getElementById('logOverlay').classList.remove('open')}
+function pickType(emoji,bid){
+  selType=emoji;
+  ['tCall','tWhatsApp','tVideo','tInPerson'].forEach(x=>document.getElementById(x).classList.remove('on'));
+  document.getElementById(bid).classList.add('on');
+}
+function resetDateUI(){
+  selQD='today';
+  ['qdToday','qdYesterday','qdCustom'].forEach(x=>document.getElementById(x).classList.remove('on'));
+  document.getElementById('qdToday').classList.add('on');
+  const inp=document.getElementById('iDate');inp.style.display='none';inp.value=todayStr();
+}
+function pickQD(mode,btn){
+  selQD=mode;
+  ['qdToday','qdYesterday','qdCustom'].forEach(x=>document.getElementById(x).classList.remove('on'));
+  btn.classList.add('on');
+  const inp=document.getElementById('iDate');
+  if(mode==='custom'){inp.style.display='block';if(!inp.value)inp.value=todayStr();inp.focus()}
+  else inp.style.display='none';
+}
+function getLogDate(){
+  if(selQD==='today')return new Date().toISOString();
+  if(selQD==='yesterday'){const d=new Date();d.setDate(d.getDate()-1);d.setHours(12,0,0,0);return d.toISOString()}
+  const v=document.getElementById('iDate').value;
+  return v?new Date(v+'T12:00:00').toISOString():new Date().toISOString();
+}
+function saveLog(){
+  const p=people.find(x=>x.id===logId);if(!p)return;
+  const note=document.getElementById('iNote').value.trim();
+  if(!p.logs)p.logs=[];
+  p.logs.unshift({date:getLogDate(),type:selType,note});
+  p.logs.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  save();render();closeLog();toast('Call logged with '+p.name);
+}
+function quickLog(id){
+  const p=people.find(x=>x.id===id);if(!p)return;
+  if(!p.logs)p.logs=[];
+  p.logs.unshift({date:new Date().toISOString(),type:'📞',note:''});
+  p.logs.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  save();render();toast('Logged call with '+p.name);
+}
+function delLog(personId,idx){
+  const p=people.find(x=>x.id===personId);if(!p)return;
+  p.logs.splice(idx,1);save();render();renderHistory(p);
+}
+function delPerson(id){
+  const p=people.find(x=>x.id===id);
+  if(!p||!confirm(`Remove ${p.name}?\nThis will delete all their call history.`))return;
+  people=people.filter(x=>x.id!==id);save();render();
+}
+function renderHistory(p){
+  const wrap=document.getElementById('histWrap');
+  const logs=p.logs||[];
+  if(!logs.length){wrap.innerHTML='';return}
+  wrap.innerHTML=`<div class="hlabel">Call history (${logs.length})</div>`+
+    logs.map((l,i)=>`
+    <div class="hitem">
+      <div class="hicon">${l.type}</div>
+      <div class="hinfo">
+        <div class="hdate">${fmtFull(l.date)}</div>
+        ${l.note?`<div class="hnote">"${l.note}"</div>`:''}
+      </div>
+      <button class="hdel" onclick="delLog('${p.id}',${i})">✕</button>
+    </div>`).join('');
+}
+
+/* ── TOPICS ── */
+function renderTopicsInLog(p){
+  const wrap=document.getElementById('topicsInLog');
+  const topics=p.topics||[];
+  if(!topics.length){wrap.innerHTML=`<div class="hlabel">Talking points</div><div style="font-size:13px;color:var(--muted);padding:10px 0 4px;text-align:center">None saved — use Topics button on the card</div>`;return}
+  wrap.innerHTML=`<div class="hlabel">Talking points (${topics.filter(t=>!t.done).length} pending)</div>`+
+    topics.map((t,i)=>`
+    <div class="titem">
+      <div class="tchk${t.done?' done':''}" onclick="toggleTopicInLog('${p.id}',${i})">${t.done?'✓':''}</div>
+      <div class="ttext${t.done?' done':''}">${t.text}</div>
+    </div>`).join('');
+}
+function toggleTopicInLog(personId,idx){
+  const p=people.find(x=>x.id===personId);if(!p)return;
+  p.topics[idx].done=!p.topics[idx].done;save();render();renderTopicsInLog(p);
+}
+function openTopics(id){
+  const p=people.find(x=>x.id===id);if(!p)return;
+  topicPersonId=id;
+  document.getElementById('topAvatar').textContent=p.emoji||initials(p.name);
+  document.getElementById('topName').textContent=p.name;
+  document.getElementById('topicInput').value='';
+  renderTopicsList(p);
+  document.getElementById('topicsOverlay').classList.add('open');
+  setTimeout(()=>document.getElementById('topicInput').focus(),300);
+}
+function closeTopics(){document.getElementById('topicsOverlay').classList.remove('open');render()}
+function addTopic(){
+  const inp=document.getElementById('topicInput');
+  const text=inp.value.trim();if(!text)return;
+  const p=people.find(x=>x.id===topicPersonId);if(!p)return;
+  if(!p.topics)p.topics=[];
+  p.topics.push({text,done:false});
+  inp.value='';save();renderTopicsList(p);
+}
+function toggleTopic(idx){
+  const p=people.find(x=>x.id===topicPersonId);if(!p)return;
+  p.topics[idx].done=!p.topics[idx].done;save();renderTopicsList(p);
+}
+function delTopic(idx){
+  const p=people.find(x=>x.id===topicPersonId);if(!p)return;
+  p.topics.splice(idx,1);save();renderTopicsList(p);
+}
+function renderTopicsList(p){
+  const el=document.getElementById('topicsList');
+  const topics=p.topics||[];
+  if(!topics.length){el.innerHTML=`<div style="color:var(--muted);font-size:13px;padding:18px 0;text-align:center">No talking points yet — add below</div>`;return}
+  el.innerHTML=topics.map((t,i)=>`
+  <div class="titem">
+    <div class="tchk${t.done?' done':''}" onclick="toggleTopic(${i})">${t.done?'✓':''}</div>
+    <div class="ttext${t.done?' done':''}">${t.text}</div>
+    <button class="tdel" onclick="delTopic(${i})">✕</button>
+  </div>`).join('');
+}
+
+/* ── STATS ── */
+function renderStats(){
+  const el=document.getElementById('statsContent');
+  if(!people.length){
+    el.innerHTML=`<div class="empty"><div class="empty-icon">📊</div><h3>No data yet</h3><p>Add family members and log calls to see your stats.</p></div>`;
+    return;
+  }
+  const allLogs=people.flatMap(p=>(p.logs||[]).map(l=>({...l,person:p})));
+  const now=new Date();
+  const thisMonth=allLogs.filter(l=>{const d=new Date(l.date);return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear()});
+  const callCounts=people.map(p=>({p,n:(p.logs||[]).length})).sort((a,b)=>b.n-a.n);
+  const maxCalls=callCounts[0]?.n||1;
+  const withLogs=people.filter(p=>(p.logs||[]).length>0);
+  const longestGap=withLogs.length?withLogs.reduce((acc,p)=>{const d=daysSince(p.logs[0].date);return d>acc.days?{days:d,p}:acc},{days:-1,p:null}):null;
+  const avgCalls=people.length?Math.round(allLogs.length/people.length*10)/10:0;
+  const typeCounts={'📞':0,'💬':0,'🎥':0,'🤝':0};
+  allLogs.forEach(l=>{if(typeCounts[l.type]!==undefined)typeCounts[l.type]++});
+  const calDays=[];
+  for(let i=27;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const ds=d.toISOString().slice(0,10);
+    calDays.push({ds,has:allLogs.some(l=>l.date.slice(0,10)===ds),today:i===0,label:d.getDate()});
+  }
+  const tl={'📞':'Phone','💬':'WhatsApp','🎥':'Video','🤝':'In person'};
+  el.innerHTML=`
+  <div class="hero-stat">
+    <div class="hero-n">${allLogs.length}</div>
+    <div class="hero-l">Total calls across ${people.length} ${people.length===1?'person':'people'}</div>
+  </div>
+  <div class="stat2">
+    <div class="sbox"><div class="sbox-n" style="color:var(--accent)">${thisMonth.length}</div><div class="sbox-l">This month</div></div>
+    <div class="sbox"><div class="sbox-n" style="color:var(--green)">${avgCalls}</div><div class="sbox-l">Avg per person</div></div>
+    <div class="sbox"><div class="sbox-n" style="color:var(--yellow)">${longestGap?longestGap.days+'d':'—'}</div><div class="sbox-l">Biggest gap${longestGap?' · '+longestGap.p.name:''}</div></div>
+    <div class="sbox"><div class="sbox-n" style="color:var(--blue)">${people.filter(p=>statusOf(p)==='ok').length}</div><div class="sbox-l">On track</div></div>
+  </div>
+  <div class="slabel">Call types</div>
+  <div class="type-row-stats">
+    ${Object.entries(typeCounts).map(([type,n])=>`
+    <div class="tbox">
+      <div class="tbox-icon">${type}</div>
+      <div><div class="tbox-n">${n}</div><div class="tbox-l">${tl[type]}</div></div>
+    </div>`).join('')}
+  </div>
+  <div class="slabel">Most called</div>
+  ${callCounts.slice(0,5).map(({p,n})=>`
+  <div class="pstat">
+    <div class="psav">${p.emoji||initials(p.name)}</div>
+    <div class="psinfo">
+      <div class="psname">${p.name}</div>
+      <div class="psdet">${p.relation||''} · last ${p.logs?.length?fmtDate(p.logs[0].date):'never'}</div>
+      <div class="psbar-wrap"><div class="psbar"><div class="psbar-fill" style="width:${Math.round((n/maxCalls)*100)}%"></div></div></div>
+    </div>
+    <div class="pscnt">${n}</div>
+  </div>`).join('')}
+  <div class="slabel">Last 28 days</div>
+  <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:14px;margin-bottom:4px;box-shadow:0 2px 8px var(--shadow)">
+    <div class="cal-grid">
+      ${calDays.map(d=>`<div class="cday${d.has?' has':''}${d.today?' today':''}">${d.label}</div>`).join('')}
+    </div>
+    <div class="cal-legend">
+      <span><div class="cal-dot" style="background:var(--accent-soft);border:1px solid var(--accent-soft2)"></div>Call logged</span>
+      <span><div class="cal-dot" style="background:var(--bg2);border:1px solid var(--border)"></div>No call</span>
+    </div>
+  </div>`;
+}
+
+/* ── GOOGLE DRIVE SYNC ── */
+// This uses the Google Drive API via OAuth2 to save/load a kinship-backup.json file.
+// In a deployed app you'd register a real OAuth Client ID. Here we guide the user through it.
+const GDRIVE_CLIENT_ID='250319257117-1bs48kbjeojifhbdtsck2iuah6fs6qst.apps.googleusercontent.com';// Set your own Google OAuth Client ID here for real sync
+const GDRIVE_SCOPE='https://www.googleapis.com/auth/drive.appdata';
+let gToken=null;
+
+function renderSyncUI(){
+  const banner=document.getElementById('syncBanner');
+  const dot=document.getElementById('syncDot');
+  const status=document.getElementById('syncStatus');
+  const btn=document.getElementById('gdriveBtnText');
+  const btnIcon=document.getElementById('gdriveBtnIcon');
+  const syncNow=document.getElementById('syncNowBtn');
+  const info=document.getElementById('lastSyncInfo');
+  if(gdriveConnected&&gToken){
+    banner.className='sync-banner sync-ok';dot.className='sync-dot on';
+    status.textContent='Connected — syncing to Google Drive';
+    btn.textContent='Disconnect Google Drive';btnIcon.textContent='✕';
+    syncNow.style.display='flex';
+    info.textContent=lastSyncTime?'Last synced: '+new Date(lastSyncTime).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'Not yet synced this session';
+  }else{
+    banner.className='sync-banner sync-off';dot.className='sync-dot off';
+    status.textContent='Not connected — your data stays on this device only';
+    btn.textContent='Connect Google Drive';btnIcon.textContent='🔵';
+    syncNow.style.display='none';
+    info.textContent='Connect Google Drive to enable cross-device sync';
+  }
+}
+
+function gdriveAction(){
+  if(gdriveConnected&&gToken){
+    // Disconnect
+    gdriveConnected=false;gToken=null;
+    saveSync();renderSyncUI();toast('Disconnected from Google Drive');
+    return;
+  }
+  // Connect — use Google Identity Services
+  if(!GDRIVE_CLIENT_ID){
+    // Demo mode: show instructions
+    alert('To enable real Google Drive sync:\n\n1. Go to console.cloud.google.com\n2. Create a project → Enable Google Drive API\n3. Create OAuth 2.0 credentials (Web app)\n4. Set your domain as authorized origin\n5. Paste your Client ID in the GDRIVE_CLIENT_ID variable in the app code\n\nFor now, use the manual Export/Import options below to sync across devices.');
+    return;
+  }
+  // Real OAuth flow — prompt=select_account forces Google to always show the account picker
+  const params=new URLSearchParams({
+    client_id:GDRIVE_CLIENT_ID,
+    redirect_uri:window.location.href.split('?')[0],
+    response_type:'token',
+    scope:GDRIVE_SCOPE,
+    include_granted_scopes:'true',
+    prompt:'select_account',
+  });
+  const popup=window.open('https://accounts.google.com/o/oauth2/v2/auth?'+params,'gdrive_auth','width=500,height=600,left=200,top=100');
+  const timer=setInterval(()=>{
+    try{
+      if(popup.closed){clearInterval(timer);return}
+      const url=popup.location.href;
+      if(url.includes('access_token')){
+        clearInterval(timer);popup.close();
+        const hash=new URLSearchParams(url.split('#')[1]);
+        gToken=hash.get('access_token');
+        gdriveConnected=true;saveSync();renderSyncUI();
+        toast('Google Drive connected!');
+        syncNow();
+      }
+    }catch(e){}
+  },500);
+}
+
+async function syncNow(){
+  if(!gToken){toast('Please connect Google Drive first');return}
+  toast('Syncing…');
+  try{
+    const data={exportedAt:new Date().toISOString(),version:3,app:'kinship',people};
+    const json=JSON.stringify(data,null,2);
+    // Search for existing file
+    const search=await fetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=name='kinship-backup.json'`,{headers:{Authorization:'Bearer '+gToken}});
+    const searchData=await search.json();
+    const fileId=searchData.files?.[0]?.id;
+    const blob=new Blob([json],{type:'application/json'});
+    const form=new FormData();
+    form.append('metadata',new Blob([JSON.stringify({name:'kinship-backup.json',parents:fileId?undefined:['appDataFolder']})],{type:'application/json'}));
+    form.append('file',blob);
+    const url=fileId
+      ?`https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=multipart`
+      :'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart';
+    await fetch(url,{method:fileId?'PATCH':'POST',headers:{Authorization:'Bearer '+gToken},body:form});
+    lastSyncTime=new Date().toISOString();
+    saveSync();renderSyncUI();
+    toast('Synced to Google Drive ✓');
+  }catch(e){toast('Sync failed — check your connection');console.error(e)}
+}
+
+async function loadFromDrive(){
+  if(!gToken)return;
+  try{
+    const search=await fetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=name='kinship-backup.json'`,{headers:{Authorization:'Bearer '+gToken}});
+    const sd=await search.json();
+    if(!sd.files?.length)return;
+    const res=await fetch(`https://www.googleapis.com/drive/v3/files/${sd.files[0].id}?alt=media`,{headers:{Authorization:'Bearer '+gToken}});
+    const data=await res.json();
+    if(data.people?.length){
+      // merge
+      data.people.forEach(im=>{
+        const ex=people.find(p=>p.name===im.name&&p.relation===im.relation);
+        if(!ex){if(!im.id)im.id=uid();if(!im.topics)im.topics=[];if(!im.logs)im.logs=[];people.push(im)}
+        else{
+          const dates=new Set((ex.logs||[]).map(l=>l.date));
+          (im.logs||[]).forEach(l=>{if(!dates.has(l.date))ex.logs.push(l)});
+          ex.logs.sort((a,b)=>new Date(b.date)-new Date(a.date));
+        }
+      });
+      save();render();toast('Loaded from Google Drive');
+    }
+  }catch(e){console.error('Drive load error',e)}
+}
+
+/* ── EXPORT / IMPORT ── */
+function exportJSON(){
+  const data={exportedAt:new Date().toISOString(),version:3,app:'kinship',people};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`kinship-backup-${todayStr()}.json`;
+  a.click();URL.revokeObjectURL(a.href);
+  toast('Backup downloaded!');
+}
+function exportText(){
+  let t=`Kinship — exported ${new Date().toLocaleDateString('en-IN')}\n${'─'.repeat(40)}\n\n`;
+  people.forEach(p=>{
+    t+=`${p.emoji||''} ${p.name} (${p.relation||'—'})\n`;
+    t+=`  Call every: ${p.freq||7} days\n`;
+    t+=`  Last call: ${p.logs?.length?fmtFull(p.logs[0].date):'never'}\n`;
+    t+=`  Total logs: ${p.logs?.length||0}\n`;
+    if((p.topics||[]).length)t+=`  Topics: ${p.topics.map(tp=>(tp.done?'[✓] ':'[ ] ')+tp.text).join(', ')}\n`;
+    t+='\n';
+  });
+  navigator.clipboard?.writeText(t).then(()=>toast('Copied to clipboard!')).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('Copied!');
+  });
+}
+function importJSON(evt){
+  const file=evt.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=JSON.parse(e.target.result);
+      const imp=data.people||[];
+      if(!Array.isArray(imp)||!imp.length){toast('No valid data in file');return}
+      let added=0,merged=0;
+      imp.forEach(im=>{
+        const ex=people.find(p=>p.name===im.name&&p.relation===im.relation);
+        if(ex){
+          const dates=new Set((ex.logs||[]).map(l=>l.date));
+          (im.logs||[]).forEach(l=>{if(!dates.has(l.date))ex.logs.push(l)});
+          ex.logs.sort((a,b)=>new Date(b.date)-new Date(a.date));
+          const texts=new Set((ex.topics||[]).map(t=>t.text));
+          (im.topics||[]).forEach(t=>{if(!texts.has(t.text)){if(!ex.topics)ex.topics=[];ex.topics.push(t)}});
+          merged++;
+        }else{
+          if(!im.id)im.id=uid();if(!im.topics)im.topics=[];if(!im.logs)im.logs=[];
+          people.push(im);added++;
+        }
+      });
+      save();render();toast(`Imported: ${added} new, ${merged} merged`);
+    }catch(err){toast('Could not read file')}
+    evt.target.value='';
+  };
+  reader.readAsText(file);
+}
+function clearAll(){
+  if(!confirm('Delete ALL data?\n\nAll people, call history, and topics will be permanently removed.'))return;
+  people=[];save();render();toast('All data cleared');
+}
+
+/* ── TOAST ── */
+let toastTimer=null;
+function toast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+/* ── OVERLAY CLOSE ── */
+['addOverlay','logOverlay','topicsOverlay'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',e=>{
+    if(e.target===document.getElementById(id)){
+      document.getElementById(id).classList.remove('open');
+      if(id==='topicsOverlay')render();
+    }
+  });
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    ['addOverlay','logOverlay','topicsOverlay'].forEach(id=>document.getElementById(id).classList.remove('open'));
+    render();
+  }
+});
+
+load();render();
+if(gdriveConnected&&gToken)loadFromDrive();
+</script>
+</body>
+</html>

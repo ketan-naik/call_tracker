@@ -45,6 +45,8 @@ body{background:var(--bg);background-image:radial-gradient(ellipse 70% 50% at 50
 .hbtn{width:36px;height:36px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;box-shadow:0 1px 3px var(--shadow);}
 .hbtn:active{transform:scale(.88);background:var(--bg2)}
 .hbtn-add{background:var(--ag);border:none;color:#fff;box-shadow:0 4px 16px rgba(224,107,58,.4);}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.syncing svg{animation:spin .9s linear infinite}
 
 /* SEARCH BAR */
 .search-wrap{padding:10px 14px 0;position:relative}
@@ -274,6 +276,9 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
       <div class="brand-name">Family <em>Call Tracker</em></div>
     </div>
     <div class="hdr-btns">
+      <button class="hbtn" id="hdrSyncBtn" onclick="hdrSync()" title="Sync to Google Drive" style="display:none">
+        <svg id="hdrSyncIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      </button>
       <button class="hbtn" onclick="showPage('io')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       </button>
@@ -793,31 +798,51 @@ function renderStats(){
   </div>`;
 }
 
-/* ── GDRIVE ── */
+function updateHdrSyncBtn(){
+  const btn=document.getElementById('hdrSyncBtn');
+  if(!btn)return;
+  btn.style.display=(gdriveConnected&&gToken)?'flex':'none';
+  btn.classList.remove('syncing');
+}
+async function hdrSync(){
+  const btn=document.getElementById('hdrSyncBtn');
+  if(!gToken){toast('Connect Google Drive in Settings first');return}
+  btn.classList.add('syncing');
+  await syncNow();
+  btn.classList.remove('syncing');
+}
 function renderSyncUI(){
   const banner=document.getElementById('syncBanner');const dot=document.getElementById('syncDot');const status=document.getElementById('syncStatus');const btn=document.getElementById('gdriveBtnText');const btnIcon=document.getElementById('gdriveBtnIcon');const syncNowBtn=document.getElementById('syncNowBtn');const info=document.getElementById('lastSyncInfo');
   if(gdriveConnected&&gToken){banner.className='sync-banner sync-ok';dot.className='sync-dot on';status.textContent='Connected — syncing to Google Drive';btn.textContent='Disconnect Google Drive';btnIcon.textContent='✕';syncNowBtn.style.display='flex';info.textContent=lastSyncTime?'Last synced: '+new Date(lastSyncTime).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'Not yet synced this session';}
   else{banner.className='sync-banner sync-off';dot.className='sync-dot off';status.textContent='Not connected — your data stays on this device only';btn.textContent='Connect Google Drive';btnIcon.textContent='🔵';syncNowBtn.style.display='none';info.textContent='Connect Google Drive to enable cross-device sync';}
+  updateHdrSyncBtn();
 }
 function gdriveAction(){
-  if(gdriveConnected&&gToken){gdriveConnected=false;gToken=null;saveSync();renderSyncUI();toast('Disconnected from Google Drive');return}
-  const params=new URLSearchParams({client_id:GDRIVE_CLIENT_ID,redirect_uri:'https://calltrackerlink.netlify.app',response_type:'token',scope:GDRIVE_SCOPE,include_granted_scopes:'true',prompt:'select_account'});
+  if(gdriveConnected&&gToken){gdriveConnected=false;gToken=null;saveSync();renderSyncUI();updateHdrSyncBtn();toast('Disconnected from Google Drive');return}
+  const params=new URLSearchParams({
+    client_id:GDRIVE_CLIENT_ID,
+    redirect_uri:'https://calltrackerlink.netlify.app/oauth.html',
+    response_type:'token',
+    scope:GDRIVE_SCOPE,
+    include_granted_scopes:'true',
+    prompt:'select_account'
+  });
   const popup=window.open('https://accounts.google.com/o/oauth2/v2/auth?'+params,'gdrive_auth','width=500,height=600,left=200,top=100');
-  const timer=setInterval(async()=>{
-    try{
-      if(popup.closed){clearInterval(timer);return}
-      const url=popup.location.href;
-      if(url.includes('access_token')){
-        clearInterval(timer);popup.close();
-        const hash=new URLSearchParams(url.split('#')[1]);
-        gToken=hash.get('access_token');
-        gdriveConnected=true;saveSync();renderSyncUI();
-        toast('Connected! Loading your data from Drive…');
-        await loadFromDrive();
-        await syncNow();
-      }
-    }catch(e){}
-  },500);
+  // Listen for token sent back via postMessage from oauth.html
+  function onMsg(e){
+    if(e.origin!=='https://calltrackerlink.netlify.app')return;
+    if(!e.data||!e.data.access_token)return;
+    window.removeEventListener('message',onMsg);
+    gToken=e.data.access_token;
+    gdriveConnected=true;saveSync();renderSyncUI();updateHdrSyncBtn();
+    toast('Connected! Loading your data from Drive…');
+    loadFromDrive().then(()=>syncNow());
+  }
+  window.addEventListener('message',onMsg);
+  // Fallback: if popup closes without postMessage
+  const fallback=setInterval(()=>{
+    if(popup&&popup.closed){clearInterval(fallback);window.removeEventListener('message',onMsg);}
+  },1000);
 }
 async function syncNow(){
   if(!gToken){toast('Please connect Google Drive first');return}
@@ -894,7 +919,7 @@ function toast(msg){const t=document.getElementById('toast');document.getElement
 });
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){['addOverlay','logOverlay','topicsOverlay','notesOverlay','schedOverlay'].forEach(id=>document.getElementById(id).classList.remove('open'));render();}});
 
-load();render();
+load();render();updateHdrSyncBtn();
 if(gdriveConnected&&gToken)loadFromDrive();
 </script>
 </body>

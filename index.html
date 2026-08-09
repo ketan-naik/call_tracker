@@ -274,8 +274,8 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
 .hinfo{flex:1;min-width:0}
 .hdate{font-size:13px;font-weight:700;color:var(--text)}
 .hnote{font-size:12px;color:var(--sub);margin-top:2px;overflow:hidden;text-overflow:ellipsis;font-style:italic;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.hdel{background:none;border:none;color:var(--muted);font-size:15px;cursor:pointer;padding:6px;border-radius:8px;flex-shrink:0}
-.hdel:active{color:var(--red)}
+.hdel{background:var(--red-bg);border:1.5px solid var(--red-border);color:var(--red);font-family:var(--font);font-size:11px;font-weight:800;cursor:pointer;padding:7px 9px;border-radius:8px;flex-shrink:0}
+.hdel:active{transform:scale(.96);background:var(--red-border)}
 
 /* ── TOPICS ── */
 .titem{display:flex;align-items:center;gap:12px;padding:12px 13px;background:var(--bg2);border:1.5px solid var(--border);border-radius:13px;margin-bottom:7px}
@@ -445,6 +445,82 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
 .toggle-pill.on::after{transform:translateX(20px)}
 
 /* ── TOAST ── */
+/* BILL TRACKER */
+.bill-wrap{padding:10px 14px 20px;max-width:760px;margin:0 auto}
+.bill-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
+.bill-tile{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:10px;box-shadow:0 2px 8px var(--shadow)}
+.bill-n{font-size:22px;font-weight:800;line-height:1}
+.bill-l{font-size:9px;color:var(--sub);text-transform:uppercase;letter-spacing:.6px;font-weight:800;margin-top:4px}
+@media(max-width:520px){.bill-summary{grid-template-columns:repeat(2,1fr)}}
+.bill-form{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px;box-shadow:0 2px 8px var(--shadow)}
+.bill-form-title{font-size:14px;font-weight:800;color:var(--text);margin-bottom:9px}
+.bill-template-wrap{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:12px;margin-bottom:10px;box-shadow:0 2px 8px var(--shadow)}
+.bill-template-title{font-size:14px;font-weight:800;color:var(--text);margin-bottom:8px}
+.bill-template-grid{display:flex;gap:7px;flex-wrap:wrap}
+.bill-template-chip{border:1.5px solid var(--border);background:var(--bg2);color:var(--text2);border-radius:8px;font-family:var(--font);font-size:12px;font-weight:800;display:inline-flex;align-items:center;overflow:hidden}
+.bill-template-chip:active{transform:scale(.96);background:var(--border)}
+.bill-template-chip.electricity{color:var(--yellow);background:var(--yellow-bg);border-color:var(--yellow-border)}
+.bill-template-chip.credit{color:var(--blue);background:var(--blue-bg);border-color:#bfdbfe}
+.bill-template-pick,.bill-template-edit{border:none;background:transparent;color:inherit;font-family:var(--font);font-size:12px;font-weight:800;cursor:pointer;min-height:36px}
+.bill-template-pick{padding:8px 8px 8px 10px}
+.bill-template-edit{padding:8px 9px;border-left:1px solid var(--border)}
+.bill-template-edit:active,.bill-template-pick:active{background:rgba(0,0,0,.06)}
+.bill-template-tools{display:grid;grid-template-columns:1fr 1.35fr 1fr 1fr auto auto;gap:8px;margin-top:9px}
+.bill-save-template{border:none;border-radius:8px;background:var(--bg2);color:var(--text2);font-family:var(--font);font-size:12px;font-weight:800;padding:0 10px;cursor:pointer;border:1.5px solid var(--border)}
+.bill-form-grid{display:grid;grid-template-columns:1.1fr 1.3fr .9fr 1fr 1fr auto;gap:8px}
+@media(max-width:760px){.bill-template-tools,.bill-form-grid{grid-template-columns:1fr 1fr}.bill-template-tools .bill-save-template,.bill-form-grid .bill-add-btn{grid-column:1/-1}}
+.bill-input{width:100%;padding:10px 11px;background:var(--bg2);border:1.5px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:var(--font);outline:none}
+.bill-date-field{position:relative}
+.bill-date-field label{position:absolute;left:10px;top:5px;font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;pointer-events:none}
+.bill-date-field .bill-input{padding-top:20px;padding-bottom:6px;min-height:42px}
+.bill-add-btn{border:none;border-radius:8px;background:var(--ag);color:#fff;font-family:var(--font);font-size:13px;font-weight:800;padding:0 14px;min-height:40px;cursor:pointer}
+.bill-form-grid .bill-add-btn{grid-column:1/-1}
+.bill-note-input{grid-column:1/-1;min-height:42px;resize:vertical}
+.bill-section-title{font-size:11px;font-weight:800;color:var(--sub);text-transform:uppercase;letter-spacing:.9px;margin:14px 0 8px;display:flex;align-items:center;gap:8px}
+.bill-section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.bill-plan{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px;box-shadow:0 2px 8px var(--shadow)}
+.bill-plan-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.bill-plan-title{font-size:14px;font-weight:800;color:var(--text)}
+.bill-plan-list{display:grid;gap:7px}
+.bill-plan-item{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:9px;align-items:center;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px}
+.bill-plan-name{font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bill-plan-meta{font-size:11px;color:var(--sub);margin-top:1px}
+.bill-plan-pill{font-size:10px;font-weight:800;border-radius:6px;padding:4px 6px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.bill-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.bill-detail-stat{background:var(--bg2);border:1.5px solid var(--border);border-radius:8px;padding:10px}
+.bill-detail-k{font-size:10px;font-weight:800;color:var(--sub);letter-spacing:.6px;text-transform:uppercase}
+.bill-detail-v{font-size:14px;font-weight:800;color:var(--text);margin-top:3px}
+.bill-list{display:grid;gap:8px}
+.bill-card{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:10px;box-shadow:0 2px 8px var(--shadow);position:relative;overflow:hidden;cursor:pointer}
+.bill-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent)}
+.bill-card.bill-paid::before{background:var(--green)}
+.bill-card.bill-late::before{background:var(--red)}
+.bill-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px;font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.bill-title{font-size:14px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bill-meta{font-size:11px;color:var(--sub);margin-top:2px}
+.bill-note{font-size:11px;color:var(--text2);margin-top:6px;background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:7px;line-height:1.35}
+.bill-amount{font-size:14px;font-weight:800;color:var(--text);text-align:right}
+.bill-status{font-size:10px;font-weight:800;border-radius:6px;padding:4px 7px;display:inline-block;margin-top:4px;white-space:nowrap}
+.bill-due{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-border)}
+.bill-overdue{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.bill-ok{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.bill-actions{display:flex;gap:6px;justify-content:flex-end;margin-top:7px}
+.bill-action{height:26px;border:none;border-radius:7px;background:var(--bg2);color:var(--text2);font-family:var(--font);font-size:11px;font-weight:800;padding:0 8px;cursor:pointer}
+.bill-action.pay{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.bill-action.del{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+@media(max-width:520px){.bill-card{grid-template-columns:auto minmax(0,1fr)}.bill-side{grid-column:2;text-align:left}.bill-amount{text-align:left}.bill-actions{justify-content:flex-start}}
+.life-chip{border:1.5px solid var(--border);background:var(--bg2);color:var(--text2);border-radius:8px;padding:8px 10px;font-family:var(--font);font-size:12px;font-weight:800;cursor:pointer}
+.life-chip:active{transform:scale(.96);background:var(--border)}
+.life-form-grid{display:grid;grid-template-columns:1fr 1.2fr 1fr .8fr .9fr .8fr auto;gap:8px}
+@media(max-width:760px){.life-form-grid{grid-template-columns:1fr 1fr}.life-form-grid .bill-add-btn{grid-column:1/-1}}
+.life-card{cursor:pointer}
+.life-icon{font-size:18px}
+.life-rating{color:var(--yellow);font-size:11px;font-weight:800;margin-top:3px}
+.life-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.life-detail-stat{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px}
+.life-detail-k{font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}
+.life-detail-v{font-size:13px;font-weight:800;color:var(--text);margin-top:3px}
+
 #toast{position:fixed;bottom:96px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--text);color:var(--bg);padding:11px 20px;border-radius:50px;font-size:13px;font-weight:700;z-index:9999;opacity:0;transition:opacity .22s,transform .22s;white-space:nowrap;pointer-events:none;box-shadow:0 8px 28px rgba(0,0,0,.25);display:flex;align-items:center;gap:8px;max-width:calc(100vw - 40px);}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .tdot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0}
@@ -518,6 +594,97 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
   <div class="sw" id="statsContent"></div>
 </div>
 
+<!-- BILLS PAGE -->
+<div class="page" id="pageBills">
+  <div class="bill-wrap">
+    <div class="bill-summary" id="billSummary"></div>
+    <div class="bill-template-wrap">
+      <div class="bill-template-title">Quick add your regular bills</div>
+      <div class="bill-template-grid" id="billTemplates"></div>
+      <div class="bill-template-tools">
+        <select class="bill-input" id="quickBillType">
+          <option value="electricity">Electricity bill</option>
+          <option value="credit">Credit card bill</option>
+        </select>
+        <input class="bill-input" id="quickBillName" placeholder="New quick add name" autocomplete="off">
+        <div class="bill-date-field"><label>Generated</label><input class="bill-input" id="quickBillGenDate" type="date"></div>
+        <div class="bill-date-field"><label>Due</label><input class="bill-input" id="quickBillDueDate" type="date"></div>
+        <button class="bill-save-template" id="quickBillAction" onclick="addQuickBillTemplate()">Add quick card</button>
+        <button class="bill-save-template" id="quickBillCancel" style="display:none" onclick="resetQuickBillEditor()">Cancel</button>
+      </div>
+    </div>
+    <div class="bill-form">
+      <div class="bill-form-title">Add bill payment</div>
+      <div class="bill-form-grid">
+        <select class="bill-input" id="billType">
+          <option value="electricity">Electricity bill</option>
+          <option value="credit">Credit card bill</option>
+        </select>
+        <input class="bill-input" id="billName" placeholder="Provider / card name" autocomplete="off">
+        <input class="bill-input" id="billAmount" type="number" inputmode="decimal" placeholder="Amount">
+        <div class="bill-date-field"><label>Generated</label><input class="bill-input" id="billGenDay" type="date"></div>
+        <div class="bill-date-field"><label>Due</label><input class="bill-input" id="billDue" type="date"></div>
+        <textarea class="bill-input bill-note-input" id="billNotes" placeholder="Notes, confirmation number, autopay info..."></textarea>
+        <button class="bill-save-template" onclick="saveBillTemplate()">Save current as quick add</button>
+        <button class="bill-add-btn" onclick="addBill()">Add</button>
+      </div>
+    </div>
+    <div id="billAnalysis"></div>
+    <div id="billList"></div>
+  </div>
+</div>
+
+<!-- LIFE LOG PAGE -->
+<div class="page" id="pageLife">
+  <div class="bill-wrap">
+    <div class="bill-summary" id="lifeSummary"></div>
+    <div class="bill-template-wrap">
+      <div class="bill-template-title">Quick log personal activities</div>
+      <div class="bill-template-grid" id="lifeQuick"></div>
+    </div>
+    <div class="bill-form">
+      <div class="bill-form-title" id="lifeFormTitle">Add life activity</div>
+      <div class="life-form-grid">
+        <select class="bill-input" id="lifeCategory">
+          <option value="grooming">Grooming</option>
+          <option value="wellness">Wellness</option>
+          <option value="spiritual">Spiritual</option>
+          <option value="health">Health</option>
+          <option value="errand">Errand</option>
+          <option value="custom">Custom</option>
+        </select>
+        <input class="bill-input" id="lifeName" placeholder="Haircut, massage, mandir..." autocomplete="off">
+        <input class="bill-input" id="lifePlace" placeholder="Place / person">
+        <div class="bill-date-field"><label>Date</label><input class="bill-input" id="lifeDate" type="date"></div>
+        <select class="bill-input" id="lifeRepeat">
+          <option value="0">No reminder</option>
+          <option value="7">Every 7 days</option>
+          <option value="15">Every 15 days</option>
+          <option value="30">Every 30 days</option>
+          <option value="45">Every 45 days</option>
+          <option value="60">Every 60 days</option>
+          <option value="90">Every 90 days</option>
+        </select>
+        <input class="bill-input" id="lifeCost" type="number" inputmode="decimal" placeholder="Cost">
+        <select class="bill-input" id="lifeRating">
+          <option value="">Rating</option>
+          <option value="5">5 stars</option>
+          <option value="4">4 stars</option>
+          <option value="3">3 stars</option>
+          <option value="2">2 stars</option>
+          <option value="1">1 star</option>
+        </select>
+        <textarea class="bill-input bill-note-input" id="lifeNotes" placeholder="Notes, quality, reminder, receipt info..."></textarea>
+        <button class="bill-save-template" id="lifeDelete" style="display:none;background:var(--red-bg);color:var(--red);border-color:var(--red-border)" onclick="deleteLifeEntry()">Delete</button>
+        <button class="bill-save-template" id="lifeCancel" style="display:none" onclick="resetLifeForm()">Cancel</button>
+        <button class="bill-add-btn" id="lifeAction" onclick="saveLifeEntry()">Add</button>
+      </div>
+    </div>
+    <div id="lifeAnalysis"></div>
+    <div id="lifeList"></div>
+  </div>
+</div>
+
 <!-- SETTINGS PAGE -->
 <div class="page" id="pageIo">
   <div class="io-wrap">
@@ -548,6 +715,7 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
       <div class="io-card-desc">Export, copy, or import your call tracker data.</div>
       <div class="io-action-grid">
         <button class="io-btn io-primary" onclick="exportJSON()">⬇️ JSON</button>
+        <button class="io-btn io-blue" onclick="exportCSV()">📊 CSV</button>
         <button class="io-btn io-sec" onclick="exportText()">📋 Text</button>
         <button class="io-btn io-grn" onclick="document.getElementById('importFileInput').click()">⬆️ Import</button>
       </div>
@@ -579,6 +747,14 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
   <button class="nb" id="navCal" onclick="showPage('cal')">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="15" x2="8" y2="18"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="16" y1="16" x2="16" y2="18"/></svg>
     Insights
+  </button>
+  <button class="nb" id="navBills" onclick="showPage('bills')">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="12" y2="16"/></svg>
+    Bills
+  </button>
+  <button class="nb" id="navLife" onclick="showPage('life')">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+    Life
   </button>
   <button class="nb" id="navIo" onclick="showPage('io')">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
@@ -682,16 +858,68 @@ input[type="date"].finput::-webkit-calendar-picker-indicator{filter:opacity(.5);
   </div>
 </div>
 
+<!-- SHEET: Bill details -->
+<div class="overlay" id="billOverlay">
+  <div class="sheet">
+    <div class="handle"></div>
+    <div class="lph">
+      <div class="lph-av" id="billDetailAvatar"></div>
+      <div><div class="lph-name" id="billDetailName"></div><div class="lph-rel" id="billDetailType"></div></div>
+    </div>
+    <div class="bill-detail-grid" id="billDetailStats"></div>
+    <div class="field"><label class="flabel">Notes</label><textarea class="notes-area" id="billDetailNotes" placeholder="Autopay, confirmation numbers, statement notes..."></textarea></div>
+    <div class="hlabel">Payment history</div>
+    <div id="billDetailHistory"></div>
+    <div class="sactions">
+      <button class="sbtn sbtn-s" onclick="closeBillDetail()">Close</button>
+      <button class="sbtn sbtn-p" onclick="saveBillDetail()">Save notes</button>
+    </div>
+    <div class="sactions" style="margin-top:10px">
+      <button class="sbtn sbtn-s" onclick="nextBillCycleFromDetail()">Next month</button>
+      <button class="sbtn" style="background:var(--red-bg);color:var(--red);border:1.5px solid var(--red-border)" onclick="deleteBillFromDetail()">Delete bill</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const KEY='family-calls3';
+const BILL_KEY='family-bills1';
+const BILL_TEMPLATE_KEY='family-bill-templates1';
+const LIFE_KEY='family-life-log1';
 const OLD_KEYS=['kinship1','kinship2','kinship3','family-calls2'];
 let people=[],editId=null,logId=null,topicPersonId=null,notesPersonId=null,schedPersonId=null;
+let bills=[],billTemplates=[];
+let billDetailId=null;
+let quickBillEditIndex=null;
+let lifeEntries=[],lifeEditId=null;
 let selEmoji='',selType='📞',selQD='today';
 let gdriveConnected=false,lastSyncTime=null,gToken=null,gTokenExpiry=null;
 let searchQuery='';
 let deletedIds=new Set();
 
 const EMOJIS=['👴','👵','👨','👩','🧑','👦','👧','🧓','🧒','👨‍👩‍👦','👫','❤️','🌸','⭐','🏠','🌟','🎯','💫'];
+const DEFAULT_BILL_TEMPLATES=[
+  {type:'credit',name:'HDFC bill'},
+  {type:'credit',name:'Amazon ICICI bill'},
+  {type:'credit',name:'Scapia bill'},
+  {type:'credit',name:'HDFC credit card bill'},
+  {type:'credit',name:'Wealthsimple bill'},
+  {type:'credit',name:'CIBC bill'},
+  {type:'credit',name:'Bell internet bill'},
+  {type:'credit',name:'Koodo mobile bill'},
+  {type:'credit',name:'Juily Wealthsimple bill'},
+  {type:'credit',name:'Juily Amex bill'},
+  {type:'electricity',name:'Ketan meter'},
+  {type:'electricity',name:'Arun Naik meter'}
+];
+const LIFE_QUICK=[
+  {category:'grooming',name:'Haircut',repeat:30,icon:'✂'},
+  {category:'wellness',name:'Massage',repeat:30,icon:'💆'},
+  {category:'spiritual',name:'Ganpati Mandir',repeat:7,icon:'🛕'},
+  {category:'health',name:'Doctor visit',repeat:90,icon:'🩺'},
+  {category:'wellness',name:'Gym / walk',repeat:7,icon:'🏃'},
+  {category:'custom',name:'Custom',repeat:0,icon:'+'}
+];
 const GDRIVE_CLIENT_ID='250319257117-1bs48kbjeojifhbdtsck2iuah6fs6qst.apps.googleusercontent.com';
 const GDRIVE_SCOPE='https://www.googleapis.com/auth/drive.appdata';
 
@@ -764,7 +992,32 @@ function sanitize(p){
   p.logs.sort((a,b)=>new Date(b.date)-new Date(a.date));
   return p;
 }
-function save(){try{localStorage.setItem(KEY,JSON.stringify(people));localStorage.setItem(KEY+'_deleted',JSON.stringify([...deletedIds]));}catch(e){}}
+function sanitizeBill(b){
+  if(!b.id)b.id=uid();
+  if(!b.type)b.type='electricity';
+  if(!b.name)b.name=b.type==='credit'?'Credit card':'Electricity bill';
+  if(!b.amount)b.amount='';
+  if(!b.dueDate)b.dueDate=todayStr();
+  if(!b.dueDay)b.dueDay=dateOnly(b.dueDate).getDate();
+  if(!b.generationDay)b.generationDay='';
+  if(!b.history)b.history=[];
+  if(!b.notes)b.notes='';
+  if(b.paid===undefined)b.paid=false;
+  return b;
+}
+function sanitizeLife(x){
+  if(!x.id)x.id=uid();
+  if(!x.category)x.category='custom';
+  if(!x.name)x.name='Life activity';
+  if(!x.date)x.date=todayStr();
+  if(!x.place)x.place='';
+  if(!x.cost)x.cost='';
+  if(!x.repeatDays)x.repeatDays=0;
+  if(!x.rating)x.rating='';
+  if(!x.notes)x.notes='';
+  return x;
+}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(people));localStorage.setItem(KEY+'_deleted',JSON.stringify([...deletedIds]));localStorage.setItem(BILL_KEY,JSON.stringify(bills));localStorage.setItem(BILL_TEMPLATE_KEY,JSON.stringify(billTemplates));localStorage.setItem(LIFE_KEY,JSON.stringify(lifeEntries));}catch(e){}}
 function load(){
   try{
     const d=localStorage.getItem(KEY);
@@ -772,6 +1025,9 @@ function load(){
     if(!people.length){for(const ok of OLD_KEYS){try{const o=localStorage.getItem(ok);if(o){const p=JSON.parse(o);if(Array.isArray(p)&&p.length){people=p.map(sanitize);save();break;}if(p.people&&p.people.length){people=p.people.map(sanitize);save();break;}}}catch(e){}}}
     const dd=localStorage.getItem(KEY+'_deleted');if(dd)deletedIds=new Set(JSON.parse(dd));
     people=people.filter(p=>!deletedIds.has(p.id));
+    const bd=localStorage.getItem(BILL_KEY);if(bd)bills=JSON.parse(bd).map(sanitizeBill);
+    const td=localStorage.getItem(BILL_TEMPLATE_KEY);billTemplates=td?JSON.parse(td):DEFAULT_BILL_TEMPLATES.slice();
+    const ld=localStorage.getItem(LIFE_KEY);if(ld)lifeEntries=JSON.parse(ld).map(sanitizeLife);
     const ss=localStorage.getItem(KEY+'_sync');
     if(ss){
       const s=JSON.parse(ss);
@@ -800,8 +1056,10 @@ function saveSync(){
 function silentReauth(){return Promise.resolve(false);} // kept for compat, not used
 
 function todayStr(){return new Date().toISOString().slice(0,10)}
+function dateOnly(s){return new Date((s||todayStr())+'T12:00:00')}
 function daysSince(iso){if(!iso)return null;return Math.floor((Date.now()-new Date(iso).getTime())/86400000)}
 function daysUntil(iso){if(!iso)return null;return Math.ceil((new Date(iso).setHours(23,59,59,999)-Date.now())/86400000)}
+function daysUntilDate(s){if(!s)return null;const d=dateOnly(s);d.setHours(23,59,59,999);return Math.ceil((d-Date.now())/86400000)}
 function statusOf(p){
   if(!(p.logs||[]).length)return'never';
   const d=daysSince(p.logs[0].date),f=p.freq||7;
@@ -809,6 +1067,7 @@ function statusOf(p){
 }
 function fmtDate(iso){if(!iso)return'—';const d=daysSince(iso);if(d===0)return'Today';if(d===1)return'Yesterday';if(d<7)return d+'d ago';return new Date(iso).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});}
 function fmtFull(iso){return new Date(iso).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}
+function fmtBillDate(s){return dateOnly(s).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}
 function initials(n){return(n||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 
@@ -836,7 +1095,7 @@ function showPage(p){
   const pid='page'+p.charAt(0).toUpperCase()+p.slice(1),nid='nav'+p.charAt(0).toUpperCase()+p.slice(1);
   const pel=document.getElementById(pid),nel=document.getElementById(nid);
   if(pel)pel.classList.add('on');if(nel)nel.classList.add('on');
-  if(p==='stats')renderStats();if(p==='cal'){renderInsightCompact();renderInsightsDashboard();renderCal();}if(p==='io'){renderSyncUI();applyTheme();}
+  if(p==='stats')renderStats();if(p==='cal'){renderInsightCompact();renderInsightsDashboard();renderCal();}if(p==='bills')renderBills();if(p==='life')renderLife();if(p==='io'){renderSyncUI();applyTheme();}
 }
 
 /* ── RENDER HOME ── */
@@ -915,6 +1174,192 @@ function buildCard(p){
 </div></div>`;
 }
 
+function billStatus(b){
+  if(b.paid)return{key:'paid',label:'Paid',cls:'bill-ok'};
+  const d=daysUntilDate(b.dueDate);
+  if(d<0)return{key:'late',label:Math.abs(d)+'d overdue',cls:'bill-overdue'};
+  if(d===0)return{key:'due',label:'Due today',cls:'bill-due'};
+  if(d<=3)return{key:'due',label:'Due in '+d+'d',cls:'bill-due'};
+  return{key:'upcoming',label:'Due '+fmtBillDate(b.dueDate),cls:'bill-ok'};
+}
+function clampDay(y,m,day){return Math.min(Math.max(parseInt(day)||1,1),new Date(y,m+1,0).getDate())}
+function monthlyDate(day,offset=0){const now=new Date(),y=now.getFullYear(),m=now.getMonth()+offset;return new Date(y,m,clampDay(y,m,day),12,0,0,0)}
+function nextRuleDate(day){if(!day)return null;let d=monthlyDate(day,0);const today=new Date();today.setHours(0,0,0,0);if(d<today)d=monthlyDate(day,1);return d}
+function nextBillInfo(b){const gen=nextRuleDate(b.generationDay),due=nextRuleDate(b.dueDay||dateOnly(b.dueDate).getDate());return{gen,due,label:due?due.toLocaleDateString('en-IN',{day:'numeric',month:'short'}):fmtBillDate(b.dueDate)}}
+function billIcon(b){return b.type==='credit'?'💳':'⚡'}
+function billColor(b){return b.type==='credit'?'#2563eb':'#f59e0b'}
+function dayFromDateField(id){const el=document.getElementById(id);if(!el||!el.value)return'';return String(dateOnly(el.value).getDate())}
+function dateValueForDay(day){const d=nextRuleDate(day);return d?d.toISOString().slice(0,10):''}
+function setDateFieldFromDay(id,day){const el=document.getElementById(id);if(el)el.value=dateValueForDay(day)}
+function generationDateForCycle(genDay,dueDay,dueValue){if(!genDay||!dueValue)return dateValueForDay(genDay);const due=dateOnly(dueValue),g=parseInt(genDay),d=parseInt(dueDay)||due.getDate();let y=due.getFullYear(),m=due.getMonth();if(g>d){m--;if(m<0){m=11;y--;}}return new Date(y,m,clampDay(y,m,g),12,0,0,0).toISOString().slice(0,10)}
+function renderBills(){
+  const sum=document.getElementById('billSummary'),list=document.getElementById('billList');if(!sum||!list)return;
+  const dueInput=document.getElementById('billDue');if(dueInput&&!dueInput.value)dueInput.value=todayStr();
+  renderBillTemplates();
+  renderBillAnalysis();
+  const paid=bills.filter(b=>b.paid).length,pending=bills.length-paid,overdue=bills.filter(b=>billStatus(b).key==='late').length,total=bills.reduce((s,b)=>s+(parseFloat(b.amount)||0),0);
+  sum.innerHTML=`<div class="bill-tile"><div class="bill-n" style="color:var(--accent)">${bills.length}</div><div class="bill-l">Bills</div></div><div class="bill-tile"><div class="bill-n" style="color:var(--yellow)">${pending}</div><div class="bill-l">Pending</div></div><div class="bill-tile"><div class="bill-n" style="color:var(--red)">${overdue}</div><div class="bill-l">Overdue</div></div><div class="bill-tile"><div class="bill-n" style="color:var(--green)">${paid}</div><div class="bill-l">Paid</div></div>`;
+  if(!bills.length){list.innerHTML=`<div class="onboard" style="padding:28px 18px"><div class="onboard-hero" style="font-size:48px">💡</div><h2>No bills yet</h2><p>Add electricity or credit card bills to track due dates and payments.</p></div>`;return;}
+  const sorted=bills.slice().sort((a,b)=>{if(a.paid!==b.paid)return a.paid?1:-1;return new Date(a.dueDate)-new Date(b.dueDate);});
+  const groups={};
+  sorted.forEach(b=>{const d=dateOnly(b.dueDate),key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');if(!groups[key])groups[key]=[];groups[key].push(b);});
+  list.innerHTML=Object.entries(groups).sort(([a],[b])=>a.localeCompare(b)).map(([key,items])=>`<div class="bill-section-title">${monthLabel(key)} · ${items.length} bill${items.length>1?'s':''}</div><div class="bill-list">${items.map(buildBillCard).join('')}</div>`).join('');
+}
+function renderBillAnalysis(){
+  const el=document.getElementById('billAnalysis');if(!el)return;
+  if(!bills.length){el.innerHTML='';return;}
+  const upcoming=bills.slice().sort((a,b)=>nextBillInfo(a).due-nextBillInfo(b).due).slice(0,5);
+  el.innerHTML=`<div class="bill-plan"><div class="bill-plan-head"><div class="bill-plan-title">Next bill schedule</div><div class="dash-sub">Generated / due</div></div><div class="bill-plan-list">${upcoming.map(b=>{const info=nextBillInfo(b);return`<div class="bill-plan-item" onclick="openBillDetail('${esc(b.id)}')"><div class="bill-icon" style="background:${billColor(b)};width:30px;height:30px;font-size:14px">${billIcon(b)}</div><div><div class="bill-plan-name">${esc(b.name)}</div><div class="bill-plan-meta">${info.gen?'Generated '+info.gen.toLocaleDateString('en-IN',{day:'numeric',month:'short'})+' · ':''}Due day ${b.dueDay||dateOnly(b.dueDate).getDate()}</div></div><div class="bill-plan-pill">${info.label}</div></div>`}).join('')}</div></div>`;
+}
+function monthLabel(key){const [y,m]=key.split('-').map(Number);return new Date(y,m-1,1).toLocaleDateString('en-IN',{month:'long',year:'numeric'});}
+function renderBillTemplates(){
+  const el=document.getElementById('billTemplates');if(!el)return;
+  el.innerHTML=billTemplates.map((b,i)=>`<button class="bill-template-chip ${b.type}" onclick="pickBillTemplate(${i})">${b.type==='electricity'?'⚡':'💳'} ${esc(b.name)}</button>`).join('');
+  const names=document.getElementById('existingBillNames');
+  if(names){const opts=[...new Map([...billTemplates,...bills].map(b=>[(b.type||'credit')+'|'+b.name,{type:b.type||'credit',name:b.name}])).values()].sort((a,b)=>a.name.localeCompare(b.name));names.innerHTML='<option value="">Use existing bill name...</option>'+opts.map(x=>`<option value="${esc(x.type+'|'+x.name)}">${x.type==='electricity'?'⚡':'💳'} ${esc(x.name)}</option>`).join('');}
+}
+function pickBillTemplate(i){
+  const t=billTemplates[i];if(!t)return;
+  document.getElementById('billType').value=t.type;
+  document.getElementById('billName').value=t.name;
+  document.getElementById('billGenDay').value=t.generationDay||'';
+  document.getElementById('billDueDay').value=t.dueDay||'';
+  if(t.dueDay)document.getElementById('billDue').value=nextRuleDate(t.dueDay).toISOString().slice(0,10);
+  document.getElementById('billAmount').focus();
+  toast('Selected '+t.name);
+}
+function pickExistingBillName(v){if(!v)return;const parts=v.split('|'),type=parts.shift(),name=parts.join('|'),src=[...bills,...billTemplates].find(b=>(b.type||'credit')===type&&b.name===name);document.getElementById('billType').value=type;document.getElementById('billName').value=name;if(src){document.getElementById('billGenDay').value=src.generationDay||'';document.getElementById('billDueDay').value=src.dueDay||'';if(src.dueDay)document.getElementById('billDue').value=nextRuleDate(src.dueDay).toISOString().slice(0,10);}document.getElementById('billAmount').focus();}
+function saveBillTemplate(){
+  const type=document.getElementById('billType').value,name=document.getElementById('billName').value.trim(),generationDay=document.getElementById('billGenDay').value,dueDay=document.getElementById('billDueDay').value;
+  if(!name){toast('Enter a bill name first');document.getElementById('billName').focus();return;}
+  const ex=billTemplates.find(t=>t.type===type&&t.name.toLowerCase()===name.toLowerCase());
+  if(ex){ex.generationDay=generationDay||ex.generationDay;ex.dueDay=dueDay||ex.dueDay;save();renderBillTemplates();toast('Quick add updated');return;}
+  billTemplates.push({type,name,generationDay,dueDay});save();renderBillTemplates();toast('Saved to quick add');
+}
+function buildBillCard(b){
+  const st=billStatus(b),amt=b.amount?'₹'+Number(b.amount).toLocaleString('en-IN'):'—';
+  return`<div class="bill-card bill-${st.key==='late'?'late':b.paid?'paid':'due'}" onclick="openBillDetail('${esc(b.id)}')"><div class="bill-icon" style="background:${billColor(b)}">${billIcon(b)}</div><div><div class="bill-title">${esc(b.name)}</div><div class="bill-meta">${b.type==='credit'?'Credit card':'Electricity'} · Generated ${b.generationDay||'—'} · Due ${fmtBillDate(b.dueDate)}${b.history.length?' · '+b.history.length+' paid':''}</div>${b.notes?`<div class="bill-note">${esc(b.notes)}</div>`:''}</div><div class="bill-side"><div class="bill-amount">${amt}</div><div class="bill-status ${st.cls}">${st.label}</div><div class="bill-actions">${b.paid?`<button class="bill-action pay" onclick="event.stopPropagation();nextBillCycle('${esc(b.id)}')">Next month</button>`:`<button class="bill-action pay" onclick="event.stopPropagation();markBillPaid('${esc(b.id)}')">Paid</button>`}</div></div></div>`;
+}
+function addBill(){
+  const type=document.getElementById('billType').value,name=document.getElementById('billName').value.trim()||(type==='credit'?'Credit card':'Electricity bill'),amount=document.getElementById('billAmount').value,dueDate=document.getElementById('billDue').value,notes=document.getElementById('billNotes').value.trim(),generationDay=document.getElementById('billGenDay').value,dueDay=document.getElementById('billDueDay').value||dateOnly(dueDate).getDate();
+  if(!dueDate){toast('Pick a due date');document.getElementById('billDue').focus();return;}
+  bills.push(sanitizeBill({id:uid(),type,name,amount,dueDate,notes,generationDay,dueDay,paid:false,history:[]}));
+  document.getElementById('billName').value='';document.getElementById('billAmount').value='';document.getElementById('billDue').value='';document.getElementById('billNotes').value='';document.getElementById('billGenDay').value='';document.getElementById('billDueDay').value='';
+  save();renderBills();toast('Bill added');
+}
+function renderBillTemplates(){
+  const el=document.getElementById('billTemplates');if(!el)return;
+  el.innerHTML=billTemplates.map((b,i)=>`<div class="bill-template-chip ${b.type}"><button class="bill-template-pick" onclick="pickBillTemplate(${i})">${b.type==='electricity'?'⚡':'💳'} ${esc(b.name)}</button><button class="bill-template-edit" onclick="editQuickBillTemplate(${i})" title="Edit quick add">Edit</button></div>`).join('');
+}
+function pickBillTemplate(i){
+  const t=billTemplates[i];if(!t)return;
+  document.getElementById('billType').value=t.type;
+  document.getElementById('billName').value=t.name;
+  const dueValue=dateValueForDay(t.dueDay);
+  if(t.dueDay)document.getElementById('billDue').value=dueValue;
+  if(t.generationDay)document.getElementById('billGenDay').value=generationDateForCycle(t.generationDay,t.dueDay,dueValue);
+  document.getElementById('billAmount').focus();
+  toast('Selected '+t.name);
+}
+function addQuickBillTemplate(){
+  const type=document.getElementById('quickBillType').value,name=document.getElementById('quickBillName').value.trim(),generationDay=dayFromDateField('quickBillGenDate'),dueDay=dayFromDateField('quickBillDueDate');
+  if(!name){toast('Enter a quick add name');document.getElementById('quickBillName').focus();return;}
+  if(!dueDay){toast('Pick the usual due date');document.getElementById('quickBillDueDate').focus();return;}
+  const exIndex=billTemplates.findIndex((t,i)=>i!==quickBillEditIndex&&t.type===type&&t.name.toLowerCase()===name.toLowerCase());
+  if(exIndex>=0){toast('A quick card with this name already exists');return;}
+  if(quickBillEditIndex!==null&&billTemplates[quickBillEditIndex]){billTemplates[quickBillEditIndex]={type,name,generationDay,dueDay};toast('Quick card updated');}
+  else{billTemplates.push({type,name,generationDay,dueDay});toast('Quick card added');}
+  resetQuickBillEditor(false);
+  save();renderBillTemplates();
+}
+function editQuickBillTemplate(i){
+  const t=billTemplates[i];if(!t)return;quickBillEditIndex=i;
+  document.getElementById('quickBillType').value=t.type||'credit';
+  document.getElementById('quickBillName').value=t.name||'';
+  document.getElementById('quickBillGenDate').value=dateValueForDay(t.generationDay);
+  document.getElementById('quickBillDueDate').value=dateValueForDay(t.dueDay);
+  document.getElementById('quickBillAction').textContent='Update quick card';
+  document.getElementById('quickBillCancel').style.display='';
+  document.getElementById('quickBillName').focus();
+}
+function resetQuickBillEditor(showToast=true){
+  quickBillEditIndex=null;
+  document.getElementById('quickBillType').value='electricity';
+  document.getElementById('quickBillName').value='';
+  document.getElementById('quickBillGenDate').value='';
+  document.getElementById('quickBillDueDate').value='';
+  document.getElementById('quickBillAction').textContent='Add quick card';
+  document.getElementById('quickBillCancel').style.display='none';
+  if(showToast)toast('Edit cancelled');
+}
+function saveBillTemplate(){
+  const type=document.getElementById('billType').value,name=document.getElementById('billName').value.trim(),generationDay=dayFromDateField('billGenDay'),dueDay=dayFromDateField('billDue');
+  if(!name){toast('Enter a bill name first');document.getElementById('billName').focus();return;}
+  if(!dueDay){toast('Pick the due date first');document.getElementById('billDue').focus();return;}
+  const ex=billTemplates.find(t=>t.type===type&&t.name.toLowerCase()===name.toLowerCase());
+  if(ex){ex.generationDay=generationDay||ex.generationDay;ex.dueDay=dueDay;save();renderBillTemplates();toast('Quick card updated');return;}
+  billTemplates.push({type,name,generationDay,dueDay});save();renderBillTemplates();toast('Saved as quick card');
+}
+function addBill(){
+  const type=document.getElementById('billType').value,name=document.getElementById('billName').value.trim()||(type==='credit'?'Credit card':'Electricity bill'),amount=document.getElementById('billAmount').value,dueDate=document.getElementById('billDue').value,notes=document.getElementById('billNotes').value.trim(),generationDay=dayFromDateField('billGenDay'),dueDay=dayFromDateField('billDue');
+  if(!dueDate){toast('Pick a due date');document.getElementById('billDue').focus();return;}
+  bills.push(sanitizeBill({id:uid(),type,name,amount,dueDate,notes,generationDay,dueDay,paid:false,history:[]}));
+  document.getElementById('billName').value='';document.getElementById('billAmount').value='';document.getElementById('billDue').value='';document.getElementById('billNotes').value='';document.getElementById('billGenDay').value='';
+  save();renderBills();toast('Bill added');
+}
+function markBillPaid(id){const b=bills.find(x=>x.id===id);if(!b)return;b.paid=true;b.paidAt=new Date().toISOString();b.history.push({paidAt:b.paidAt,amount:b.amount,dueDate:b.dueDate,notes:b.notes||''});save();renderBills();toast('Marked paid');}
+function nextBillCycle(id){const b=bills.find(x=>x.id===id);if(!b)return;const base=dateOnly(b.dueDate);base.setMonth(base.getMonth()+1);if(b.dueDay)base.setDate(clampDay(base.getFullYear(),base.getMonth(),b.dueDay));b.dueDate=base.toISOString().slice(0,10);b.paid=false;b.paidAt=null;save();renderBills();toast('Next cycle created');}
+function deleteBill(id){const b=bills.find(x=>x.id===id);if(!b||!confirm('Delete '+b.name+'?'))return;bills=bills.filter(x=>x.id!==id);save();renderBills();toast('Bill deleted');}
+function mergeBills(imported){let added=0,merged=0;(imported||[]).forEach(raw=>{const im=sanitizeBill(raw);const ex=bills.find(b=>b.id===im.id)||(bills.find(b=>b.name===im.name&&b.type===im.type&&b.dueDate===im.dueDate));if(!ex){bills.push(im);added++;}else{ex.amount=im.amount||ex.amount;ex.notes=im.notes||ex.notes;ex.paid=im.paid||ex.paid;ex.paidAt=im.paidAt||ex.paidAt;ex.generationDay=im.generationDay||ex.generationDay;ex.dueDay=im.dueDay||ex.dueDay;const hist=new Set((ex.history||[]).map(h=>h.paidAt+'|'+h.dueDate));(im.history||[]).forEach(h=>{const k=h.paidAt+'|'+h.dueDate;if(!hist.has(k))ex.history.push(h);});merged++;}});return{added,merged};}
+function mergeBillTemplates(imported){let added=0;(imported||[]).forEach(t=>{if(!t||!t.name)return;const type=t.type||'credit',ex=billTemplates.find(x=>x.type===type&&x.name.toLowerCase()===t.name.toLowerCase());if(!ex){billTemplates.push({type,name:t.name,generationDay:t.generationDay||'',dueDay:t.dueDay||''});added++;}else{ex.generationDay=t.generationDay||ex.generationDay;ex.dueDay=t.dueDay||ex.dueDay;}});return added;}
+function openBillDetail(id){
+  const b=bills.find(x=>x.id===id);if(!b)return;billDetailId=id;
+  const av=document.getElementById('billDetailAvatar');av.style.background=billColor(b);av.textContent=billIcon(b);
+  document.getElementById('billDetailName').textContent=b.name;
+  document.getElementById('billDetailType').textContent=b.type==='credit'?'Credit card bill':'Electricity bill';
+  const st=billStatus(b),info=nextBillInfo(b);
+  document.getElementById('billDetailStats').innerHTML=`<div class="bill-detail-stat"><div class="bill-detail-k">Amount</div><div class="bill-detail-v">${b.amount?'₹'+Number(b.amount).toLocaleString('en-IN'):'—'}</div></div><div class="bill-detail-stat"><div class="bill-detail-k">Status</div><div class="bill-detail-v">${st.label}</div></div><div class="bill-detail-stat"><div class="bill-detail-k">Generated</div><div class="bill-detail-v">${b.generationDay?('Day '+b.generationDay):'—'}</div></div><div class="bill-detail-stat"><div class="bill-detail-k">Due rule</div><div class="bill-detail-v">Day ${b.dueDay||dateOnly(b.dueDate).getDate()}</div></div><div class="bill-detail-stat"><div class="bill-detail-k">Current due</div><div class="bill-detail-v">${fmtBillDate(b.dueDate)}</div></div><div class="bill-detail-stat"><div class="bill-detail-k">Next due</div><div class="bill-detail-v">${info.label}</div></div>`;
+  document.getElementById('billDetailNotes').value=b.notes||'';
+  document.getElementById('billDetailHistory').innerHTML=(b.history&&b.history.length)?b.history.slice().reverse().map(h=>`<div class="hitem"><div class="hicon">✓</div><div class="hinfo"><div class="hdate">${fmtBillDate(h.dueDate)}</div><div class="hnote">Paid ${h.amount?'₹'+h.amount:''}${h.notes?' · '+esc(h.notes):''}</div></div></div>`).join(''):`<div class="cal-journal-empty" style="padding:16px">No payment history yet.</div>`;
+  document.getElementById('billOverlay').classList.add('open');
+}
+function closeBillDetail(){document.getElementById('billOverlay').classList.remove('open')}
+function saveBillDetail(){const b=bills.find(x=>x.id===billDetailId);if(!b)return;b.notes=document.getElementById('billDetailNotes').value.trim();save();renderBills();openBillDetail(b.id);toast('Bill notes saved');}
+function nextBillCycleFromDetail(){if(!billDetailId)return;nextBillCycle(billDetailId);openBillDetail(billDetailId);}
+function deleteBillFromDetail(){if(!billDetailId)return;const id=billDetailId;closeBillDetail();deleteBill(id);billDetailId=null;}
+
+function lifeIcon(x){const q=LIFE_QUICK.find(a=>a.name.toLowerCase()===x.name.toLowerCase()||a.category===x.category);return q?q.icon:'•'}
+function lifeNext(x){if(!x.repeatDays)return null;const d=dateOnly(x.date);d.setDate(d.getDate()+parseInt(x.repeatDays));return d}
+function lifeStatus(x){const n=lifeNext(x);if(!n)return{label:'Logged',cls:'bill-ok'};const d=Math.ceil((n-Date.now())/86400000);if(d<0)return{label:Math.abs(d)+'d overdue',cls:'bill-overdue'};if(d===0)return{label:'Due today',cls:'bill-due'};if(d<=7)return{label:'Due in '+d+'d',cls:'bill-due'};return{label:'Next '+n.toLocaleDateString('en-IN',{day:'numeric',month:'short'}),cls:'bill-ok'}}
+function renderLife(){
+  const sum=document.getElementById('lifeSummary'),quick=document.getElementById('lifeQuick'),analysis=document.getElementById('lifeAnalysis'),list=document.getElementById('lifeList');if(!sum||!quick||!analysis||!list)return;
+  const date=document.getElementById('lifeDate');if(date&&!date.value)date.value=todayStr();
+  quick.innerHTML=LIFE_QUICK.map(q=>`<button class="life-chip" onclick="pickLifeQuick('${q.category}','${esc(q.name)}',${q.repeat})">${q.icon} ${esc(q.name)}</button>`).join('');
+  const thisMonth=lifeEntries.filter(x=>{const d=dateOnly(x.date),n=new Date();return d.getMonth()===n.getMonth()&&d.getFullYear()===n.getFullYear()}).length;
+  const dueSoon=lifeEntries.filter(x=>{const n=lifeNext(x);if(!n)return false;const d=Math.ceil((n-Date.now())/86400000);return d>=0&&d<=7}).length;
+  const overdue=lifeEntries.filter(x=>{const n=lifeNext(x);return n&&n<Date.now()}).length;
+  const spend=lifeEntries.filter(x=>{const d=dateOnly(x.date),n=new Date();return d.getMonth()===n.getMonth()&&d.getFullYear()===n.getFullYear()}).reduce((s,x)=>s+(parseFloat(x.cost)||0),0);
+  sum.innerHTML=`<div class="bill-tile"><div class="bill-n" style="color:var(--accent)">${lifeEntries.length}</div><div class="bill-l">Logs</div></div><div class="bill-tile"><div class="bill-n" style="color:var(--green)">${thisMonth}</div><div class="bill-l">This month</div></div><div class="bill-tile"><div class="bill-n" style="color:var(--yellow)">${dueSoon}</div><div class="bill-l">Due soon</div></div><div class="bill-tile"><div class="bill-n" style="color:var(--red)">${overdue}</div><div class="bill-l">Overdue</div></div>`;
+  const upcoming=lifeEntries.filter(x=>lifeNext(x)).sort((a,b)=>lifeNext(a)-lifeNext(b)).slice(0,5);
+  analysis.innerHTML=upcoming.length?`<div class="bill-plan"><div class="bill-plan-head"><div class="bill-plan-title">Next personal reminders</div><div class="dash-sub">Self care / visits</div></div><div class="bill-plan-list">${upcoming.map(x=>{const st=lifeStatus(x),n=lifeNext(x);return`<div class="bill-plan-item" onclick="openLifeDetail('${esc(x.id)}')"><div class="bill-icon life-icon">${lifeIcon(x)}</div><div><div class="bill-plan-name">${esc(x.name)}</div><div class="bill-plan-meta">${esc(x.place||x.category)} · last ${fmtBillDate(x.date)}</div></div><div class="bill-plan-pill">${n.toLocaleDateString('en-IN',{day:'numeric',month:'short'})}</div></div>`}).join('')}</div></div>`:'';
+  if(!lifeEntries.length){list.innerHTML=`<div class="onboard" style="padding:28px 18px"><div class="onboard-hero" style="font-size:48px">✨</div><h2>No life logs yet</h2><p>Track haircuts, massage, mandir visits, health appointments and personal routines.</p></div>`;return;}
+  const groups={};lifeEntries.slice().sort((a,b)=>dateOnly(b.date)-dateOnly(a.date)).forEach(x=>{const d=dateOnly(x.date),key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');if(!groups[key])groups[key]=[];groups[key].push(x);});
+  list.innerHTML=Object.entries(groups).sort(([a],[b])=>b.localeCompare(a)).map(([key,items])=>`<div class="bill-section-title">${monthLabel(key)} · ${items.length} item${items.length>1?'s':''}</div><div class="bill-list">${items.map(buildLifeCard).join('')}</div>`).join('');
+}
+function buildLifeCard(x){const st=lifeStatus(x),cost=x.cost?'₹'+Number(x.cost).toLocaleString('en-IN'):'',rating=x.rating?'★'.repeat(parseInt(x.rating)):'';return`<div class="bill-card life-card" onclick="openLifeDetail('${esc(x.id)}')"><div class="bill-icon life-icon">${lifeIcon(x)}</div><div><div class="bill-title">${esc(x.name)}</div><div class="bill-meta">${esc(x.category)} · ${fmtBillDate(x.date)}${x.place?' · '+esc(x.place):''}</div>${x.notes?`<div class="bill-note">${esc(x.notes)}</div>`:''}${rating?`<div class="life-rating">${rating}</div>`:''}</div><div class="bill-side"><div class="bill-amount">${cost}</div><div class="bill-status ${st.cls}">${st.label}</div></div></div>`}
+function pickLifeQuick(category,name,repeat){document.getElementById('lifeCategory').value=category;document.getElementById('lifeName').value=name==='Custom'?'':name;document.getElementById('lifeRepeat').value=String(repeat||0);document.getElementById('lifeDate').value=todayStr();document.getElementById('lifeName').focus();}
+function saveLifeEntry(){
+  const category=document.getElementById('lifeCategory').value,name=document.getElementById('lifeName').value.trim()||'Life activity',place=document.getElementById('lifePlace').value.trim(),date=document.getElementById('lifeDate').value,cost=document.getElementById('lifeCost').value,repeatDays=parseInt(document.getElementById('lifeRepeat').value)||0,rating=document.getElementById('lifeRating').value,notes=document.getElementById('lifeNotes').value.trim();
+  if(!date){toast('Pick a date');document.getElementById('lifeDate').focus();return;}
+  if(lifeEditId){const x=lifeEntries.find(e=>e.id===lifeEditId);if(x)Object.assign(x,{category,name,place,date,cost,repeatDays,rating,notes});toast('Life log updated');}
+  else{lifeEntries.push(sanitizeLife({id:uid(),category,name,place,date,cost,repeatDays,rating,notes}));toast('Life log added');}
+  resetLifeForm(false);save();renderLife();
+}
+function resetLifeForm(showToast=true){lifeEditId=null;document.getElementById('lifeFormTitle').textContent='Add life activity';document.getElementById('lifeCategory').value='grooming';document.getElementById('lifeName').value='';document.getElementById('lifePlace').value='';document.getElementById('lifeDate').value=todayStr();document.getElementById('lifeCost').value='';document.getElementById('lifeRepeat').value='0';document.getElementById('lifeRating').value='';document.getElementById('lifeNotes').value='';document.getElementById('lifeAction').textContent='Add';document.getElementById('lifeCancel').style.display='none';document.getElementById('lifeDelete').style.display='none';if(showToast)toast('Edit cancelled');}
+function openLifeDetail(id){const x=lifeEntries.find(e=>e.id===id);if(!x)return;lifeEditId=id;document.getElementById('lifeFormTitle').textContent='Edit '+x.name;document.getElementById('lifeCategory').value=x.category;document.getElementById('lifeName').value=x.name;document.getElementById('lifePlace').value=x.place||'';document.getElementById('lifeDate').value=x.date;document.getElementById('lifeCost').value=x.cost||'';document.getElementById('lifeRepeat').value=String(x.repeatDays||0);document.getElementById('lifeRating').value=x.rating||'';document.getElementById('lifeNotes').value=x.notes||'';document.getElementById('lifeAction').textContent='Save changes';document.getElementById('lifeCancel').style.display='';document.getElementById('lifeDelete').style.display='';document.getElementById('lifeFormTitle').scrollIntoView({behavior:'smooth',block:'start'});}
+function deleteLifeEntry(){if(!lifeEditId)return;const x=lifeEntries.find(e=>e.id===lifeEditId);if(!x||!confirm('Delete '+x.name+'?'))return;lifeEntries=lifeEntries.filter(e=>e.id!==lifeEditId);resetLifeForm(false);save();renderLife();toast('Life log deleted');}
+function mergeLife(imported){let added=0,merged=0;(imported||[]).forEach(raw=>{const im=sanitizeLife(raw),ex=lifeEntries.find(x=>x.id===im.id)||(lifeEntries.find(x=>x.name===im.name&&x.date===im.date&&x.category===im.category));if(!ex){lifeEntries.push(im);added++;}else{Object.assign(ex,im);merged++;}});return{added,merged};}
+
 function buildEmojiRow(sel){document.getElementById('emojiRow').innerHTML=EMOJIS.map(e=>`<div class="eopt${e===sel?' on':''}" onclick="pickEmoji('${e}')">${e}</div>`).join('')}
 function openAdd(){editId=null;selEmoji='';document.getElementById('iName').value='';document.getElementById('iRelation').value='';document.getElementById('iFreq').value='7';document.getElementById('addTitle').textContent='Add family member';buildEmojiRow('');document.getElementById('addOverlay').classList.add('open');setTimeout(()=>document.getElementById('iName').focus(),300);}
 function openEdit(id){const p=people.find(x=>x.id===id);if(!p)return;editId=id;selEmoji=p.emoji||'';document.getElementById('iName').value=p.name;document.getElementById('iRelation').value=p.relation||'';document.getElementById('iFreq').value=p.freq||7;document.getElementById('addTitle').textContent='Edit '+p.name;buildEmojiRow(p.emoji||'');document.getElementById('addOverlay').classList.add('open');}
@@ -968,7 +1413,7 @@ function saveLog(){
   save();render();closeLog();toast('Call logged with '+p.name);
 }
 function quickLog(id){const p=people.find(x=>x.id===id);if(!p)return;if(!p.logs)p.logs=[];p.logs.unshift({date:new Date().toISOString(),type:'📞',note:''});p.logs.sort((a,b)=>new Date(b.date)-new Date(a.date));if(p.scheduledCall&&daysSince(p.scheduledCall)>=0)p.scheduledCall=null;save();render();toast('Logged call with '+p.name);}
-function delLog(personId,idx){const p=people.find(x=>x.id===personId);if(!p)return;p.logs.splice(idx,1);save();render();const lp=people.find(x=>x.id===logId);if(lp)renderHistory(lp);}
+function delLog(personId,idx){const p=people.find(x=>x.id===personId);if(!p||!p.logs||!p.logs[idx])return;const l=p.logs[idx],label=fmtFull(l.date);if(!confirm('Delete this call log for '+p.name+' from '+label+'?'))return;p.logs.splice(idx,1);save();render();const lp=people.find(x=>x.id===logId);if(lp)renderHistory(lp);toast('Deleted call log for '+p.name);}
 function delPerson(id){const p=people.find(x=>x.id===id);if(!p||!confirm('Remove '+p.name+'?\nThis will delete all their data.'))return;deletedIds.add(id);people=people.filter(x=>x.id!==id);save();render();toast('Removed '+p.name);}
 
 function renderHistory(p){
@@ -977,6 +1422,14 @@ function renderHistory(p){
   if(p.scheduledCall){const du=daysUntil(p.scheduledCall);if(du!==null&&du>=0)schedHtml=`<div class="sched-box"><div class="sched-icon">🗓</div><div class="sched-info"><div class="sched-date">Next call: ${fmtFull(p.scheduledCall)}</div><div class="sched-days">${du===0?'Today!':du+' days away'}</div></div><button class="sched-del" onclick="clearSched('${esc(p.id)}')">✕</button></div>`;}
   if(!logs.length){wrap.innerHTML=schedHtml;return;}
   wrap.innerHTML=schedHtml+`<div class="hlabel">Call history (${logs.length})</div>`+logs.map((l,i)=>`<div class="hitem"><div class="hicon">${l.type}</div><div class="hinfo"><div class="hdate">${fmtFull(l.date)}</div>${l.note?`<div class="hnote">"${esc(l.note)}"</div>`:''}</div><button class="hdel" onclick="delLog('${esc(p.id)}',${i})">✕</button></div>`).join('');
+}
+
+function renderHistory(p){
+  const wrap=document.getElementById('histWrap');if(!wrap)return;
+  const logs=p.logs||[];let schedHtml='';
+  if(p.scheduledCall){const du=daysUntil(p.scheduledCall);if(du!==null&&du>=0)schedHtml=`<div class="sched-box"><div class="sched-icon">Plan</div><div class="sched-info"><div class="sched-date">Next call: ${fmtFull(p.scheduledCall)}</div><div class="sched-days">${du===0?'Today!':du+' days away'}</div></div><button class="sched-del" onclick="clearSched('${esc(p.id)}')">Delete</button></div>`;}
+  if(!logs.length){wrap.innerHTML=schedHtml;return;}
+  wrap.innerHTML=schedHtml+`<div class="hlabel">Call history (${logs.length})</div>`+logs.map((l,i)=>`<div class="hitem"><div class="hicon">${l.type}</div><div class="hinfo"><div class="hdate">${fmtFull(l.date)}</div>${l.note?`<div class="hnote">"${esc(l.note)}"</div>`:''}</div><button class="hdel" onclick="delLog('${esc(p.id)}',${i})" title="Delete this call log">Delete</button></div>`).join('');
 }
 
 function renderTopicsInLog(p){
@@ -1201,7 +1654,7 @@ async function syncNow(){
   toast('Syncing…');
   try{
     await loadFromDrive();
-    const data={exportedAt:new Date().toISOString(),version:5,app:'family-call-tracker',people,deletedIds:[...deletedIds]};
+    const data={exportedAt:new Date().toISOString(),version:8,app:'family-call-tracker',people,bills,billTemplates,lifeEntries,deletedIds:[...deletedIds]};
     const json=JSON.stringify(data,null,2);
     const search=await fetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=name='family-calls-backup.json'`,{headers:{Authorization:'Bearer '+gToken}});
     const sd=await search.json();const fileId=sd.files?.[0]?.id;
@@ -1229,19 +1682,25 @@ async function loadFromDrive(){
         if(!ex){people.push(im);}
         else{const dates=new Set(ex.logs.map(l=>l.date));im.logs.forEach(l=>{if(!dates.has(l.date))ex.logs.push(l);});ex.logs.sort((a,b)=>new Date(b.date)-new Date(a.date));const texts=new Set(ex.topics.map(t=>t.text));im.topics.forEach(t=>{if(!texts.has(t.text))ex.topics.push(t);});if(im.notes&&im.notes.length>(ex.notes||'').length)ex.notes=im.notes;if(im.scheduledCall&&!ex.scheduledCall)ex.scheduledCall=im.scheduledCall;if(im.pinned&&!ex.pinned)ex.pinned=true;}
       });
-      people=people.filter(p=>!deletedIds.has(p.id));save();render();
+      people=people.filter(p=>!deletedIds.has(p.id));
     }
+    if(data.bills?.length)mergeBills(data.bills);
+    if(data.billTemplates?.length)mergeBillTemplates(data.billTemplates);
+    if(data.lifeEntries?.length)mergeLife(data.lifeEntries);
+    save();render();renderBills();renderLife();
   }catch(e){console.error('Drive load error',e);}
 }
 
-function exportJSON(){const data={exportedAt:new Date().toISOString(),version:5,app:'family-call-tracker',people,deletedIds:[...deletedIds]};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='family-calls-backup-'+todayStr()+'.json';a.click();URL.revokeObjectURL(a.href);toast('Backup downloaded!');}
-function exportText(){var nl='\n';var t='Family Call Tracker — exported '+new Date().toLocaleDateString('en-IN')+nl+'─'.repeat(40)+nl+nl;people.forEach(function(p){t+=(p.emoji||'')+' '+p.name+' ('+(p.relation||'—')+')'+nl+'  Call every: '+(p.freq||7)+' days'+nl+'  Last call: '+(p.logs&&p.logs.length?fmtFull(p.logs[0].date):'never')+nl+'  Total logs: '+(p.logs&&p.logs.length||0)+nl;if(p.scheduledCall)t+='  Next call: '+fmtFull(p.scheduledCall)+nl;if(p.notes)t+='  Notes: '+p.notes+nl;if(p.topics&&p.topics.length)t+='  Topics: '+p.topics.map(function(tp){return(tp.done?'[✓] ':'[ ] ')+tp.text;}).join(', ')+nl;t+=nl;});navigator.clipboard&&navigator.clipboard.writeText(t).then(function(){toast('Copied!');}).catch(function(){var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('Copied!');});}
-function importJSON(evt){const file=evt.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=e=>{try{const data=JSON.parse(e.target.result);const imp=Array.isArray(data)?data:(data.people||[]);if(!imp.length){toast('No valid data in file');return;}if(data.deletedIds?.length)data.deletedIds.forEach(id=>deletedIds.add(id));let added=0,merged=0;imp.forEach(im=>{im=sanitize(im);if(deletedIds.has(im.id))return;const ex=people.find(p=>p.id===im.id)||(people.find(p=>p.name===im.name&&p.relation===im.relation));if(ex){const dates=new Set(ex.logs.map(l=>l.date));im.logs.forEach(l=>{if(!dates.has(l.date))ex.logs.push(l);});ex.logs.sort((a,b)=>new Date(b.date)-new Date(a.date));merged++;}else{people.push(im);added++;}});save();render();toast('Imported: '+added+' new, '+merged+' merged');}catch(err){toast('Could not read file');}evt.target.value='';};reader.readAsText(file);}
+function exportJSON(){const data={exportedAt:new Date().toISOString(),version:8,app:'family-call-tracker',people,bills,billTemplates,lifeEntries,deletedIds:[...deletedIds]};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='family-calls-backup-'+todayStr()+'.json';a.click();URL.revokeObjectURL(a.href);toast('Backup downloaded!');}
+function exportText(){var nl='\n';var t='Family Call Tracker — exported '+new Date().toLocaleDateString('en-IN')+nl+'─'.repeat(40)+nl+nl+'PEOPLE'+nl;people.forEach(function(p){t+=(p.emoji||'')+' '+p.name+' ('+(p.relation||'—')+')'+nl+'  Call every: '+(p.freq||7)+' days'+nl+'  Last call: '+(p.logs&&p.logs.length?fmtFull(p.logs[0].date):'never')+nl+'  Total logs: '+(p.logs&&p.logs.length||0)+nl;if(p.scheduledCall)t+='  Next call: '+fmtFull(p.scheduledCall)+nl;if(p.notes)t+='  Notes: '+p.notes+nl;if(p.topics&&p.topics.length)t+='  Topics: '+p.topics.map(function(tp){return(tp.done?'[✓] ':'[ ] ')+tp.text;}).join(', ')+nl;t+=nl;});t+=nl+'BILLS'+nl;bills.forEach(function(b){t+=(b.type==='credit'?'Credit card':'Electricity')+': '+b.name+nl+'  Amount: '+(b.amount?('₹'+b.amount):'—')+nl+'  Generated day: '+(b.generationDay||'—')+nl+'  Due day: '+(b.dueDay||dateOnly(b.dueDate).getDate())+nl+'  Current due: '+fmtBillDate(b.dueDate)+nl+'  Status: '+billStatus(b).label+nl+'  Notes: '+(b.notes||'—')+nl+'  Payments: '+(b.history&&b.history.length||0)+nl+nl;});t+=nl+'LIFE LOG'+nl;lifeEntries.forEach(function(x){const n=lifeNext(x);t+=x.name+' ('+x.category+')'+nl+'  Date: '+fmtBillDate(x.date)+nl+'  Place: '+(x.place||'—')+nl+'  Cost: '+(x.cost?('₹'+x.cost):'—')+nl+'  Repeat: '+(x.repeatDays?('every '+x.repeatDays+' days'):'none')+nl+'  Next: '+(n?n.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}):'—')+nl+'  Rating: '+(x.rating||'—')+nl+'  Notes: '+(x.notes||'—')+nl+nl;});navigator.clipboard&&navigator.clipboard.writeText(t).then(function(){toast('Copied!');}).catch(function(){var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('Copied!');});}
+function csvCell(v){return'"'+String(v??'').replace(/"/g,'""')+'"'}
+function exportCSV(){const rows=[['section','type','name','amount','generation_day','due_day','due_date','status','paid','notes','payments','last_paid_at','place','repeat_days','rating','next_date']];bills.forEach(b=>rows.push(['bill',b.type,b.name,b.amount,b.generationDay||'',b.dueDay||'',b.dueDate,billStatus(b).label,b.paid?'yes':'no',b.notes||'',(b.history||[]).length,b.paidAt||'','','','']));people.forEach(p=>rows.push(['person',p.relation||'Family',p.name,'','','','',statusOf(p),'',p.notes||'',p.logs?.length||0,p.logs?.[0]?.date||'','','','']));lifeEntries.forEach(x=>{const n=lifeNext(x);rows.push(['life',x.category,x.name,x.cost||'','','',x.date,lifeStatus(x).label,'',x.notes||'',1,'',x.place||'',x.repeatDays||'',x.rating||'',n?n.toISOString().slice(0,10):'']);});const csv=rows.map(r=>r.map(csvCell).join(',')).join('\n');const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='family-tracker-export-'+todayStr()+'.csv';a.click();URL.revokeObjectURL(a.href);toast('CSV exported');}
+function importJSON(evt){const file=evt.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=e=>{try{const data=JSON.parse(e.target.result);const imp=Array.isArray(data)?data:(data.people||[]);if(!imp.length&&!data.bills?.length&&!data.billTemplates?.length&&!data.lifeEntries?.length){toast('No valid data in file');return;}if(data.deletedIds?.length)data.deletedIds.forEach(id=>deletedIds.add(id));let added=0,merged=0;imp.forEach(im=>{im=sanitize(im);if(deletedIds.has(im.id))return;const ex=people.find(p=>p.id===im.id)||(people.find(p=>p.name===im.name&&p.relation===im.relation));if(ex){const dates=new Set(ex.logs.map(l=>l.date));im.logs.forEach(l=>{if(!dates.has(l.date))ex.logs.push(l);});ex.logs.sort((a,b)=>new Date(b.date)-new Date(a.date));merged++;}else{people.push(im);added++;}});const bm=mergeBills(data.bills||[]),tm=mergeBillTemplates(data.billTemplates||[]),lm=mergeLife(data.lifeEntries||[]);save();render();renderBills();renderLife();toast('Imported: '+added+' people, '+bm.added+' bills, '+lm.added+' life logs');}catch(err){toast('Could not read file');}evt.target.value='';};reader.readAsText(file);}
 
 let toastTimer=null;
 function toast(msg){const t=document.getElementById('toast');document.getElementById('toastMsg').textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2800);}
 
-const OVERLAYS=['addOverlay','logOverlay','topicsOverlay','notesOverlay','schedOverlay'];
+const OVERLAYS=['addOverlay','logOverlay','topicsOverlay','notesOverlay','schedOverlay','billOverlay'];
 OVERLAYS.forEach(id=>{document.getElementById(id).addEventListener('click',e=>{if(e.target===document.getElementById(id)){document.getElementById(id).classList.remove('open');if(id==='topicsOverlay')render();}});});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){OVERLAYS.forEach(id=>document.getElementById(id).classList.remove('open'));render();}});
 
